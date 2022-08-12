@@ -11,6 +11,8 @@ const isProduction = environment === 'production';
 
 const { ValidationError } = require('sequelize');
 
+require('dotenv').config();
+
 
 const app = express();
 
@@ -72,3 +74,5 @@ app.use((err, _req, res, _next) => {
 
 
 module.exports = app;
+const port = 5001;
+app.listen(port, () => console.log('Server is listening on port', port));
