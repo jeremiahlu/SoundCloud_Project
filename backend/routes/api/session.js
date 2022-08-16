@@ -1,12 +1,13 @@
 const express = require('express');
-
+const { check } = require('express-validator');
+const { handleValidationErrors } = require('../../utils/validation');
 const { setTokenCookie, restoreUser } = require('../../utils/auth');
 const { User } = require('../../db/models');
 
 const router = express.Router();
 // Log in
 router.post(
-  '/',
+  '/login',
   async (req, res, next) => {
     const { credential, password } = req.body;
 
