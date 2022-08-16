@@ -15,13 +15,13 @@ module.exports = (sequelize, DataTypes) => {
         models.Comment, {foreignKey: 'songId'}
       ),
       Song.belongsTo(
-        models.User, {foreignKey: 'userId'}
+        models.User, {foreignKey: 'userId', onDelete: 'CASCADE'}
       ),
       Song.belongsTo(
-        models.Playlist_Song, {foreignKey: 'songId'}
+        models.Playlist_Song, {foreignKey: 'songId', onDelete: 'CASCADE'}
       ),
       Song.belongsTo(
-        models.Album, {foreignKey: 'albumId'}
+        models.Album, {foreignKey: 'albumId', onDelete: 'CASCADE'}
       )
     }
   }

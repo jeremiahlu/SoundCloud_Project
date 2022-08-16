@@ -5,6 +5,8 @@ const { User } = require('../../db/models');
 
 const router = express.Router();
 
+const { Album, Comment, Playlist_Song, Playlist, Song} = require('../../db/models')
+
 // Sign up
 router.post(
   '/',
@@ -19,5 +21,10 @@ router.post(
     });
   }
 );
+
+router.get('/api/users/:id', async(req, res) => {
+  const userId = await User.findByPk(req.params.id)
+  res.json(userId)
+})
 
 module.exports = router;
