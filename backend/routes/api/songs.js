@@ -1,7 +1,8 @@
 const express = require('express');
-const router = express.Router();
 
-const { Album, Comment, Playlist_Song, Playlist, User} = require('../../db/models')
+const { Album, Comment, Playlist_Song, Playlist, User, Song} = require('../../db/models')
+
+const router = express.Router();
 
 router.get('/songs', async (req, res) => {
   const title = await Song.findAll()
