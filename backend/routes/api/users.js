@@ -5,7 +5,7 @@ const { handleValidationErrors } = require('../../utils/validation');
 const { invalidCredentails } = require('../../middleware/error-handlers')
  
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
-const { User } = require('../../db/models');
+const { Album, Comment, Playlist_Song, Playlist, User, Song } = require('../../db/models')
 
 const router = express.Router();
 
@@ -106,4 +106,12 @@ router.get('/:id', async (req, res) => {
   res.json(id)
 });
 
+router.get('/:id/songs', async (req, res) => {
+  const { id } = req.params
+  const Songs = await User.findByPk(id, { include: [
+    { model: Song }
+  ]
+})
+res.json({Songs})
+})
 module.exports = router;

@@ -5,8 +5,8 @@ const { Album, Comment, Playlist_Song, Playlist, User, Song } = require('../../d
 const router = express.Router();
 
 router.get('/', async (req, res) => {
-  const title = await Song.findAll()
-  res.json(title)
+  const Songs = await Song.findAll()
+  res.json({Songs})
 });
 
 module.exports = router;
