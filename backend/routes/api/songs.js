@@ -9,4 +9,16 @@ router.get('/', async (req, res) => {
   res.json({Songs})
 });
 
+// Get details of a Song from an id
+router.get('/:id', async (req, res) => {
+  const { id } = req.params;
+  const songs = await Song.findByPk(id, {
+    include: [
+      { model: User, as: 'Artists',attributes: {exclude: ['firstName', 'lastName', 'password', 'email','createdAt', 'updatedAt']}},
+      { model: Album, attributes: {exclude: ['userId', 'description','createdAt', 'updatedAt']}}
+    ]
+  })
+  res.json(songs)
+})
+
 module.exports = router;

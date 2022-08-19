@@ -55,13 +55,13 @@ module.exports = (sequelize, DataTypes) => {
         models.Playlist, {foreignKey: 'userId'}
       )
       User.hasMany(
-        models.Comment, {foreignKey: 'userId'}
+        models.Comment, {foreignKey: 'userId', onDelete: 'CASCADE'}
       )
       User.hasMany(
-        models.Song, {foreignKey: 'userId'}
+        models.Song, {foreignKey: 'userId', onDelete: 'CASCADE'}
       )
       User.hasMany(
-        models.Album, {foreignKey: 'userId'}
+        models.Album, {foreignKey: 'userId', onDelete: 'CASCADE'}
       )
       
     }
@@ -101,7 +101,8 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         len: [60, 60]
       }
-    }
+    },
+    previewImage: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'User',

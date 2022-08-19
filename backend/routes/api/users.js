@@ -13,11 +13,11 @@ const validateSignup = [
   check('email')
     .exists({ checkFalsy: true })
     .isEmail()
-    .withMessage('Please provide a valid email.'),
+    .withMessage('Invalid email'),
   check('username')
     .exists({ checkFalsy: true })
     .isLength({ min: 4 })
-    .withMessage('Please provide a username with at least 4 characters.'),
+    .withMessage('Username is required'),
   check('username')
     .not()
     .isEmail()
@@ -26,6 +26,12 @@ const validateSignup = [
     .exists({ checkFalsy: true })
     .isLength({ min: 6 })
     .withMessage('Password must be 6 characters or more.'),
+  check('firstName')
+    .exists({ checkFalsy: true })
+    .withMessage('First Name is required'),
+  check('lastName')
+    .exists({ checkFalsy: true })
+    .withMessage('Last Name is required'),
   handleValidationErrors
 ];
 
@@ -46,19 +52,31 @@ const validateLogin = [
 router.post(
   '/sign-up',
   validateSignup,
-  async (req, res) => {
-    console.log(req.body)
+  handleValidationErrors,
+  async (req, res, next) => {
     const { firstName, lastName, email, password, username } = req.body;
-    const user = await User.signup({ firstName, lastName, username, email, password });
 
-    if (user) {
-      const err = new Error('User already exists');
+    const validateEmail = await User.findOne( { where: { email:email } })
+    if (validateEmail) {
+      const err = new Error("User already exists");
       err.status = 403;
       err.errors = {
-        "email": "User with that email already exists"
-      }
-      return next(err);
+        email: "User with that email already exists"
+      };
+      next(err)
     }
+    const validateUsername = await User.findOne( { where: { username:username } })
+    if (validateUsername) {
+      const err = new Error("User already exists");
+      err.status = 403;
+      err.errors = {
+        email: "User with that username already exists"
+      };
+      next(err)
+    }
+
+    const user = await User.signup({ firstName, lastName, username, email, password });
+  
 
     const token = await setTokenCookie(res, user);
     user.dataValues.token = token;
@@ -71,7 +89,7 @@ router.post(
 );
 
 
-// Log in
+// Log in a User
 router.post(
   '/login',
   validateLogin,
@@ -79,6 +97,13 @@ router.post(
     const { credential, password } = req.body;
     
     const user = await User.login({ credential, password });
+
+    if (!user) {
+      const err = new Error('Invalid credentials');
+      err.message = 'Invalid Credentials'
+      err.status = 401      
+      next(err);
+    }
 
     const token = await setTokenCookie(res, user);
     user.dataValues.token = token;
@@ -97,7 +122,9 @@ router.delete(
     return res.json({ message: 'success' });
   }
   );
-  
+
+
+//Get the Current User
 router.get('/:id', async (req, res) => {
   const id = await User.findByPk(req.params.id, {
     attributes: [ 'id', 'firstName', 'lastName', 'email', 'username'] 
@@ -106,12 +133,28 @@ router.get('/:id', async (req, res) => {
   res.json(id)
 });
 
+//Get all Songs created by the Current User
 router.get('/:id/songs', async (req, res) => {
   const { id } = req.params
-  const Songs = await User.findByPk(id, { include: [
-    { model: Song }
+  const Songs = await User.findByPk(id, { 
+    attributes: [],
+    include: [
+    { model: Song, attributes: { exclude: [ "UserId"]} }
   ]
 })
-res.json({Songs})
+  res.json(Songs)
 })
+
+//Get all Songs from an Artist from an id
+router.get('/:id/songs', async (req, res) => {
+  const { id } = req.params
+  const Songs = await User.findByPk(id, { 
+    attributes: [],
+    include: [
+    { model: Song, attributes: { exclude: [ "UserId"]} }
+  ]
+})
+  res.json(Songs)
+})
+
 module.exports = router;
