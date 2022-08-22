@@ -6,10 +6,10 @@ const playlistSongs = [
   {playlistId: 2, songId: 12},
   {playlistId: 3, songId: 3},
   {playlistId: 4, songId: 14},
-  {playlistId: 5, songId: 26},
-  {playlistId: 6, songId: 20},
-  {playlistId: 7, songId: 30},
-  {playlistId: 8, songId: 51},
+  {playlistId: 1, songId: 26},
+  {playlistId: 2, songId: 20},
+  {playlistId: 3, songId: 30},
+  {playlistId: 4, songId: 51},
   {playlistId: 1, songId: 1},
 ]
 

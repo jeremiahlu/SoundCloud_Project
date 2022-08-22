@@ -2,9 +2,23 @@ const router = require('express').Router();
 const sessionRouter = require('./session.js');
 const usersRouter = require('./users.js');
 const songsRouter = require('./songs.js');
+const playlistRouter = require('./playlist.js');
+const playlistSongsRouter = require('./playlist_songs.js');
+const commentRouter = require('./comments.js')
 const { restoreUser } = require("../../utils/auth.js");
+
+
+router.use(restoreUser);
+
+router.use('/session', sessionRouter);
+
+router.use('/users', usersRouter);
+router.use('/songs', songsRouter);
+router.use('/playlists', playlistRouter);
+router.use('/playlist_songs', playlistSongsRouter);
+router.use('/comments', commentRouter);
 // router.post('/test', (req, res) => {
-//   res.json( { requestBody: req.body });
+  //   res.json( { requestBody: req.body });
 // });
 
 // const { setTokenCookie } = require('../../utils/auth.js');
@@ -37,12 +51,6 @@ const { restoreUser } = require("../../utils/auth.js");
 //     return res.json(req.user);
 //   }
 // );
-router.use(restoreUser);
-
-router.use('/session', sessionRouter);
-
-router.use('/users', usersRouter);
-router.use('/songs', songsRouter);
 
 router.post('/test', (req, res) => {
   res.json({ requestBody: req.body });

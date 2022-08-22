@@ -4,7 +4,7 @@ const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const { invalidCredentails } = require('../../middleware/error-handlers')
  
-const { setTokenCookie, requireAuth } = require('../../utils/auth');
+const { setTokenCookie, requireAuth, restoreUser, isCurrentUser} = require('../../utils/auth');
 const { Album, Comment, Playlist_Song, Playlist, User, Song } = require('../../db/models')
 
 const router = express.Router();
@@ -44,7 +44,6 @@ const validateLogin = [
     .exists({ checkFalsy: true })
     .withMessage('Password is required'),
   handleValidationErrors,
-  // invalidCredentails
 ];
 
 // router.use(invalidCredentails)
@@ -57,6 +56,7 @@ router.post(
     const { firstName, lastName, email, password, username } = req.body;
 
     const validateEmail = await User.findOne( { where: { email:email } })
+
     if (validateEmail) {
       const err = new Error("User already exists");
       err.status = 403;
@@ -66,11 +66,12 @@ router.post(
       next(err)
     }
     const validateUsername = await User.findOne( { where: { username:username } })
+
     if (validateUsername) {
       const err = new Error("User already exists");
       err.status = 403;
       err.errors = {
-        email: "User with that username already exists"
+        username: "User with that username already exists"
       };
       next(err)
     }
@@ -88,7 +89,6 @@ router.post(
   }
 );
 
-
 // Log in a User
 router.post(
   '/login',
@@ -100,7 +100,7 @@ router.post(
 
     if (!user) {
       const err = new Error('Invalid credentials');
-      err.message = 'Invalid Credentials'
+      err.message = 'Invalid credentials'
       err.status = 401      
       next(err);
     }
@@ -121,40 +121,104 @@ router.delete(
     res.clearCookie('token');
     return res.json({ message: 'success' });
   }
-  );
+);
 
 
 //Get the Current User
-router.get('/:id', async (req, res) => {
-  const id = await User.findByPk(req.params.id, {
-    attributes: [ 'id', 'firstName', 'lastName', 'email', 'username'] 
-  })
-  // const { token } = req.cookies
-  res.json(id)
+router.get('/:id', [requireAuth, restoreUser], async (req, res, next) => {
+  // console.log(typeof req.user.id)
+  // console.log(typeof req.params.id)
+  // console.log("-------------")
+
+
+  if (req.user.id !== Number(req.params.id)) {
+    const err = new Error("Forbidden");
+    err.status = 403;
+    return next(err)
+  } 
+
+    const id = await User.findByPk(req.params.id, {
+      attributes: [ 'id', 'firstName', 'lastName', 'email', 'username'] 
+    })
+    
+    res.json(id)
+  
+  
 });
 
 //Get all Songs created by the Current User
-router.get('/:id/songs', async (req, res) => {
+router.get('/:id/songs', async (req, res, next) => {
   const { id } = req.params
-  const Songs = await User.findByPk(id, { 
+  const songs = await User.findByPk(id, { 
     attributes: [],
     include: [
     { model: Song, attributes: { exclude: [ "UserId"]} }
   ]
 })
-  res.json(Songs)
+
+if (!songs) {
+  const err = new Error("Artist couldn't be found");
+    err.status = 404;
+    next(err)
+};
+
+  res.json(songs)
 })
 
 //Get all Songs from an Artist from an id
-router.get('/:id/songs', async (req, res) => {
-  const { id } = req.params
-  const Songs = await User.findByPk(id, { 
+router.get('/:id/songs', async (req, res, next) => {
+  const { id } = req.params;
+
+  const songs = await User.findByPk(id, { 
     attributes: [],
     include: [
     { model: Song, attributes: { exclude: [ "UserId"]} }
   ]
+});
+
+  if (!songs) {
+    const err = new Error("Artist couldn't be found");
+      err.status = 404;
+      next(err)
+  }
+  res.json(songs)
 })
-  res.json(Songs)
-})
+
+// Get all Playlists of an Artist from an id
+router.get('/:id/playlists', async (req, res, next) => {
+  const { id } = req.params;
+  const artist = await User.findByPk(id, {
+    attributes: [],
+    include: [
+      { model: Playlist, attributes: ['id','userId', 'name', 'createdAt', 'updatedAt', ['imageUrl', 'previewImage']]}
+    ]
+  })
+  if (!artist) {
+    const err = new Error("Artist couldn't be found");
+    err.status = 404
+    next(err)
+  } else {
+    res.json(artist)
+  }
+});
+
+// Get all Playlists created by the Current User
+router.get('/:id/playlists', async (req, res, next) => {
+  const { id } = req.params;
+  const artist = await User.findByPk(id, {
+    attributes: [],
+    include: [
+      { model: Playlist, attributes: ['id','userId', 'name', 'createdAt', 'updatedAt', ['imageUrl', 'previewImage']]}
+    ]
+  })
+  if (!artist) {
+    const err = new Error("Artist couldn't be found");
+    err.status = 404
+    next(err)
+  } else {
+    res.json(artist)
+  }
+});
+
 
 module.exports = router;

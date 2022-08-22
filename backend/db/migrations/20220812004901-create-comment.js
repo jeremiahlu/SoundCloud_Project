@@ -10,11 +10,9 @@ module.exports = {
       },
       userId: {
         type: Sequelize.INTEGER,
-        allowNull: false
       },
       songId: {
         type: Sequelize.INTEGER,
-        allowNull: false
       },
       body: {
         type: Sequelize.STRING(256)

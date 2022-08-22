@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
         models.Comment, {foreignKey: 'songId', onDelete: 'CASCADE'}
       )
       Song.belongsTo(
-        models.User, { as: 'Artists', foreignKey: 'userId'}
+        models.User, { as: 'Artist', foreignKey: 'userId'}
       )
       Song.belongsToMany(
         models.Playlist, {through: models.Playlist_Song}
@@ -28,22 +28,27 @@ module.exports = (sequelize, DataTypes) => {
   Song.init({
     userId: {
       type: DataTypes.INTEGER,
-      allowNull: false
     },
     albumId: {
       type: DataTypes.INTEGER,
-      allowNull: false
     },
     title: {
       type: DataTypes.STRING,
-      allowNull: false
     },
     description: DataTypes.STRING,
-    url: DataTypes.STRING,
+    url: {
+      type: DataTypes.STRING,
+    },
     previewImage: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Song',
+
+    // defaultScope: {
+    //   attributes: {
+    //     exclude: [ "Playlist_Song", "createdAt", "updatedAt" ]
+    //   }
+    // },
   });
   return Song;
 };

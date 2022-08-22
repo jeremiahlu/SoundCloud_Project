@@ -10,15 +10,12 @@ module.exports = {
       },
       userId: {
         type: Sequelize.INTEGER,
-        allowNull: false
       },
       albumId: {
-        type: Sequelize.INTEGER,
-        allowNull: false
+        type: Sequelize.INTEGER
       },
       title: {
         type: Sequelize.STRING,
-        allowNull: false
       },
       description: {
         type: Sequelize.STRING

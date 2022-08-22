@@ -10,13 +10,14 @@ module.exports = {
       },
       userId: {
         type: Sequelize.INTEGER,
-        allowNull: false
       },
       name: {
         type: Sequelize.STRING,
-        allowNull: false
       },
-      imageURL: {
+      imageUrl: {
+        type: Sequelize.STRING
+      },
+      previewImage: {
         type: Sequelize.STRING
       },
       createdAt: {

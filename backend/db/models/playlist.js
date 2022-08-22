@@ -26,14 +26,17 @@ module.exports = (sequelize, DataTypes) => {
     },
     name: {
       type: DataTypes.STRING,
-      allowNull: false
     },
-    imageURL: {
+    imageUrl: {
+      type: DataTypes.STRING
+    },
+    previewImage: {
       type: DataTypes.STRING
     }
   }, {
     sequelize,
     modelName: 'Playlist',
+    
   });
   return Playlist;
 };
