@@ -13,7 +13,7 @@ module.exports = {
       {
         userId: 5,
         title: 'Oops!...I Did It Again',
-        description: 'Oops!... I Did It Again is the second studio album by American pop singer Britney Spears released on May 3, 2000, through Jive Records. Though much in the vein of her debut album ...Baby One More Time, a pop, dance-pop, and teen pop record, the album incorporates more funkier and R&B sounds.',
+        description: 'Oops!... I Did It Again is the second studio album by American pop singer Britney Spears released on May 3, 2000, through Jive Records. ',
         previewImage: 'https://upload.wikimedia.org/wikipedia/en/2/24/Britney_Spears_-_Oops%21..._I_Did_It_Again.png'
       },
       {
@@ -25,7 +25,7 @@ module.exports = {
       {
         userId: 7,
         title: 'It Was Good Until It Wasn"t',
-        description: 'It Was Good Until It Wasn"t is the second studio album by American singer and songwriter Kehlani. It was released on May 8, 2020, by Atlantic Records. It features guest appearances from Tory Lanez, Jhené Aiko, Masego, Lucky Daye and James Blake, as well as uncredited vocals by Ty Dolla Sign',
+        description: 'It Was Good Until It Wasn"t is the second studio album by American singer and songwriter Kehlani. It was released on May 8, 2020, by Atlantic Records. ',
         previewImage: 'https://image-cdn.hypb.st/https%3A%2F%2Fhypebeast.com%2Fimage%2F2020%2F04%2Fkehlani-it-was-good-until-it-wasnt-new-album-info-000.jpg?w=960&cbr=1&q=90&fit=max'
       }
     ])

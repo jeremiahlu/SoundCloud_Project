@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/jeremiahlu/SoundCloud_Project/issues"
   },
-  "homepage": "https://github.com/jeremiahlu/SoundCloud_Project#readme"
+  "homepage": "https://github.com/jeremiahlu/SoundCloud_Project#readme",
+  "dependencies": {
+    "sequelize-cli": "^6.4.1"
+  }
 }
