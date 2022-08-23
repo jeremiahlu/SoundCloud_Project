@@ -126,9 +126,6 @@ router.delete(
 
 //Get the Current User
 router.get('/:id', [requireAuth, restoreUser], async (req, res, next) => {
-  // console.log(typeof req.user.id)
-  // console.log(typeof req.params.id)
-  // console.log("-------------")
 
   if (req.user.id !== Number(req.params.id)) {
     const err = new Error("Forbidden");

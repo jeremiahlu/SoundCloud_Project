@@ -17,7 +17,6 @@ const validateCreation = [
     handleValidationErrors
 ]
 
-
 router.patch('/:commentId', requireAuth, validateCreation, restoreUser, async (req, res, next) => {
   const { commentId } = req.params;
   const { body } = req.body;
