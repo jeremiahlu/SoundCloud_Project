@@ -130,7 +130,6 @@ router.get('/:id', [requireAuth, restoreUser], async (req, res, next) => {
   // console.log(typeof req.params.id)
   // console.log("-------------")
 
-
   if (req.user.id !== Number(req.params.id)) {
     const err = new Error("Forbidden");
     err.status = 403;
@@ -141,9 +140,7 @@ router.get('/:id', [requireAuth, restoreUser], async (req, res, next) => {
       attributes: [ 'id', 'firstName', 'lastName', 'email', 'username'] 
     })
     
-    res.json(id)
-  
-  
+    res.json(id);
 });
 
 //Get all Songs created by the Current User
@@ -190,7 +187,7 @@ router.get('/:id/playlists', async (req, res, next) => {
   const artist = await User.findByPk(id, {
     attributes: [],
     include: [
-      { model: Playlist, attributes: ['id','userId', 'name', 'createdAt', 'updatedAt', ['imageUrl', 'previewImage']]}
+      { model: Playlist, attributes: ['id','userId', 'name', 'createdAt', 'updatedAt', ['imageUrl', 'previewImage']] }
     ]
   })
   if (!artist) {
@@ -219,6 +216,38 @@ router.get('/:id/playlists', async (req, res, next) => {
     res.json(artist)
   }
 });
+
+// Get all Albums created by the Current User
+router.get('/:id/albums', async (req, res, next) => {
+  const { id } = req.params;
+  const artist = await User.findByPk(id, {
+    attributes: [],
+    include: [
+      { model: Album, attributes: ['id', 'userId', 'title', 'description', 'createdAt', 'updatedAt', 'previewImage']}
+    ]
+  });
+
+  res.json(artist)
+});
+
+// Get all Albums of an Artist from an id
+router.get('/:id/albums', async (req, res, next) => {
+  const { id } = req.params;
+  const artist = await User.findByPk(id, {
+    attributes: [],
+    include: [
+      { model: Album, attributes: ['id', 'userId', 'title', 'description', 'createdAt', 'updatedAt', 'previewImage']}
+    ]
+  });
+
+  if (!artist) {
+    const err = new Error("Artist couldn't be found")
+    err.status = 404
+    next(err)
+  };
+
+  res.json(artist)
+})
 
 
 module.exports = router;

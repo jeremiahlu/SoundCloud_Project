@@ -1,5 +1,5 @@
 const express = require('express');
-const { check } = require('express-validator');
+const { check, query } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const { setTokenCookie, requireAuth, restoreUser, isCurrentUser} = require('../../utils/auth');
 const { Album, Comment, Playlist_Song, Playlist, User, Song } = require('../../db/models')
@@ -18,13 +18,36 @@ const validateCreation = [
     .withMessage('Audio is required'),
     handleValidationErrors
 ]
+const validateCommentCreation = [
+  check('body')
+  .exists()
+  .notEmpty()
+  .withMessage('Comment body text is required'),
+  handleValidationErrors
+]
+
+const validateSongQuery = [
+  query("page")
+    .optional()
+    .isInt( { min: 0, max: 10 })
+    .withMessage("Page must be greater than or equal to 0"),
+  query("size")
+    .optional()
+    .isInt( { min: 0, max: 20 })
+    .withMessage("Size must be greater than or equal to 0"),
+  query("createdAt")
+    .optional()
+    .isString()
+    .withMessage("CreatedAt is invalid"),
+    handleValidationErrors
+]
 
 
 // Get all Songs
-router.get('/', handleValidationErrors, async (req, res) => {
-  const Songs = await Song.findAll()
-  res.json({Songs})
-});
+// router.get('/', handleValidationErrors, async (req, res) => {
+//   const Songs = await Song.findAll()
+//   res.json({Songs})
+// });
 
 // Get details of a Song from an id
 router.get('/:id', async (req, res, next) => {
@@ -162,11 +185,62 @@ router.delete('/:id', async (req, res, next) => {
 // Get all Comments by a Song's id
 router.get('/:songId/comments', async (req, res, next) => {
   const { songId } = req.params;
-  const allComments = Song.findByPk(songId, { include: [
-    { model: Comment, attributes: { where: { songId }} }
-  ]
-});
-  res.json(allComments);
+  const song = await Song.findByPk(songId)
+  if (!song) {
+    const err = new Error("Song couldn't be found")
+    err.status = 404
+    next(err)
+  };
+
+  const Comments = await song.getComments({
+    include: [
+      { model: User, attributes: { exclude: [ 'firstName', 'lastName', 'email', 'password', 'previewImage', 'createdAt', 'updatedAt'
+      ]}}
+    ]
+  })
+  res.json({Comments});
 })
 
+//Create a Comment for a Song based on the Song's id (MISSING USERID IN RES)
+router.post('/:songId/comments', validateCommentCreation, async (req, res, next) => {
+  const { songId } = req.params;
+  const { body } = req.body;
+  const song = await Song.findByPk(songId);
+
+  if (!song) {
+    const err = new Error("Song couldn't be found")
+    err.status = 404
+    next(err)
+  };
+
+  const newComment = await song.createComment({
+    body
+  });
+
+  res.json(newComment)
+});
+
+// Add Query Filter to Get All Songs
+router.get('/', validateSongQuery, async (req, res, next) => {
+  let { page, size } = req.query;
+  size = size ? size : 20;
+  page = page ? page * size : 0;
+
+  let search = {};
+  for (const param in req.query) {
+    if (param !== "page" && param !== "size") {
+      search[param] = req.query[param];
+    }
+  }
+
+  const Songs = await Song.findAll({
+    where: {
+      ...search
+    },
+    limit: size,
+    offset: page
+  });
+
+  res.json({Songs})
+})
 module.exports = router;

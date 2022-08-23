@@ -29,13 +29,14 @@ router.post('/:playlistId/songs',  requireAuth , async (req, res, next) => {
   const { songId } = req.body;
   const { playlistId } = req.params;
 
-  const findPlaylist = await Playlist.scope([ 'defaultScope' ]).findOne({ where: {id: playlistId} });
+  const findPlaylist = await Playlist.findOne({ where: {id: playlistId} });
   
   if (!findPlaylist) {
     const err = new Error("Playlist couldn't be found");
     err.status = 404
     next(err)
   };
+
   if (req.user.id !== findPlaylist.dataValues.userId) {
     const err = new Error("Forbidden");
     err.status = 403;
@@ -43,10 +44,17 @@ router.post('/:playlistId/songs',  requireAuth , async (req, res, next) => {
   } 
 
   const newSong = await findPlaylist.createSong({
-    playlistId,
     songId
   })
-  res.json(newSong)
+
+  const inPlaylist = await Playlist_Song.findOne(newSong.dataValues.songId, {
+    attributes: {
+      exclude: ['createdAt', 'updatedAt']
+    }
+  })
+
+
+  res.json(inPlaylist)
 })
 
 
@@ -59,9 +67,6 @@ router.get('/:playlistId', async (req, res, next) => {
       { model: Song, through: { model: Playlist_Song, attributes: []} }
     ]
    });
-
-   console.log(playlist)
-   console.log("$$$$$$$$$$$$$")
 
    if (!playlist) {
     const err = new Error("Playlist couldn't be found");
