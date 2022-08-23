@@ -10,18 +10,11 @@ const { Op } = require("sequelize")
 
 const router = express.Router();
 
-//Get details of an Artist from an id FIX ALBUM COUNT 
+//Get details of an Artist from an id
 router.get('/:id', async (req, res, next) => {
   const { id } = req.params;
   const artistAggregateData = await User.findByPk(id, {
-  //   include: [
-  //     { model: Song,
-  //       attributes: [[sequelize.fn("COUNT", sequelize.col("Songs.id")),'totalSongs']],
-  //   include: [
-  //     { model: Album, 
-  //       attributes: [[sequelize.fn("COUNT", sequelize.col("Albums.id")), 'totalAlbums']] 
-  //     }],
-  // }],
+  
     include: [
       { model: Song, attributes: [] },
       { model: Album, attributes: [] }

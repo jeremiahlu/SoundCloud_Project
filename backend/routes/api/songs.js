@@ -108,10 +108,6 @@ router.patch('/:id', requireAuth, validateCreation, restoreUser, async (req, res
   
   const song = await Song.findByPk(id);
 
-  // console.log("$$$$$")
-  // console.log(req.user.id)
-  // console.log("$$$$$")
-  // console.log(song.dataValues.userId)
   if (req.user.id !== song.dataValues.userId) {
     const err = new Error("Forbidden");
     err.status = 403;
@@ -124,16 +120,6 @@ router.patch('/:id', requireAuth, validateCreation, restoreUser, async (req, res
     next(err)
   };
 
-  // const userSongs = await Song.findAll({where: {userId: req.user.id}})
- 
-  // if (userSongs.includes(song)) {
-  //   next()
-  // } else {
-  //   const err = new Error("Forbidden");
-  //   err.status = 403;
-  //   return next(err)
-  // };
-  
   await song.update({
 
     title: title, 
@@ -169,17 +155,6 @@ router.delete('/:id', async (req, res, next) => {
       statusCode: 200
     })
   }
-  // try {
-  //   res.json({
-  //     message: "Successfully deleted",
-  //     statusCode: 200
-  //   })
-  // } catch(err) {
-  //   next({
-  //     message: "Song couldn't be found",
-  //     statusCode: 404,
-  //   })
-  // }
 });
 
 // Get all Comments by a Song's id
@@ -201,11 +176,12 @@ router.get('/:songId/comments', async (req, res, next) => {
   res.json({Comments});
 })
 
-//Create a Comment for a Song based on the Song's id (MISSING USERID IN RES)
+//Create a Comment for a Song based on the Song's id
 router.post('/:songId/comments', validateCommentCreation, async (req, res, next) => {
   const { songId } = req.params;
   const { body } = req.body;
   const song = await Song.findByPk(songId);
+  const userId = req.user.id;
 
   if (!song) {
     const err = new Error("Song couldn't be found")
@@ -214,6 +190,7 @@ router.post('/:songId/comments', validateCommentCreation, async (req, res, next)
   };
 
   const newComment = await song.createComment({
+    userId,
     body
   });
 
@@ -224,7 +201,7 @@ router.post('/:songId/comments', validateCommentCreation, async (req, res, next)
 router.get('/', validateSongQuery, async (req, res, next) => {
   let { page, size } = req.query;
   size = size ? size : 20;
-  page = page ? page * size : 0;
+  page = page ? page : 0;
 
   let search = {};
   for (const param in req.query) {
@@ -241,6 +218,6 @@ router.get('/', validateSongQuery, async (req, res, next) => {
     offset: page
   });
 
-  res.json({Songs})
+  res.json({Songs, page, size})
 })
 module.exports = router;
