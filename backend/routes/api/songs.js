@@ -108,17 +108,21 @@ router.patch('/:id', requireAuth, validateCreation, restoreUser, async (req, res
   
   const song = await Song.findByPk(id);
 
+  if (!song) {
+  const err = new Error("Song couldn't be found");
+  err.status = 404
+  next(err)
+};
+// console.log(req.user.id)
+// console.log("$$$$$$$$$$$$$$")
+// console.log(song.dataValues)
+
   if (req.user.id !== song.dataValues.userId) {
     const err = new Error("Forbidden");
     err.status = 403;
     next(err)
-  } 
+  } else {
 
-    if (!song) {
-    const err = new Error("Song couldn't be found");
-    err.status = 404
-    next(err)
-  };
 
   await song.update({
 
@@ -129,6 +133,7 @@ router.patch('/:id', requireAuth, validateCreation, restoreUser, async (req, res
     albumId: albumId
   })
   res.json(song)
+}
 });
 
 // Delete a Song
@@ -161,6 +166,7 @@ router.delete('/:id', async (req, res, next) => {
 router.get('/:songId/comments', async (req, res, next) => {
   const { songId } = req.params;
   const song = await Song.findByPk(songId)
+  
   if (!song) {
     const err = new Error("Song couldn't be found")
     err.status = 404

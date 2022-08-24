@@ -24,7 +24,7 @@ router.post('/', [ validateCreation, requireAuth ] , async (req, res, next) => {
   res.json(newPlaylist)
 });
 
-// Add a Song to a Playlist based on the Playlists's id (NEED TO CHECK)
+// Add a Song to a Playlist based on the Playlists's id 
 router.post('/:playlistId/songs',  requireAuth , async (req, res, next) => {
   const { songId } = req.body;
   const { playlistId } = req.params;
@@ -41,19 +41,27 @@ router.post('/:playlistId/songs',  requireAuth , async (req, res, next) => {
     const err = new Error("Forbidden");
     err.status = 403;
     next(err)
-  } 
+  };
 
-  const newSong = await findPlaylist.createSong({
-    songId
+  const findSong = await Song.findOne({ where: {id: songId}});
+
+  if (!findSong) {
+    const err = new Error("Song couldn't be found");
+    err.status = 404
+    next(err)
+  }
+  
+  const newSong = await findPlaylist.addSong([songId]);
+
+  console.log(newSong)
+
+  const inPlaylist = await Playlist_Song.findOne({ where: {
+    songId: req.body.songId, 
+    playlistId: req.params.playlistId 
+  }
   })
-
-  const inPlaylist = await Playlist_Song.findOne(newSong.dataValues.songId, {
-    attributes: {
-      exclude: ['createdAt', 'updatedAt']
-    }
-  })
-
-
+  console.log(inPlaylist)
+  
   res.json(inPlaylist)
 })
 

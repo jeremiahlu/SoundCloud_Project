@@ -224,6 +224,12 @@ router.get('/:id/albums', async (req, res, next) => {
     ]
   });
 
+  if (!artist) {
+    const err = new Error("Artist couldn't be found")
+    err.status = 404
+    next(err)
+  };
+
   res.json(artist)
 });
 

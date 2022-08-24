@@ -16,15 +16,14 @@ router.get('/:id', async (req, res, next) => {
   const artistAggregateData = await User.findByPk(id, {
   
     include: [
-      { model: Song, attributes: [] },
-      { model: Album, attributes: [] }
+      { model: Song },
+      { model: Album }
     ],
     attributes: [ 
-
       [sequelize.fn("COUNT", sequelize.col("Songs.id")),'totalSongs'],
       [sequelize.fn("COUNT", sequelize.col("Albums.id")), 'totalAlbums'],
-
     ],
+    
     raw: true
   });
 
@@ -38,7 +37,7 @@ router.get('/:id', async (req, res, next) => {
 
   const artistData = artist.toJSON();
 
-  artistData.totalSongs = artistAggregateData.totalSongs
+  artistData.totalSongs = artistAggregateData.totalSongs,
   artistData.totalAlbums = artistAggregateData.totalAlbums
   
   res.json(artistData);

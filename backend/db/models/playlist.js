@@ -36,6 +36,12 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Playlist',
+
+    defaultScope: {
+      attributes: {
+        exclude: ['imageUrl']
+      }
+    }
     
   });
   return Playlist;

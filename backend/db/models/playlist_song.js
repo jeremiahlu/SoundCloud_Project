@@ -15,6 +15,10 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Playlist_Song.init({
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true
+    },
     playlistId: {
       type: DataTypes.INTEGER,
     },
@@ -24,6 +28,12 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Playlist_Song',
+
+    defaultScope: {
+      attributes: {
+        exclude: [ 'createdAt', 'updatedAt']
+      }
+    }
   });
   return Playlist_Song;
 };

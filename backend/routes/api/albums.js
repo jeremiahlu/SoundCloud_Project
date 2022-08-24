@@ -16,6 +16,13 @@ const validateCreation = [
     .withMessage('Song title is required'),
     handleValidationErrors
 ]
+const validateAlbumEdit = [
+  check('title')
+    .exists()
+    .notEmpty()
+    .withMessage('Album title is required'),
+    handleValidationErrors
+]
 
 // Get all Albums
 router.get('/', async (req, res, next) => {
@@ -28,7 +35,7 @@ router.get('/:albumId', async (req, res, next) => {
   const { albumId } = req.params;
   const album = await Album.findByPk(albumId, {
     include: [
-      { model: User, attributes: { exclude: ['firstName', 'lastName', 'email']}},
+      { model: User, as: "Artist", attributes: { exclude: ['firstName', 'lastName','password','createdAt','updatedAt','email']}},
       { model: Song }
     ]
   });
@@ -56,7 +63,7 @@ router.post('/', validateCreation, async (req, res, next) => {
 });
 
 // Edit an Album
-router.patch('/:albumId', [validateCreation, requireAuth, restoreUser],  async (req, res, next) => {
+router.patch('/:albumId', [validateAlbumEdit, requireAuth, restoreUser],  async (req, res, next) => {
   const { albumId } = req.params;
   const {
     title, description, imageUrl } = req.body;
