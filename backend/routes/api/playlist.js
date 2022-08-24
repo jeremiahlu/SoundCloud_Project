@@ -25,11 +25,11 @@ router.post('/', [ validateCreation, requireAuth ] , async (req, res, next) => {
 });
 
 // Add a Song to a Playlist based on the Playlists's id 
-router.post('/:playlistId/songs',  requireAuth , async (req, res, next) => {
+router.post('/:id/songs',  requireAuth , async (req, res, next) => {
   const { songId } = req.body;
-  const { playlistId } = req.params;
+  const { id } = req.params;
 
-  const findPlaylist = await Playlist.findOne({ where: {id: playlistId} });
+  const findPlaylist = await Playlist.findOne({ where: {id: id} });
   
   if (!findPlaylist) {
     const err = new Error("Playlist couldn't be found");
@@ -57,7 +57,7 @@ router.post('/:playlistId/songs',  requireAuth , async (req, res, next) => {
 
   const inPlaylist = await Playlist_Song.findOne({ where: {
     songId: req.body.songId, 
-    playlistId: req.params.playlistId 
+    playlistId: req.params.id 
   }
   })
   console.log(inPlaylist)
