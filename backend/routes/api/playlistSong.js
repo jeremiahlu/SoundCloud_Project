@@ -2,7 +2,7 @@ const express = require('express');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const { setTokenCookie, requireAuth, restoreUser, isCurrentUser} = require('../../utils/auth');
-const { Album, Comment, playlistSong, Playlist, User, Song } = require('../../db/models')
+const { Album, Comment, PlaylistSong, Playlist, User, Song } = require('../../db/models')
 const { Op } = require("sequelize")
 
 const router = express.Router();
@@ -13,7 +13,7 @@ const router = express.Router();
 
 //   // const findPlaylist = await Playlist.findOne({ where: {id: playlistId} });
 
-//   const findPlaylist = await playlistSong.findOne({ where: {playlistId} });
+//   const findPlaylist = await PlaylistSong.findOne({ where: {playlistId} });
 
 //   if (req.user.id !== findPlaylist.dataValues.userId) {
 //     const err = new Error("Forbidden");

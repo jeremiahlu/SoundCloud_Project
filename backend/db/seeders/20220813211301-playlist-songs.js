@@ -24,7 +24,7 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-    await queryInterface.bulkInsert('playlistSongs', addPlaylistSongs)
+    await queryInterface.bulkInsert('PlaylistSongs', addPlaylistSongs)
   },
 
   async down (queryInterface, Sequelize) {
@@ -34,6 +34,6 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */   
-    await queryInterface.bulkDelete('playlistSongs', { [Op.or]: addPlaylistSongs })
+    await queryInterface.bulkDelete('PlaylistSongs', { [Op.or]: addPlaylistSongs })
   }
 };

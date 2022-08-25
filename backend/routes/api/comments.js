@@ -5,7 +5,7 @@ const { handleValidationErrors } = require('../../utils/validation');
 const { invalidCredentails } = require('../../middleware/error-handlers')
  
 const { setTokenCookie, requireAuth, restoreUser, isCurrentUser} = require('../../utils/auth');
-const { Album, Comment, playlistSong, Playlist, User, Song } = require('../../db/models')
+const { Album, Comment, PlaylistSong, Playlist, User, Song } = require('../../db/models')
 
 const router = express.Router();
 

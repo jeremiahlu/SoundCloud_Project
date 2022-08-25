@@ -2,7 +2,7 @@ const express = require('express');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const { setTokenCookie, requireAuth, restoreUser, isCurrentUser} = require('../../utils/auth');
-const { Album, Comment, playlistSong, Playlist, User, Song } = require('../../db/models')
+const { Album, Comment, PlaylistSong, Playlist, User, Song } = require('../../db/models')
 
 const router = express.Router();
 
@@ -55,7 +55,7 @@ router.post('/:playlistId/songs',  requireAuth , async (req, res, next) => {
 
   console.log(newSong)
 
-  const inPlaylist = await playlistSong.findOne({ where: {
+  const inPlaylist = await PlaylistSong.findOne({ where: {
     songId: req.body.songId, 
     playlistId: req.params.playlistId 
   }
@@ -72,7 +72,7 @@ router.get('/:playlistId', async (req, res, next) => {
 
    const playlist = await Playlist.findByPk(playlistId, {
     include: [
-      { model: Song, through: { model: playlistSong, attributes: []} }
+      { model: Song, through: { model: PlaylistSong, attributes: []} }
     ]
    });
 

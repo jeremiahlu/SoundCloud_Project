@@ -2,7 +2,7 @@ const express = require('express');
 const { check, query } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const { setTokenCookie, requireAuth, restoreUser, isCurrentUser} = require('../../utils/auth');
-const { Album, Comment, playlistSong, Playlist, User, Song } = require('../../db/models')
+const { Album, Comment, PlaylistSong, Playlist, User, Song } = require('../../db/models')
 const { Op } = require("sequelize")
 
 const router = express.Router();

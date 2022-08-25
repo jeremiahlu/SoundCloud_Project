@@ -3,7 +3,7 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class playlistSong extends Model {
+  class PlaylistSong extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
 
     }
   }
-  playlistSong.init({
+  PlaylistSong.init({
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true
@@ -27,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
     },
   }, {
     sequelize,
-    modelName: 'playlistSong',
+    modelName: 'PlaylistSong',
     // freezeTableName: true,
     
     defaultScope: {
@@ -36,5 +36,5 @@ module.exports = (sequelize, DataTypes) => {
       }
     }
   });
-  return playlistSong;
+  return PlaylistSong;
 };
