@@ -28,7 +28,8 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'playlistSong',
-
+    freezeTableName: true,
+    
     defaultScope: {
       attributes: {
         exclude: [ 'createdAt', 'updatedAt']
