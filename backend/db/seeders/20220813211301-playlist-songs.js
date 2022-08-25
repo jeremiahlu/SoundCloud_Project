@@ -1,7 +1,7 @@
 'use strict';
 
 const { Op } = require('sequelize');
-const playlistSongs = [
+const addPlaylistSongs = [
   {playlistId: 1, songId: 2},
   {playlistId: 2, songId: 12},
   {playlistId: 3, songId: 3},
@@ -24,7 +24,7 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-    await queryInterface.bulkInsert('Playlist_Songs', playlistSongs)
+    await queryInterface.bulkInsert('playlistSongs', addPlaylistSongs)
   },
 
   async down (queryInterface, Sequelize) {
@@ -34,6 +34,6 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */   
-    await queryInterface.bulkDelete('Playlist_Songs', { [Op.or]: playlistSongs })
+    await queryInterface.bulkDelete('playlistSongs', { [Op.or]: addPlaylistSongs })
   }
 };

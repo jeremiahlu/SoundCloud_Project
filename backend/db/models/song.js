@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
         models.User, { as: 'Artist', foreignKey: 'userId'}
       )
       Song.belongsToMany(
-        models.Playlist, {through: models.Playlist_Song}
+        models.Playlist, {through: models.playlistSong}
       )
       Song.belongsTo(
         models.Album, {foreignKey: 'albumId'}
@@ -46,7 +46,7 @@ module.exports = (sequelize, DataTypes) => {
 
     // defaultScope: {
     //   attributes: {
-    //     exclude: [ "Playlist_Song", "createdAt", "updatedAt" ]
+    //     exclude: [ "playlistSong", "createdAt", "updatedAt" ]
     //   }
     // },
   });

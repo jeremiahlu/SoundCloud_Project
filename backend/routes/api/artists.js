@@ -5,7 +5,7 @@ const { handleValidationErrors } = require('../../utils/validation');
 const { invalidCredentails } = require('../../middleware/error-handlers')
  
 const { setTokenCookie, requireAuth, restoreUser, isCurrentUser} = require('../../utils/auth');
-const { Album, Comment, Playlist_Song, Playlist, User, Song, sequelize } = require('../../db/models')
+const { Album, Comment, playlistSong, Playlist, User, Song, sequelize } = require('../../db/models')
 const { Op } = require("sequelize")
 
 const router = express.Router();
