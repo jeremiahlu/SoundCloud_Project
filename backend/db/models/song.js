@@ -18,7 +18,11 @@ module.exports = (sequelize, DataTypes) => {
         models.User, { as: 'Artist', foreignKey: 'userId'}
       )
       Song.belongsToMany(
-        models.Playlist, {through: models.playlistSong}
+        models.Playlist, {
+          through: models.playlistSong,
+          hooks: true,
+          foreignKey: "songId"
+        }
       )
       Song.belongsTo(
         models.Album, {foreignKey: 'albumId'}
