@@ -23,7 +23,10 @@ router.get('/:id', async (req, res, next) => {
       [sequelize.fn("COUNT", sequelize.col("Songs.id")),'totalSongs'],
       [sequelize.fn("COUNT", sequelize.col("Albums.id")), 'totalAlbums'],
     ],
-    
+    group: [
+      "Albums.id", "Songs.id"
+    ],
+    // subQuerys: false,
     raw: true
   });
 
