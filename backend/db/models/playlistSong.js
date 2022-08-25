@@ -28,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'playlistSong',
-    freezeTableName: true,
+    // freezeTableName: true,
     
     defaultScope: {
       attributes: {
