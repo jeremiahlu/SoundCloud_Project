@@ -18,8 +18,9 @@ module.exports = (sequelize, DataTypes) => {
         models.Song, {
           through: models.playlistSong, 
           hooks: true,
-          foreignKey: "playlistId",
-          onDelete: 'CASCADE'}
+          foreignKey: 'playlistId',
+          onDelete: 'CASCADE'
+        }
       )
     }
   }
