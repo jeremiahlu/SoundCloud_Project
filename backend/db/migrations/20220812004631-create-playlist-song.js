@@ -24,7 +24,6 @@ module.exports = {
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
       }
     });
-      // tableName: 'PlaylistSong'
   },
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('PlaylistSongs');
