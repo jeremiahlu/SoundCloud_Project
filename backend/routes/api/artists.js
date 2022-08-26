@@ -23,6 +23,12 @@ router.get('/:id', async (req, res, next) => {
     attributes: { exclude: [ 'firstName', 'lastName', 'email' ] }
   });
   
+  if (!artist) {
+    const err = new Error("Artist couldn't be found");
+    err.status = 404
+    next(err)
+  };
+
   artist.dataValues['totalSongs'] = totalSongs
   artist.dataValues['totalAlbums'] = totalAlbums
   console.log(artist.toJSON())
