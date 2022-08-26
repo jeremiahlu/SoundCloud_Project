@@ -43,7 +43,7 @@ router.post('/:playlistId/songs',  requireAuth , async (req, res, next) => {
     next(err)
   };
 
-  const findSong = await Song.findOne({ where: {id: songId}});
+  const findSong = await Song.findByPk(songId);
 
   if (!findSong) {
     const err = new Error("Song couldn't be found");
@@ -51,9 +51,9 @@ router.post('/:playlistId/songs',  requireAuth , async (req, res, next) => {
     next(err)
   }
   
-  const newSong = await findPlaylist.addSong(findSong);
+  await findPlaylist.addSong(findSong);
 
-  console.log("HERE", newSong)
+  console.log("HERE", findSong)
 
   const inPlaylist = await PlaylistSong.findOne({ where: {
     songId,

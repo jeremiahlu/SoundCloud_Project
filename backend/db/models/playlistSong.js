@@ -17,6 +17,7 @@ module.exports = (sequelize, DataTypes) => {
   PlaylistSong.init({
     id: {
       type: DataTypes.INTEGER,
+      autoIncrement: true,
       primaryKey: true
     },
     playlistId: {
@@ -29,6 +30,7 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'PlaylistSong',
     // freezeTableName: true,
+    // await sequelize.sync({ force: true }),
     
     defaultScope: {
       attributes: {
