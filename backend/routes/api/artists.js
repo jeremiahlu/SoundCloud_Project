@@ -13,37 +13,20 @@ const router = express.Router();
 //Get details of an Artist from an id
 router.get('/:id', async (req, res, next) => {
   const { id } = req.params;
-  const artistAggregateData = await User.findByPk(id, {
-  
-    include: [
-      { model: Song },
-      { model: Album }
-    ],
-    attributes: [ 
-      [sequelize.fn("COUNT", sequelize.col("Songs.id")),'totalSongs'],
-      [sequelize.fn("COUNT", sequelize.col("Albums.id")), 'totalAlbums'],
-    ],
-    group: [
-      "Albums.id", "Songs.id"
-    ],
-    // subQuerys: false,
-    raw: true
-  });
 
+  const userSongs = await Song.findAll({where: {userId:id}});
+  const userAlbums = await Album.findAll({where: {userId: id}});
+
+  const totalSongs = userSongs.length
+  const totalAlbums = userAlbums.length
   const artist = await User.findByPk(id, {
-    include: [
-      { model: Song, attributes: [] },
-      { model: Album, attributes: [] }
-    ],
-    attributes: { exclude: [ 'firstName', 'lastName', 'email' ] },
+    attributes: { exclude: [ 'firstName', 'lastName', 'email' ] }
   });
-
-  const artistData = artist.toJSON();
-
-  artistData.totalSongs = artistAggregateData.totalSongs,
-  artistData.totalAlbums = artistAggregateData.totalAlbums
   
-  res.json(artistData);
+  artist.dataValues['totalSongs'] = totalSongs
+  artist.dataValues['totalAlbums'] = totalAlbums
+  console.log(artist.toJSON())
+  res.json(artist)
 });
 
 module.exports = router;
