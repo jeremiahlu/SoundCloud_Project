@@ -51,13 +51,13 @@ router.post('/:playlistId/songs',  requireAuth , async (req, res, next) => {
     next(err)
   }
   
-  const newSong = await findPlaylist.addSong([songId]);
+  const newSong = await findPlaylist.addSong(findSong);
 
-  console.log(newSong)
+  console.log("HERE", newSong)
 
   const inPlaylist = await PlaylistSong.findOne({ where: {
-    songId: req.body.songId, 
-    playlistId: req.params.playlistId 
+    songId,
+    playlistId
   }
   })
   console.log(inPlaylist)

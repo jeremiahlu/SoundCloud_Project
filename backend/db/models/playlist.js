@@ -27,7 +27,6 @@ module.exports = (sequelize, DataTypes) => {
   Playlist.init({
     userId: {
       type: DataTypes.INTEGER,
-      allowNull: false
     },
     name: {
       type: DataTypes.STRING,

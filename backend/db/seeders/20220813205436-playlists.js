@@ -6,22 +6,26 @@ module.exports = {
       {
         userId: 7,
         name: 'R&B Playlist',
-        imageUrl: 'https://image.shutterstock.com/image-photo/pink-neon-sign-rnb-club-260nw-1992688202.jpg'
+        imageUrl: 'https://image.shutterstock.com/image-photo/pink-neon-sign-rnb-club-260nw-1992688202.jpg',
+        previewImage: 'image url'
       },
       {
         userId: 5,
         name: 'Pop Playlist',
-        imageUrl: 'https://i.scdn.co/image/ab67616d0000b27300586d48246076eaf6369afb'
+        imageUrl: 'https://i.scdn.co/image/ab67616d0000b27300586d48246076eaf6369afb',
+        previewImage: 'image url'
       },
       {
         userId: 6,
         name: 'Country Playlist',
-        imageUrl: 'https://i.scdn.co/image/ab67706f000000031416f67f937b9ee33b3753e2'
+        imageUrl: 'https://i.scdn.co/image/ab67706f000000031416f67f937b9ee33b3753e2',
+        previewImage: 'image url'
       },
       {
         userId: 4,
         name: 'Rap Playlist',
-        imageUrl: 'https://i1.sndcdn.com/artworks-OWRlJVexdDzo99ZL-DWQqOA-t500x500.jpg'
+        imageUrl: 'https://i1.sndcdn.com/artworks-OWRlJVexdDzo99ZL-DWQqOA-t500x500.jpg',
+        previewImage: 'image url'
       }
     ])
     /**
