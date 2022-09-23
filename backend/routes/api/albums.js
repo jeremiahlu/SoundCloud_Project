@@ -50,7 +50,7 @@ router.get('/:albumId', async (req, res, next) => {
 });
 
 // Create an Album 
-router.post('/', validateCreation, async (req, res, next) => {
+router.post('/', validateAlbumEdit, async (req, res, next) => {
   const { title, description, imageUrl } = req.body;
   const newAlbum = await Album.create({
     userId: req.user.id,

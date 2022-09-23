@@ -13,7 +13,7 @@ const validateCreation = [
     .withMessage('Playlist name is required'),
     handleValidationErrors
 ]
-//Create a Playlist
+//Create a Playlist(imgurl:null)
 router.post('/', [ validateCreation, requireAuth ] , async (req, res, next) => {
   const { name, imageUrl } = req.body;
   const newPlaylist = await Playlist.create({
