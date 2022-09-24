@@ -1,11 +1,11 @@
-import { csrfFetch } from "./csrf";
+import { csrfFetch, restoreCSRF } from "./csrf";
 
 const initialState = { user: null }
 
 const SET = 'session/set_session'
 export const setSession = user => ({
   type: SET,
-  user
+  payload: user
 });
 
 const REMOVE = 'session/remove_session'
@@ -23,13 +23,41 @@ export const login = (user) => async (dispatch) => {
     })
   })
   const data = await res.json();
+  localStorage.setItem('userId', data.id)
   if(res.ok) dispatch(setSession(data))
   return res 
 }
 
 export const logout = () => async (dispatch) => {
   const res = await csrfFetch('/api/users/logout', { method: 'DELETE'});
-  if (res.ok) dispatch(removeSession());
+  if(res.ok) dispatch(removeSession());
+}
+
+export const restoreUser = () => async dispatch => {
+  if(localStorage.getItem('userId')){
+    const res = await csrfFetch(`/api/users/${localStorage.getItem('userId')}`);
+    const data = await res.json();
+    dispatch(setSession(data));
+    return res;
+  }
+};
+
+export const signup = (user) => async (dispatch) => {
+  const {firstName, lastName, username, email, password } = user;
+  const res = await csrfFetch('/api/users/sign-up', {
+    method: 'POST',
+    body: JSON.stringify({
+      firstName,
+      lastName,
+      username,
+      email,
+      password
+    })
+  })
+  const data = await res.json();
+  localStorage.setItem('userId', data.id)
+  if(res.ok) dispatch(setSession(data))
+  return res
 }
 
 const sessionReducer = ( state = initialState, action ) => {
