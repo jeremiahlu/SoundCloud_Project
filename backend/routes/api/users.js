@@ -123,7 +123,6 @@ router.delete(
   }
 );
 
-
 //Get the Current User
 router.get('/:id', [requireAuth, restoreUser], async (req, res, next) => {
 
