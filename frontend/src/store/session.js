@@ -1,4 +1,4 @@
-import { csrfFetch, restoreCSRF } from "./csrf";
+import { csrfFetch } from "./csrf";
 
 const initialState = { user: null }
 
@@ -15,7 +15,7 @@ export const removeSession = () => ({
 
 export const login = (user) => async (dispatch) => {
   const { credential, password } = user;
-  const res = await csrfFetch('api/users/login', {
+  const res = await csrfFetch('/api/users/login', {
     method: 'POST',
     body: JSON.stringify({
       credential,
@@ -23,27 +23,15 @@ export const login = (user) => async (dispatch) => {
     })
   })
   const data = await res.json();
+  console.log('here', data)
+
   localStorage.setItem('userId', data.id)
   if(res.ok) dispatch(setSession(data))
   return res 
 }
 
-export const logout = () => async (dispatch) => {
-  const res = await csrfFetch('/api/users/logout', { method: 'DELETE'});
-  if(res.ok) dispatch(removeSession());
-}
-
-export const restoreUser = () => async dispatch => {
-  if(localStorage.getItem('userId')){
-    const res = await csrfFetch(`/api/users/${localStorage.getItem('userId')}`);
-    const data = await res.json();
-    dispatch(setSession(data));
-    return res;
-  }
-};
-
 export const signup = (user) => async (dispatch) => {
-  const {firstName, lastName, username, email, password } = user;
+  const { firstName, lastName, username, email, password } = user;
   const res = await csrfFetch('/api/users/sign-up', {
     method: 'POST',
     body: JSON.stringify({
@@ -60,6 +48,25 @@ export const signup = (user) => async (dispatch) => {
   return res
 }
 
+export const logout = () => async (dispatch) => {
+  if(localStorage.getItem('userId')){
+  const res = await csrfFetch('/api/users/logout', { method: 'DELETE'});
+  dispatch(removeSession());
+  localStorage.clear()
+  return res;
+}
+}
+
+export const restoreUser = () => async dispatch => {
+  if(localStorage.getItem('userId')){
+    const res = await csrfFetch(`/api/users/${localStorage.getItem('userId')}`);
+    const data = await res.json();
+    dispatch(setSession(data));
+    return res;
+  }
+};
+
+
 const sessionReducer = ( state = initialState, action ) => {
   let newState = { ...state }
   switch (action.type) {
@@ -68,7 +75,7 @@ const sessionReducer = ( state = initialState, action ) => {
     return newState
 
     case REMOVE:
-      delete newState[action.payload]
+    newState.user = null
      return newState
 
     default:

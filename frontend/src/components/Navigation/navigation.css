@@ -1,0 +1,14 @@
+.navbar > ul {
+  display: flex;
+  justify-content: space-between;
+  list-style-type: none;
+}
+
+.loginSignup {
+  display: flex;
+  justify-content: space-between;
+}
+
+.logOutButton {
+  background-color: aqua;
+}
