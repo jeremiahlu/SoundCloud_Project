@@ -4,11 +4,38 @@
   list-style-type: none;
 }
 
+.navbar > li {
+  display: flex;
+  justify-content: space-between;
+}
+
 .loginSignup {
+  display: flex;
+  justify-content: space-between;
+  padding: 0px, 0px, 0px, 40px
+}
+
+.profileButton {
   display: flex;
   justify-content: space-between;
 }
 
 .logOutButton {
-  background-color: aqua;
+  display: flex;
+  justify-content: space-between;
+}
+
+.homeLink {
+  color: black;
+}
+
+.fa-solid fa-right-from-bracket {
+  display: flex;
+  padding: 10px;
+}
+
+.login-signup-div {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
 }

@@ -66,7 +66,6 @@ export const restoreUser = () => async dispatch => {
   }
 };
 
-
 const sessionReducer = ( state = initialState, action ) => {
   let newState = { ...state }
   switch (action.type) {

@@ -3,6 +3,8 @@ import { NavLink, Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import './navigation.css';
+import LoginFormModal from '../LoginFormModal';
+import SignUpFormModal from '../SignupFormModal';
 
 const Navigation = ({ isLoaded }) => {
   const loggedSession = useSelector((state) => (state.session.user));
@@ -52,15 +54,19 @@ const Navigation = ({ isLoaded }) => {
               ?
               <ProfileButton user={loggedSession} />
               :
-              <div className='loginSignup'>
-                <NavLink className='signupLink' to='/users/signup'> 
+              <div className='login-signup-div'>
+              <LoginFormModal />
+              <SignUpFormModal />
+              {/* <div className='loginSignup'>
+               <NavLink className='signupLink' to='/users/signup'> 
                 Sign Up
                 </NavLink> 
-            
-                <NavLink className='loginLink' to='/users/login'>
-                Log In
-                </NavLink>
+              </div> */}
               </div>
+              
+              //   <NavLink className='loginLink' to='/users/login'>
+              //   Log In
+              //   </NavLink>
           }  
         </li>
 

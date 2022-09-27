@@ -46,8 +46,8 @@ const ProfileButton = ({ user }) => {
           </div>
 
           <div className='logOutButton' onClick={logOut}>
-          <i className="fa-solid fa-person-to-door"></i>
-          {/* logout */}
+          Log Out  
+          <i className="fa-solid fa-right-from-bracket"></i>
           </div>
         </div>
       )}
