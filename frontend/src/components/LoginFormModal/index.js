@@ -70,5 +70,5 @@ const LoginFormModal = () => {
 //     </form>
 //   );
 // } 
-
-export default LoginFormModal; 
+  
+export default LoginFormModal;  
