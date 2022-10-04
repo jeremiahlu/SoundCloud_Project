@@ -24,7 +24,7 @@ module.exports = {
       {
         userId: 4,
         name: 'Rap Playlist',
-        imageUrl: 'https://i1.sndcdn.com/artworks-OWRlJVexdDzo99ZL-DWQqOA-t500x500.jpg',
+        imageUrl: 'https://i1.sndcdn.com/artworks-OWRlJVexdDzo99ZL-DWQqOA-t200x200.jpg',
         previewImage: 'image url'
       }
     ])

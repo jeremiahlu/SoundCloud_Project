@@ -44,10 +44,10 @@ const validateSongQuery = [
 
 
 // Get all Songs
-// router.get('/', handleValidationErrors, async (req, res) => {
-//   const Songs = await Song.findAll()
-//   res.json({Songs})
-// });
+router.get('/', handleValidationErrors, async (req, res) => {
+  const Songs = await Song.findAll()
+  res.json({Songs})
+});
 
 // Get details of a Song from an id
 router.get('/:id', async (req, res, next) => {
