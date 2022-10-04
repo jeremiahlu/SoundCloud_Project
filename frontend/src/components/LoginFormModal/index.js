@@ -69,6 +69,6 @@ const LoginFormModal = () => {
 //       <button type="submit">Log In</button>
 //     </form>
 //   );
-// }
+// } 
 
 export default LoginFormModal; 
