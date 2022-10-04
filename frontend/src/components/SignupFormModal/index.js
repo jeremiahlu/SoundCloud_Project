@@ -109,9 +109,9 @@ const SignUpFormModal = () => {
   return (
     <div className='signup-div'>
       <button className='signUpButton' onClick={() => setShowModal(true)}>
-        Sign Up
+        Create account
       </button>
-    <p className='signupText'> Don't have an account? </p>
+    {/* <p className='signupText'> Don't have an account? </p> */}
     { showModal && (
       <Modal onClose={() => setShowModal(false)}>
         <SignUpForm />

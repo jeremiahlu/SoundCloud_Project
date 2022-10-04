@@ -1,1 +1,39 @@
 /* TODO Add site wide styles */
+html {
+  background-color: white;
+  height: 100%;
+}
+
+body {
+  display: flex;
+  height: 100%;
+  background-color: linear-gradient(45deg, black white gray) ;
+  padding-top: 50px;
+}
+
+li {
+  list-style: none;
+}
+
+ul {
+  padding-inline-start: 0px;
+  /* padding-inline-end: 5px; */
+}
+
+.navbar div {
+  text-decoration: none;
+  background-color: gray;
+}
+
+.navbar a {
+  text-decoration: none;
+  color: rgb(221, 215, 215)
+}
+
+a {
+  text-decoration: none;
+}
+
+div {
+  display: grid;
+}

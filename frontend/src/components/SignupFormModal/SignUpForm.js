@@ -4,8 +4,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import * as sessionActions from "../../store/session";
 import './SignupForm.css'
+import { Link } from "react-router-dom";
+import LoginFormModal from "../LoginFormModal";
 
-function SignupFormPage() {
+
+function SignupFormPage({ LoginFormModal }) {
   const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state.session.user);
 
@@ -33,19 +36,30 @@ function SignupFormPage() {
   };
 
   return (
+    <>
     <form className='signup-form' onSubmit={handleSubmit}>
       <ul>
+        {/* <>
         {errors.map((error, idx) => <li key={idx}>{error}</li>)}
+        </> */}
       </ul>
       <label className='verification'>
         First Name
         </label>
+        <div className='errors'> 
+          { errors.status && (
+            <h2> 
+              Sign up failed: {errors.message}
+            </h2>
+          )}
+        </div>
         <input 
           type="text"
           value={firstName}
           onChange={(e) => setFirstName(e.target.value)}
           required
-        />
+          />
+          <p> {errors.firstName}</p>
       <label className='verification'>
         Last Name
         </label>
@@ -55,6 +69,7 @@ function SignupFormPage() {
           onChange={(e) => setLastName(e.target.value)}
           required
         />
+             <p> {errors.lastName}</p>
       <label className='verification'>
         Email
         </label>
@@ -64,6 +79,7 @@ function SignupFormPage() {
           onChange={(e) => setEmail(e.target.value)}
           required
         />
+             <p> {errors.email}</p>
       <label className='verification'>
         Username
         </label>
@@ -73,6 +89,7 @@ function SignupFormPage() {
           onChange={(e) => setUsername(e.target.value)}
           required
         />
+             <p> {errors.username}</p>
       <label className='verification'>
         Password
         </label>
@@ -82,6 +99,7 @@ function SignupFormPage() {
           onChange={(e) => setPassword(e.target.value)}
           required
         />
+             <p> {errors.password}</p>
       <label className='verification'>
         Confirm Password
         </label>
@@ -93,8 +111,13 @@ function SignupFormPage() {
         />
         <div className='buttonDiv'>
           <button className='signUpForm-button' type="submit">Sign Up</button>
+
         </div>
     </form>
+        {/* <button className='login' onClick={LoginFormModal}>
+          Already have an account?
+        </button> */}
+    </>
   );
 }
 

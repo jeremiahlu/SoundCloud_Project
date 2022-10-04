@@ -1,6 +1,4 @@
-body {
-  background-color: gray;
-}
+
 
 .login-form {
   display: flex;
@@ -8,7 +6,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 150px;
+  height: 250px;
   width: 250px;
   border-radius: 10px;
 }
@@ -16,11 +14,18 @@ body {
 .login-form button {
   display: flex;
   justify-content: center;
+  background: red;
 }
 
 .buttonDiv {
   display: flex; 
   padding: 1em;
+}
+
+.welcomeLogin {
+  display: flex;
+  padding: 1em;
+  font-size: 21px;
 }
 /* 
 .login-form-text {

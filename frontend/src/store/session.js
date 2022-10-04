@@ -50,11 +50,11 @@ export const signup = (user) => async (dispatch) => {
 
 export const logout = () => async (dispatch) => {
   if(localStorage.getItem('userId')){
-  const res = await csrfFetch('/api/users/logout', { method: 'DELETE'});
-  dispatch(removeSession());
-  localStorage.clear()
-  return res;
-}
+    const res = await csrfFetch('/api/users/logout', { method: 'DELETE'});
+    dispatch(removeSession());
+    localStorage.clear()
+    return res;
+  }
 }
 
 export const restoreUser = () => async dispatch => {

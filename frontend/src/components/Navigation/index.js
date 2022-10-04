@@ -42,26 +42,47 @@ const Navigation = ({ isLoaded }) => {
       <ul>
 
         <li>
-          <Link className='homeLink' exact to='/'>  
-            <i className="fa-solid fa-house-chimney"></i>
-            {isLoaded}
+          <button className='homeButton'>
+          <Link className='homeLink' to='/'>  
+            {/* <i className="fa-solid fa-house-chimney"></i> */}
+            {isLoaded} 
+            {/* <h1 className='rhapsodyLogo'>
+              Rhapsody  
+            </h1> */}
+            <img className='rhapsodyLogo' src='../images/logo.png' alt='logo'/>
            </Link>
+          </button>
         </li>
 
         <li>
           {
             loggedSession 
               ?
-              <ProfileButton user={loggedSession} />
+              <div className='signedin'>
+                {
+                  <div className='navtab'>
+                  <Link className='explore' to='/songs'>
+                    Explore
+                  </Link>
+
+                  <Link
+                  className='upload' 
+                  to='/songs/new'>
+                    Upload
+                  </Link>
+                  </div>
+                }
+                <ProfileButton user={loggedSession} />
+              </div>
               :
-              <div className='login-signup-div'>
-              <LoginFormModal />
-              <SignUpFormModal />
-              {/* <div className='loginSignup'>
-               <NavLink className='signupLink' to='/users/signup'> 
-                Sign Up
-                </NavLink> 
-              </div> */}
+                <div className='login-signup-div'>
+                <LoginFormModal />
+                  <SignUpFormModal />
+                {/* <div className='loginSignup'>
+                <NavLink className='signupLink' to='/users/signup'> 
+                  Sign Up
+                  </NavLink> 
+                </div> */}
               </div>
               
               //   <NavLink className='loginLink' to='/users/login'>

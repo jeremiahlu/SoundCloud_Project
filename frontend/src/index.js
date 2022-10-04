@@ -11,7 +11,8 @@ import ModalProvider from './context/Modal';
 // ... other imports
 import { restoreCSRF, csrfFetch } from './store/csrf';
 import * as sessionActions from './store/session';
-
+import * as songActions from './store/songs';
+import * as playlistActions from './store/playlists';
 
 const store = configureStore();
 // ... const store = configureStore();
@@ -22,11 +23,9 @@ if (process.env.NODE_ENV !== 'production') {
   window.csrfFetch = csrfFetch;
   window.store = store;
   window.sessionActions = sessionActions;
+  window.songActions = songActions;
+  window.playlistsActions = playlistActions;
 }
-
-// if (process.env.NODE_ENV !== "production") {
-//   window.store = store;
-// }
 
 function Root() {
   return (

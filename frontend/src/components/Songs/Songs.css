@@ -1,0 +1,41 @@
+.song-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.allSongsList li {
+  display: flex;
+  border-bottom: 1px solid black;
+  background-color: green
+}
+
+.cover-art {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height:10%;
+  width:10%;
+}
+
+.img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height:50px;
+  width:50px;
+}
+
+.allSongs {
+  display: flex;
+  justify-content: center;
+  margin-top: 50%;
+  padding-top: 50px;
+}
+
+form {
+  width: 80%;
+}
+

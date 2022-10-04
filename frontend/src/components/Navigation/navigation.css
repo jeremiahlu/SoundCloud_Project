@@ -1,21 +1,25 @@
-.navbar > ul {
-  display: flex;
-  justify-content: space-between;
-  list-style-type: none;
+.navbar {
+  /* display: flex; */
+  position: fixed;
+  background-color: rgb(80, 80, 80);
+  height: 50px;
+  width: 98%;
+  z-index: 100;
+  top: 0%;
 }
 
-.navbar > li {
+.navbar > ul {
   display: flex;
+  /* position: absolute; */
+  margin: 0;
+  top: 0%;
+  /* align-items: center; */
+  height: 50px;
   justify-content: space-between;
+  width: 100%;
 }
 
 .loginSignup {
-  display: flex;
-  justify-content: space-between;
-  padding: 0px, 0px, 0px, 40px
-}
-
-.profileButton {
   display: flex;
   justify-content: space-between;
 }
@@ -25,17 +29,101 @@
   justify-content: space-between;
 }
 
-.homeLink {
-  color: black;
-}
-
 .fa-solid fa-right-from-bracket {
   display: flex;
   padding: 10px;
+}
+
+li, 
+i:hover {
+  cursor: pointer;
+}
+
+.homeLink {
+  display: flex;
+  background-color: white;
+  color: black;
+  height: 90%;
+}
+
+.fa-house-chimney {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+}
+
+.homeButton {
+  background-color: gray;
+  height: 97%;
+  width: 200px;
+  padding-top: 0px;
+  padding-right: 0px;
+  padding-left: 0px;
+  padding-bottom: 0px;
+}
+
+.rhapsodyLogo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  height: 100%;
+  width: 50%;
+}
+
+.navtab {
+  display: flex;
+}
+
+.explore {
+  position: sticky;
+  display: flex;
+  align-items: center;
+  padding: 10px 10px
+}
+
+.upload {
+  position: sticky;
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+}
+
+.dropDownMenu {
+  z-index: 100;
+}
+
+.signedin {
+  display: flex;
+}
+
+.profile {
+  border-bottom: 1px solid black;
+  background-color: white;
+}
+
+.profileButton {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; 
+  background-color: gray;
+  height: 50px;
+  width: 100%;
+}
+
+.userInfo {
+  /* border: 1px solid black/; */
+  width: 100%;
 }
 
 .login-signup-div {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
+}
+
+a.homeLink {
+  display: flex;
+  justify-content: center;
 }

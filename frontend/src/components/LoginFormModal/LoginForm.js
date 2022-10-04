@@ -16,6 +16,7 @@ function LoginForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     setErrors([]);
     return dispatch(sessionActions.login({ credential, password }))
       .catch(async (res) => {
@@ -29,6 +30,12 @@ function LoginForm() {
       <ul>
         {errors.map((error, idx) => <li key={idx}>{error}</li>)}
       </ul>
+      {/* <div className='error'>
+        {error.status && Login failed: {errors.message}}
+      </div> */}
+      <div className='welcomeLogin'>
+        Welcome to Rhapsody!
+      </div>
       <label className='login-form-text'>
         Username or Email
         </label>
