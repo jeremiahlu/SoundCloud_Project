@@ -41,25 +41,18 @@ function SignupFormPage({ LoginFormModal }) {
       <ul>
         {/* <>
         {errors.map((error, idx) => <li key={idx}>{error}</li>)}
-        </> */}
+      </> */}
       </ul>
       <label className='verification'>
         First Name
         </label>
-        <div className='errors'> 
-          { errors.status && (
-            <h2> 
-              Sign up failed: {errors.message}
-            </h2>
-          )}
-        </div>
         <input 
           type="text"
           value={firstName}
           onChange={(e) => setFirstName(e.target.value)}
           required
           />
-          <p> {errors.firstName}</p>
+          <p> { errors.firstName } </p>
       <label className='verification'>
         Last Name
         </label>
@@ -69,7 +62,7 @@ function SignupFormPage({ LoginFormModal }) {
           onChange={(e) => setLastName(e.target.value)}
           required
         />
-             <p> {errors.lastName}</p>
+             <p> { errors.lastName } </p>
       <label className='verification'>
         Email
         </label>
@@ -79,7 +72,7 @@ function SignupFormPage({ LoginFormModal }) {
           onChange={(e) => setEmail(e.target.value)}
           required
         />
-             <p> {errors.email}</p>
+             <p> { errors.email } </p>
       <label className='verification'>
         Username
         </label>
@@ -89,7 +82,7 @@ function SignupFormPage({ LoginFormModal }) {
           onChange={(e) => setUsername(e.target.value)}
           required
         />
-             <p> {errors.username}</p>
+             <p> { errors.username } </p>
       <label className='verification'>
         Password
         </label>
@@ -99,7 +92,7 @@ function SignupFormPage({ LoginFormModal }) {
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-             <p> {errors.password}</p>
+             <p> { errors.password } </p>
       <label className='verification'>
         Confirm Password
         </label>
@@ -111,7 +104,13 @@ function SignupFormPage({ LoginFormModal }) {
         />
         <div className='buttonDiv'>
           <button className='signUpForm-button' type="submit">Sign Up</button>
-
+        </div>
+        <div className='errors'> 
+          { errors && (
+            <h2 className='signUp-failed'> 
+              Error: Sign up failed
+            </h2>
+          )}
         </div>
     </form>
         {/* <button className='login' onClick={LoginFormModal}>

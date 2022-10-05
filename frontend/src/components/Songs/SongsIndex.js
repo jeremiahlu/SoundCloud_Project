@@ -4,7 +4,13 @@ import { Link } from 'react-router-dom';
 import SongsIndexItem from './SongsIndexItem';
 import { getSongs } from '../../store/songs';
 
+const topFunction = () => {
+  document.body.scrollTop=0;
+  document.documentElement.scrollTop=0;
+}
+
 const SongsIndex = () => {
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -19,6 +25,10 @@ const SongsIndex = () => {
   console.log('songs',songs)
   return (
     songs && (
+      <>
+        {/* <h3>
+        All Tracks
+        </h3> */}
       <div className='allSongs'>
         <ul className='allSongsList'>
         {
@@ -32,6 +42,10 @@ const SongsIndex = () => {
         </ul>
         {/* <Link to='/songs/new'>Add New Song</Link> */}
       </div>
+      <button onClick={topFunction} className='scrollToTop'>
+      <i className="fa-sharp fa-solid fa-chevron-up"></i>
+      </button>
+      </>
     )
   )
 }

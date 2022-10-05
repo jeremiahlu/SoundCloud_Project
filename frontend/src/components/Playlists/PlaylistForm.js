@@ -30,29 +30,35 @@ const PlaylistForm = ({ formType }) => {
 
   return (
     <div className='playlist-div'>
-      <form className='playlist-form' onSubmit={playlistSubmit}>
-        <h2>{formType}</h2>
-        <div>
-          Playlist #{id}
+      <form className='playlistForm-container' onSubmit={playlistSubmit}>
+
+        <h2>{formType} Playlist </h2>
+        
+        <div className='playlistForm-field'>
+          {/* Playlist #{id} */}
+          <label>
+            Name
+          </label>
+            <input 
+              type='text'
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className='playlist-creator'/>
         </div>
-        <label>
-          Name
-        </label>
-          <input 
-            type='text'
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            className='playlist-creator'/>
+
+        <div className='playlistForm-field'>
+
         <label>
           Image Url
-        </label>  
-          <input 
-            type='text'
-            value={imageUrl}
-            onChange={(e) => setImageUrl(e.target.value)}
-            className='playlist-creator'/>
+          </label>  
+            <input 
+              type='text'
+              value={imageUrl}
+              onChange={(e) => setImageUrl(e.target.value)}
+              className='playlist-creator'/>
+        </div>
       
-        <input type='submit' value={formType} />
+        <button type='submit'> Submit </button>
       </form>
     </div>
   )

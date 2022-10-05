@@ -3,7 +3,7 @@
   position: fixed;
   background-color: rgb(80, 80, 80);
   height: 50px;
-  width: 98%;
+  width: 100%;
   z-index: 100;
   top: 0%;
 }
@@ -17,6 +17,11 @@
   height: 50px;
   justify-content: space-between;
   width: 100%;
+}
+
+.rhapsodyLogo {
+  background-image: url(../../logo.png);
+  width: 200px;
 }
 
 .loginSignup {
@@ -41,7 +46,7 @@ i:hover {
 
 .homeLink {
   display: flex;
-  background-color: white;
+  background-color: #EE4E33;
   color: black;
   height: 90%;
 }
@@ -54,8 +59,8 @@ i:hover {
 }
 
 .homeButton {
-  background-color: gray;
-  height: 97%;
+  background-color:rgb(238,78,51);
+  height: 100%;
   width: 200px;
   padding-top: 0px;
   padding-right: 0px;

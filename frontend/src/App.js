@@ -30,6 +30,8 @@ function App() {
     <>
     <Navigation isLoaded={isLoaded} />
     {isLoaded && (
+
+      <div className='content-container'>
       <Switch>
         {/* <Route path="/users/login">
           login
@@ -74,6 +76,7 @@ function App() {
         </Route> */}
         
       </Switch>
+      </div>
     )}
   </>
   );

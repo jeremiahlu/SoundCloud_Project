@@ -5,8 +5,10 @@ import ProfileButton from './ProfileButton';
 import './navigation.css';
 import LoginFormModal from '../LoginFormModal';
 import SignUpFormModal from '../SignupFormModal';
+import logo from '../../logo.png'
 
 const Navigation = ({ isLoaded }) => {
+  console.log(logo)
   const loggedSession = useSelector((state) => (state.session.user));
 //   let sessionLinks;
 //   if (loggedSession) {
@@ -49,7 +51,7 @@ const Navigation = ({ isLoaded }) => {
             {/* <h1 className='rhapsodyLogo'>
               Rhapsody  
             </h1> */}
-            <img className='rhapsodyLogo' src='../images/logo.png' alt='logo'/>
+            <img className='rhapsodyLogo' src={logo} alt='logo'/>
            </Link>
           </button>
         </li>

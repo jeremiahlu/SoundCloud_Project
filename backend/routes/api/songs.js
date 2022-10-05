@@ -15,6 +15,7 @@ const validateCreation = [
   check('url')
     .exists()
     .notEmpty()
+    .isURL()
     .withMessage('Audio is required'),
     handleValidationErrors
 ]

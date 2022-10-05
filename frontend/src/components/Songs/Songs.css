@@ -1,23 +1,48 @@
-.song-form {
+.song-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid black;
+  padding: 20px
+}
+
+.songForm-container{
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100%;
+}
+
+.songForm-field {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* border: 1px solid red; */
+  margin: 5px 0;
 }
 
 .allSongsList li {
   display: flex;
   border-bottom: 1px solid black;
-  background-color: green
+  background-color: rgb(238,78,51);
+  width: 100%;
+  height: 30px
 }
 
-.cover-art {
+.allSongsList {
+  width: 100%
+}
+
+.songbox {
   display: flex;
-  justify-content: center;
+}
+
+.title {
+  width:100%;
+  border: 1px solid black;
   align-items: center;
-  height:10%;
-  width:10%;
+  margin: 5px
 }
 
 .img {
@@ -31,11 +56,47 @@
 .allSongs {
   display: flex;
   justify-content: center;
-  margin-top: 50%;
-  padding-top: 50px;
+  /* border: 1px solid black; */
+  width: 500px
+}
+
+.song {
+  height: 20px;
+  padding: 10px 15px 
 }
 
 form {
   width: 80%;
 }
 
+.scrollToTop {
+  position: fixed; 
+  bottom: 20px; 
+  right: 30px; 
+  width: 50px;
+  z-index: 95; 
+  outline: none; 
+  background-color: rgb(238,78,51);
+  /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.25); */
+  /* color: white;  */
+  cursor: pointer; 
+  border: none; 
+  border-radius: 50px;
+  font-size: 15px;
+  padding: 15px; 
+}
+
+.fa-sharp fa-solid fa-chevron-up {
+  color: white;
+  background-color: white;
+  z-index: 99;
+}
+
+.scrollToTop:hover {
+  background-color: #555;
+}
+
+.song-error {
+  color: red;
+  padding-bottom: 15px 
+}

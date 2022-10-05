@@ -106,7 +106,7 @@ const playlistReducer = (state = {}, action) => {
   
   switch (action.type) {
     case FETCH:
-      return { ...state , ...action.playlists }   
+      return { ...state , ...action.playlists } 
       
     case CREATE:
       newState[action.playlist.id] = action.playlist

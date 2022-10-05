@@ -22,12 +22,21 @@ export const login = (user) => async (dispatch) => {
       password
     })
   })
-  const data = await res.json();
-  console.log('here', data)
-
-  localStorage.setItem('userId', data.id)
-  if(res.ok) dispatch(setSession(data))
-  return res 
+  console.log('here')
+  // console.log('here', data)
+  
+  if (res.ok) {
+    const data = await res.json();
+    localStorage.setItem('userId', data.id)
+    dispatch(setSession(data))
+    return data 
+  } else {
+  //   const err = new Error();
+    // err.message = data.message;
+  //   err.status = data.statusCode;
+  //   err.errors = data.errors;
+    throw res
+  }
 }
 
 export const signup = (user) => async (dispatch) => {

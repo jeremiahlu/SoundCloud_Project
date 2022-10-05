@@ -13,6 +13,7 @@ const SongForm = ({ formType }) => {
   const [ url, setUrl ] = useState('');
   const [ imageUrl, setImageUrl ] = useState('');
   const [ albumId, setAlbumId ] = useState('');
+  const [ errors, setErrors ] = useState([]);
 
   const songSubmit = async (e) => {
     e.preventDefault();
@@ -26,23 +27,44 @@ const SongForm = ({ formType }) => {
     }
 
     // const newSong = await dispatch(addSong(song));
-     const newSong = await dispatch( formType === 'Create' ? addSong(song) : editSong(song))
-     console.log(newSong)
-   
-     formType === 'Create' ?
-    history.push(`/songs/${newSong.id}`):
-    history.push(`/songs/${id}`)
-  }
+    try {
+      const newSong = await dispatch( formType === 'Create' ? addSong(song) : editSong(song))
+      // console.log(newSong)
+      
+      formType === 'Create' ?
+      history.push(`/songs/${newSong.id}`):
+      history.push(`/songs/${id}`)
+
+    } catch (res) {
+      const data = await res.json()
+      const err = [data.message]
+      if (data && data.message) setErrors(...err)
+      // console.log(data.errors.url)
+      // return (data.errors.url)
+    };
+   }
+
+  //  useEffect(() => {
+
+  //  })
 
   return (
     <div className='song-div'>
-      <form className='song-form' onSubmit={songSubmit}>
-        <div className='songForm'>
+      <form className='songForm-container' onSubmit={songSubmit}>
 
-        <h2>{formType}</h2>
-        <div>
-          Song {id}
+        <div className='errors'>
+          { errors && (
+            <h2 className='song-error'>
+              Error: Submission failed
+            </h2>
+          )}
         </div>
+
+        <h2> {formType} Song</h2>
+        {/* <div>
+          Song {id}
+        </div> */}
+        <div className='songForm-field'>
         <label>
           Title
         </label>
@@ -51,6 +73,10 @@ const SongForm = ({ formType }) => {
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             className='song-creator'/>
+            <p> { errors.title } </p>
+        </div>
+
+        <div className='songForm-field'>
         <label>
           Description
         </label>
@@ -59,6 +85,10 @@ const SongForm = ({ formType }) => {
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             className='song-creator' />
+            <p> { errors.description } </p>
+        </div>
+
+        <div className='songForm-field'>
         <label>
           URL
         </label>  
@@ -67,6 +97,10 @@ const SongForm = ({ formType }) => {
             value={url}
             onChange={(e) => setUrl(e.target.value)}
             className='song-creator'/>
+            <p> { errors.url } </p>
+        </div>
+
+        <div className='songForm-field'>
         <label>
           Image Url
         </label>  
@@ -75,6 +109,10 @@ const SongForm = ({ formType }) => {
             value={imageUrl}
             onChange={(e) => setImageUrl(e.target.value)}
             className='song-creator'/>
+            <p> { errors.imageUrl } </p>
+        </div>
+
+        <div className='songForm-field'>
         <label>
           Album
         </label>  
@@ -83,8 +121,9 @@ const SongForm = ({ formType }) => {
             value={albumId}
             onChange={(e) => setAlbumId(e.target.value)}
             className='song-creator'/>
-        <input type='submit' value={formType} />
-            </div>
+            <p> { errors.albumId } </p>
+        </div>
+        <button type='submit'>Submit</button>
       </form>
     </div>
   )
