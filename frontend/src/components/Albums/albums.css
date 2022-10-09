@@ -3,7 +3,7 @@
   border: 1px solid black;
   /* display: flex; */
   /* flex-direction: column; */
-  height: 500px;
+  height: 550px;
   width: 90%;
   padding: 20px;
   border-radius: 5px;
@@ -34,8 +34,8 @@
 .albumFormDetail-basic-info {
   display: flex;
   align-items: center;
-  width: 650px;
-  margin-left: 100px;
+  width: 700px;
+  margin-left: 125px;
   /* flex-wrap: nowrap; */
   padding-bottom: 15px;
   justify-content: space-between;

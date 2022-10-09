@@ -2,7 +2,7 @@
   border: 1px solid black;
   /* display: flex; */
   /* flex-direction: column; */
-  height: 500px;
+  height: 550px;
   width: 90%;
   padding: 20px;
   border-radius: 5px;
@@ -97,19 +97,17 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  /* border: 1px solid black; */
+  border: 1px solid #999;
   width: 100%;
-  /* margin-top: 1000px; */
-  /* padding-top: 500px; */
-  height: 100%;
+  /* margin-top: 100px; */
+  /* margin-top: 1500px; */
+  /* height: 80%; */
 }
 
 .allSongs { 
   overflow: auto;
   white-space: nowrap;  
   height: 500px;
-  /* padding-top: 800px;
-  margin-top: 800px; */
 }
 
 .songImg-box {

@@ -9,6 +9,7 @@
   border-radius: 10px;
   /* border: 10px solid yellow; */
   padding: 10px;
+  margin-left: 5px;
 }
 
 .welcomeLogin {
@@ -27,6 +28,7 @@
   height: 40px;
   color: white;
   margin: 10px;
+  margin-left: 15px;
 }
 
 .gsi-button {
@@ -38,12 +40,14 @@
   height: 40px;
   color: white;
   margin: 10px;
+  margin-left: 15px;
 }
 
 .auth-method-separator {
   /* display: inline-block; */
   padding: 5px;
   /* border: 10px solid yellow; */
+  margin-left: 5px;
 }
 
 .auth-method-separator::before {
@@ -66,6 +70,10 @@
   border: 1px solid black;
   width: 42%;
   /* right: 0; */
+}
+
+.login-form-fine-text {
+  padding-left: 5px;
 }
 
 .login-errors {

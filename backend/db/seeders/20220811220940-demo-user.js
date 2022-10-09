@@ -66,7 +66,7 @@ module.exports = {
         lastName: 'User',
         email: 'demouser@gmail.com',
         username: 'DemoUser',
-        password: bcrypt.hashSync('password'),
+        password: bcrypt.hashSync('password'),  
         previewImage: "image url"
       }
     ], {});
