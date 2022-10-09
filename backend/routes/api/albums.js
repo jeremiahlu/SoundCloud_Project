@@ -33,19 +33,21 @@ router.get('/', async (req, res, next) => {
 // Get details of an Album from an id (ALIAS ISSUE)
 router.get('/:albumId', async (req, res, next) => {
   const { albumId } = req.params;
-  const album = await Album.findByPk(albumId, {
+  console.log(typeof albumId ,'------')
+  const album = await Album.findByPk(Number(albumId), {
     include: [
       { model: User, as: "Artist", attributes: { exclude: ['firstName', 'lastName','password','createdAt','updatedAt','email']}},
       { model: Song }
     ]
   });
-
+  
   if (!album || album === null) {
+    console.log('album', album)
     const err = new Error("Album couldn't be found");
     err.status = 404;
     next(err)
   } else {
-    res.json(album)
+   return res.json({album})
   }
 });
 

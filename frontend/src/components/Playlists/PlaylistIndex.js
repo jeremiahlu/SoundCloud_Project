@@ -13,7 +13,7 @@ const PlaylistIndex = () => {
       await dispatch(getPlaylists())
     }
     fetchPlaylist()
-  }, [getPlaylists])
+  }, [])
 
   const playlistState = useSelector((state) => state.playlist);
   const playlist = Object.values(playlistState);
@@ -22,18 +22,29 @@ const PlaylistIndex = () => {
   return (
     playlist && (
       <div className='allPlaylists-container'>
-        <ul className='allPlaylistsList'>
-        {
-          playlist.map(playlist => (
-            <PlaylistIndexItem
+
+        {/* <div className='top-playlists-container'> 
+         <div className='top-playlists-text'>
+            <div className='just-for-you'>
+              <p className='top-charts-text'> Top Charts: Certified Bangers </p> 
+            </div>
+              <p className='most-played-text'>The most played tracks on SoundCloud this week</p>
+          </div> */}
+        <div className='allPlaylists'>
+          <ul className='allPlaylistsList'>
+          {
+            playlist.map(playlist => (
+              <PlaylistIndexItem
               playlist={playlist}
               key={playlist.id}
-            />
-          ))
-        }
-        </ul>
-        <Link to='/playlist/new'>Add New Playlist</Link>
-      </div>
+              />
+              ))
+            }
+          </ul>
+         </div>
+        </div>
+      // </div>
+
     )
   )
 }

@@ -10,7 +10,7 @@ const LoginFormModal = () => {
   const [ showModal, setShowModal ] = useState(false);
 
   return (
-    <>
+    <div className='buttonDiv'>
       <button className='loginButton' onClick={() => setShowModal(true)}>
         Sign In
       </button>
@@ -19,7 +19,7 @@ const LoginFormModal = () => {
           <LoginForm />
         </Modal>
       )}
-    </>
+    </div>
   )
 }
 

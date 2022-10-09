@@ -1,6 +1,6 @@
 import { csrfFetch } from "./csrf";
 
-const initialState = {};
+// const initialState = {};
 // console.log(initialState)
 
 const FETCH = '/playlists/fetch';
@@ -30,6 +30,12 @@ const delPlaylist = (playlist) => ({
 const UPDATE = '/playlists/update';
 const updatePlaylist = (playlist) => ({
   type: UPDATE,
+  playlist
+})
+
+const GETID = '/playlists/getid';
+const getPlaylistId = (playlist) => ({
+  type: GETID,
   playlist
 })
 
@@ -87,7 +93,7 @@ export const myPlaylists = ( id ) => async (dispatch) => {
 export const removePlaylist = (playlist) => async (dispatch) => {
   // console.log('song', song)
   // console.log('here', song.id)
-  const res= await csrfFetch(`/api/playlists/${playlist.id}`, {
+  const res = await csrfFetch(`/api/playlists/${playlist.id}`, {
     method: 'DELETE',
   })
   const data = await res.json();
@@ -95,6 +101,17 @@ export const removePlaylist = (playlist) => async (dispatch) => {
   if(res.ok) {
     dispatch(delPlaylist(playlist))
     return data;
+  }
+}
+
+export const fetchPlaylistById = (playlist) => async (dispatch) => {
+  const res =  await csrfFetch(`/api/playlists/${playlist.id}`, {
+    method: 'GET',
+  })
+  const data = await res.json();
+  if(res.ok) {
+    dispatch(getPlaylistId(data))
+    return data
   }
 }
 
@@ -117,11 +134,16 @@ const playlistReducer = (state = {}, action) => {
       }
       return newState;
    
-     case GET:
+    case GET:
       return { ...state , ...action.playlists}
+
+    case GETID:
+      return {
+        ...state, [action.playlist.id] : {...state[action.playlist.id], ...action.playlist}
+      }
           
     case DELETE: 
-      delete newState[action.playlist]
+      delete newState[action.playlist.id]
       return newState
 
     default: 

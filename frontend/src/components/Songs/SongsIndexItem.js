@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+// import { useDispatch } from 'react-redux';
 import './Songs.css'
 
 const SongsIndexItem = ({ song }) => {
@@ -14,24 +14,27 @@ const SongsIndexItem = ({ song }) => {
   return (
 
     <div className='audio-container'>
-      <div className='music-player'>
-        <span className='cover-art'>
-          <div className='title'>
-            {/* <h3>
-              UserId {song.userId}
-            </h3> */}
-            <li className='song'>
-              <Link to={`/songs/${song.id}`}>{song.title}</Link>
-            </li>
-            <div className='songbox'> 
-              <img className='img' src={song.previewImage}/>
-              <div className='songdescription'>
+      <div className='song-card'>
+
+        <div className='cover-art'>
+            <div className='songImg-box'> 
+              <img className='img' src={song.previewImage} alt='song'/>
+            </div>
+            <div className='description-container'>
+              {/* <p className='description-text'>
+                Description:
+              </p> */}
+            <div className='title'>
+              <li>
+                <Link className='song-link'to={`/songs/${song.id}`}>{song.title}</Link>
+              </li>
+            </div>
+              {/* <div className='song-description'>
                 {song.description}
-              </div>
+              </div> */}
             </div>
   
-          </div>
-        </span>
+        </div>
       </div>
     </div>
   )

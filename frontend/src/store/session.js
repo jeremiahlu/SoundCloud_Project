@@ -22,7 +22,7 @@ export const login = (user) => async (dispatch) => {
       password
     })
   })
-  console.log('here')
+  // console.log('here')
   // console.log('here', data)
   
   if (res.ok) {

@@ -1,31 +1,64 @@
 
 .signup-form {
   display: flex;
+  /* position: static; */
   background-color: white;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   height: 550px;
-  width: 300px;
+  width: 320px;
   border-radius: 10px;
+  /* z-index: auto; */
+  padding: 10px;
 }
 
-/* .signup-div {
-
-} */
 .signup-form button {
   display: flex;
   justify-content: center;
-  background-color: red;
-  padding: 100px, 0px
-}
-
-.buttonDiv {
-  display: flex;
-  padding: 1em;
+  align-items: center;
+  background: #ff5501;
+  width: 275px;
+  height: 40px;
+  color: white;
+  margin: 10px;
 }
 
 .signUp-failed {
   color: red;
   padding-bottom: 10px;
+}
+
+.signup-errors {
+  color: red;
+}
+
+.signUpButton {
+  display: block;
+  height: 30px;
+  width: 150px;
+  border-radius: 5px;
+  background-color:rgb(255,85,1);
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  color: white;
+}
+
+.signup-input {
+  display: flex;
+  margin: 10px;
+  height: 30px;
+  width: 275px;
+  padding: 10px;
+}
+
+
+.signup-form-fine-print {
+  display: block;
+  padding: 10px
+}
+
+.signup-form-fine-text {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 10px;
+  color: #999
 }

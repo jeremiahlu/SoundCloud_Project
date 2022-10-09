@@ -1,7 +1,7 @@
 import { csrfFetch } from "./csrf";
 
-const initialState = {};
-console.log(initialState)
+// const initialState = {};
+// console.log(initialState)
 
 const FETCH = '/songs/fetch';
 const fetchSongs = (songs) => ({
@@ -33,6 +33,12 @@ const updateSong = (song) => ({
   song
 })
 
+const GETID = '/songs/getid';
+const getSongId = (song) => ({
+  type: GETID,
+  song
+})
+
 export const getSongs = () => async (dispatch) => {
   const res = await csrfFetch('/api/songs');
   // console.log('here', res)
@@ -56,7 +62,9 @@ export const addSong = (song) => async (dispatch) => {
   if (res.ok) {
     dispatch(createSong(data))
     return data;
-  } 
+  } else {
+    throw res
+  }
 }
 
 export const editSong = (song) => async (dispatch) => {
@@ -72,8 +80,9 @@ export const editSong = (song) => async (dispatch) => {
 
 export const mySongs = ( id ) => async (dispatch) => {
   const res = await csrfFetch(`/api/users/${id}/songs`)
-  console.log('user', id)
+  // console.log('user', id)
   const { Songs } = await res.json();
+  // console.log('here', Songs)
 
   if (res.ok) {
     const obj = {}
@@ -84,8 +93,8 @@ export const mySongs = ( id ) => async (dispatch) => {
 }
 
 export const removeSong = (song) => async (dispatch) => {
-  console.log('song', song)
-  console.log('here', song.id)
+  // console.log('song', song)
+  // console.log('here', song.id)
   const res= await csrfFetch(`/api/songs/${song.id}`, {
     method: 'DELETE',
   })
@@ -97,6 +106,17 @@ export const removeSong = (song) => async (dispatch) => {
   }
 }
 
+export const fetchSongById = (song) => async (dispatch) => {
+  const res =  await csrfFetch(`/api/songs/${song.id}`, {
+    method: 'GET',
+  })
+  const data = await res.json();
+  if(res.ok) {
+    dispatch(getSongId(data))
+    return data
+  }
+}
+
 const songsReducer = (state = {}, action) => {
   let newState = { ...state }
   
@@ -105,7 +125,7 @@ const songsReducer = (state = {}, action) => {
   
   switch (action.type) {
     case FETCH:
-      return { newState, ...action.songs }
+      return { ...state, ...action.songs }
       
     case CREATE:
       newState[action.song.id] = action.song
@@ -118,10 +138,16 @@ const songsReducer = (state = {}, action) => {
       return newState;
 
     case GET: 
-      return { newState, ...action.songs }
+      return { ...action.songs }
+
+    case GETID:
+      return {
+        ...state, [action.song.id] : {...state[action.song.id], ...action.song}
+      }
    
     case DELETE: 
-      delete newState[action.songs]
+    // console.log('action here', action.song)
+      delete newState[action.song.id]
       return newState
 
     default: 

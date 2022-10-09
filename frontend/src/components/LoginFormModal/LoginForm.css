@@ -1,38 +1,103 @@
-
-
 .login-form {
   display: flex;
   background-color: white;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 250px;
-  width: 250px;
+  height: 400px;
+  width: 300px;
   border-radius: 10px;
-}
-
-.login-form button {
-  display: flex;
-  justify-content: center;
-  background: red;
-}
-
-.buttonDiv {
-  display: flex; 
-  padding: 1em;
+  /* border: 10px solid yellow; */
+  padding: 10px;
 }
 
 .welcomeLogin {
   display: flex;
   padding: 1em;
-  font-size: 21px;
+  font-size: 20px;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
 }
-/* 
-.login-form-text {
+
+.si-button {
   display: flex;
-  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #ff5501;
+  width: 250px;
+  height: 40px;
+  color: white;
+  margin: 10px;
 }
-.password-text {
+
+.gsi-button {
+  background-color: #3577E5;
   display: flex;
-  flex-direction: column;
-} */
+  justify-content: center;
+  align-items: center;
+  width: 250px;
+  height: 40px;
+  color: white;
+  margin: 10px;
+}
+
+.auth-method-separator {
+  /* display: inline-block; */
+  padding: 5px;
+  /* border: 10px solid yellow; */
+}
+
+.auth-method-separator::before {
+  display: inline-block;
+  position: relative;
+  content: ' ';
+  border: 1px solid black;
+  width: 39%;
+  left: 2;
+}
+
+.or {
+  margin: 10px;
+}
+
+.auth-method-separator::after {
+  display: inline-block;
+  /* position: absolute; */
+  content: ' ';
+  border: 1px solid black;
+  width: 42%;
+  /* right: 0; */
+}
+
+.login-errors {
+  color: red;
+}
+
+.login-input {
+  display: flex;
+  margin: 10px;
+  height: 30px;
+  width: 250px;
+  padding: 10px;
+}
+
+.loginButton {
+  display: block;
+  height: 30px;
+  width:150px;
+  border-radius: 5px;
+  background-color:rgb(255,85,1);
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  color: white;
+}
+
+.login-form-fine-print {
+  display: block;
+  padding: 5px;
+}
+
+.login-form-fine-text {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 10px;
+  color: #999
+}
+

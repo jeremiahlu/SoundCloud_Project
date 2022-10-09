@@ -11,7 +11,7 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       albumId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       title: {
         type: Sequelize.STRING,

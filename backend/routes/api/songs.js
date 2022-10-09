@@ -17,6 +17,10 @@ const validateCreation = [
     .notEmpty()
     .isURL()
     .withMessage('Audio is required'),
+  check('albumId')
+    .exists()
+    .notEmpty()
+    .withMessage("Album couldn't be found"),
     handleValidationErrors
 ]
 const validateCommentCreation = [

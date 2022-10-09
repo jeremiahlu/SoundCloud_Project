@@ -18,6 +18,16 @@ import EditPlaylistForm from "./components/Playlists/EditPlaylist";
 import CreatePlaylistForm from "./components/Playlists/CreatePlaylist";
 import PlaylistInfo from './components/Playlists/PlaylistInfo';
 
+import LandingPage from "./components/LandingPage";
+
+import MyAlbums from './components/Albums/LoggedinUser';
+import AlbumsIndex from "./components/Albums/AlbumsIndex";
+import EditAlbumForm from './components/Albums/EditAlbum';
+import CreateAlbumForm from "./components/Albums/CreateAlbum";
+import AlbumInfo from './components/Albums/AlbumInfo';
+
+import Footer from "./components/Footer";
+
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
@@ -40,6 +50,9 @@ function App() {
         {/* <Route path="/users/signup">
           <SignupFormModal/>
         </Route> */}
+        <Route exact path='/'>
+          <LandingPage />
+        </Route>
         <Route exact path='/songs'>
           <SongsIndex />
         </Route>
@@ -74,8 +87,25 @@ function App() {
         {/* <Route exact path='/users/:id/playlists'>
           <MyPlaylists />
         </Route> */}
+        <Route exact path='/users/:id/albums'>
+          <MyAlbums />
+        </Route>
+        <Route exact path='/albums'>
+          <AlbumsIndex /> 
+        </Route>
+        <Route exact path='/albums/new'>
+          <CreateAlbumForm />
+        </Route>
+        <Route exact path='/albums/:id/edit'>
+          <EditAlbumForm />
+        </Route>
+        <Route exact path='/albums/:id'>
+          <AlbumInfo />
+        </Route>
         
       </Switch>
+      
+      <Footer />
       </div>
     )}
   </>

@@ -60,6 +60,14 @@ module.exports = {
         username: 'Kehlani',
         password: bcrypt.hashSync('password7'),
         previewImage: "image url"
+      },
+      {
+        firstName: 'Demo',
+        lastName: 'User',
+        email: 'demouser@gmail.com',
+        username: 'DemoUser',
+        password: bcrypt.hashSync('password'),
+        previewImage: "image url"
       }
     ], {});
   },

@@ -14,6 +14,15 @@ function LoginForm() {
     <Redirect to="/" />
   );
 
+  const handleGuestLogin = (e) => {
+      e.preventDefault();
+
+    return (
+      setCredential('DemoUser'),
+      setPassword('password')
+    )
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -28,35 +37,57 @@ function LoginForm() {
 
   return (
     <form className='login-form' onSubmit={handleSubmit}>
-      <ul>
+      <ul className='login-errors'>
         {errors.map((error, idx) => <li key={idx}>{error}</li>)}
       </ul>
       {/* <div className='error'>
         {error.status && Login failed: {errors.message}}
       </div> */}
-      <div className='welcomeLogin'>
-        Welcome to Rhapsody!
-      </div>
+      {/* <div className='welcomeLogin'>
+        Welcome to SoundCloud!
+      </div> */}
       <label className='login-form-text'>
-        Username or Email
+        {/* Username or Email */}
         </label>
         <input
           type="text"
           value={credential}
           onChange={(e) => setCredential(e.target.value)}
+          placeholder='Your email address or username'
           required
+          className='login-input'
           />
       <label className='password-text'>
-        Password
+        {/* Password */}
         </label>
         <input
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          placeholder='Your password'
           required
+          className='login-input'
           />
           <div className='buttonDiv'>
-      <button type="submit">Log In</button>
+      <button type="submit" className='si-button'>
+        <h2 className='si-button-text'>
+         Continue
+        </h2>
+      </button> 
+
+      <div className='auth-method-separator'>
+        <span className='or'> or </span>
+      </div>
+
+      <button onClick={handleGuestLogin}type='submit' className='gsi-button'>
+       <h2 className='gsi-button-text'> 
+        Continue as Guest
+       </h2> 
+      </button>
+
+      <div className='login-form-fine-print'>
+        <p className='login-form-fine-text'> When registering, you agree that we may use your provided data for the registration and to send you notifications on our products and services. You can unsubscribe from notifications at any time in your settings. For additional info please refer to our Privacy Policy </p>
+      </div>
           </div>
     </form>
   );
