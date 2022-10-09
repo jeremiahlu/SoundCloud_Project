@@ -235,15 +235,14 @@
   align-items: center;
 }
 
-.upload-album {
+/* .upload-album {
   display: flex;
   justify-content: center;
   align-items: center;
   color: blue;
   /* border: 1px solid green; */
-  width: 350px;
-  margin-left: 25px;
-}
+  /* margin-left: 15px; */
+/* } */
 
 .albumDetail-container {
   border: 1px solid black;
@@ -384,7 +383,7 @@
   width: 300px;
   height: 30px;
   margin-top: 20px;
-  margin-left: 100px;
+  /* margin-left: 80px; */
   background-color: #F95502;
   color: white;
 }

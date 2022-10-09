@@ -2,9 +2,10 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addSong, editSong } from '../../store/songs';
 import { useHistory, useParams } from 'react-router-dom';
-// import { myAlbums } from '../../store/albums';
+import { myAlbums } from '../../store/albums';
+import * as sessionActions from '../../store/session';
 
-const SongForm = ({ formType, albums }) => {
+const SongForm = ({ formType }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const { id } = useParams();
@@ -12,12 +13,24 @@ const SongForm = ({ formType, albums }) => {
   // const album = useSelector((state) => state.albums)
   // const songActions = useSelector(state => state.song);
 
+  const albums = useSelector((state) => Object.values(state.albums));
+  const sessionUser = useSelector(state => state.session.user);
+  console.log(albums)
+
+
+  useEffect(() => {
+    const fetchUserAlbum= async () => {
+      await dispatch(myAlbums(sessionUser.id)) 
+    }
+    fetchUserAlbum()
+  }, [dispatch])
+
   const [ title, setTitle ] = useState('');
   const [ description, setDescription ] = useState('');
   const [ url, setUrl ] = useState('');
   const [ imageUrl, setImageUrl ] = useState('');
-  const [ albumId, setAlbumId ] = useState('');
-  const [ errors, setErrors ] = useState([]);
+  const [ albumId, setAlbumId ] = useState(null);
+  const [ errors, setErrors ] = useState({});
 
   // const owner = useSelector(
   //   (state) => state.session.user);
@@ -76,7 +89,7 @@ const SongForm = ({ formType, albums }) => {
         <div className='createSong-errors'>
           {errors && (
             <h2>
-              {errors.message}
+              {errors?.message}
               {/* {console.log('data', errors)} */}
             </h2>
           )}
@@ -100,7 +113,7 @@ const SongForm = ({ formType, albums }) => {
             placeholder='Insert image'
             pattern='^(?!\s*$).+'/>
         </div>
-           <p className='songForm-errors'>{ errors.imageUrl } </p>
+           <p className='songForm-errors'>{ errors?.imageUrl } </p>
         </div>
       
         <div className='songForm-info-div'> 
@@ -118,7 +131,7 @@ const SongForm = ({ formType, albums }) => {
               placeholder='Title'
               pattern='^(?!\s*$).+'
               />
-              <p className='songForm-errors'>{ errors.title } </p>
+              <p className='songForm-errors'>{ errors?.title } </p>
         </div>
 
           <p className='song-info-text'>
@@ -149,7 +162,7 @@ const SongForm = ({ formType, albums }) => {
             />
             {/* /> */}
         </div>
-            <p className='songForm-errors'> { errors.url } </p>
+            <p className='songForm-errors'> { errors?.url } </p>
 
        {/* <p className='songForm-text'>
             Image Url
@@ -180,24 +193,32 @@ const SongForm = ({ formType, albums }) => {
             /> */}
             {/* /> */}
           <select 
-          type='text'
+          // type='text'
           value={albumId}
-          onChange={(e) => setAlbumId(e.target.value)}
-          className='song-creator'
-          required>
+          onChange={(e) => setAlbumId(e.target.value || null)}
+          className='song-creator select-dropdown'
+          required
+          >
             <option value='' disabled>
               Select Album
             </option>  
-          
-              { albums.map(({title}) => ( 
-                <option key={title}
-                value={title}> {title} </option>))}
+            <option value=''>
+              N/A
+            </option>
+            {/* <option value={title}> */}
+              {
+                albums?.map(({title}) => ( 
+                  <option key={title}
+                  value={title}> {title} </option>))
+               }
+            {/* </option> */}
+
           </select>
 
         </div>
         { 
-          errors.albumId &&
-          <p className='songForm-errors'>{ errors.albumId } </p>
+          errors?.albumId &&
+          <p className='songForm-errors'>{ errors?.albumId } </p>
         }
 
         <div className='songForm-submit-button-div'>

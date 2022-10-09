@@ -34,7 +34,8 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
     },
     albumId: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
+      allowNull: true
     },
     title: {
       type: DataTypes.STRING,

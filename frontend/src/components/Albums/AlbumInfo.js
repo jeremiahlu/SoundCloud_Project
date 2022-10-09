@@ -65,14 +65,14 @@ const AlbumInfo = () => {
 
           <div className='album-top-div'>
           <img className='albumImage' src={album.previewImage} alt='album image'/>
-          {isOwner && (
+          {/* {isOwner && (
               <div className='album-addsong-div'>
                 <button onClick={addSong} className='album-add-song'>
                   Add your song to album
                 </button>
               </div>
               )
-          }
+          } */}
           </div>
 
           <div className='album-info-div'>

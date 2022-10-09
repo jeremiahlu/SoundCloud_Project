@@ -104,7 +104,6 @@
 
 .allPlaylists {
   overflow: auto;
-
 }
 
 .playlist-page {
@@ -203,15 +202,15 @@
   align-items: center;
 }
 
-.upload-playlist {
+/* .upload-playlist {
   display: flex;
   justify-content: center;
   align-items: center;
   color: blue;
-  /* border: 10px solid green; */
+  border: 10px solid green;
   width: 100%;
-  /* margin-left: 850px; */
-}
+  margin-left: 850px;
+} */
 
 .playlistDetail-container {
   border: 1px solid black;
@@ -349,7 +348,7 @@
   width: 300px;
   height: 30px;
   margin-top: 20px;
-  margin-left: 100pxs;
+  margin-left: 100px;
   background-color: #F95502;
   color: white;
 }

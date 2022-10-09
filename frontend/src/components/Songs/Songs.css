@@ -221,10 +221,6 @@ form {
   cursor: pointer;
 }
 
-/* .description-container {
-  background: linear-gradient(135deg, rgb(159, 122, 123) 0%, rgb(91, 95, 91) 100%);;
-} */
-
 .song-description {
   display: flex;
   justify-content: center;
@@ -378,6 +374,13 @@ form {
   /* border: 10px solid yellow; */
 }
 
+.loggedin-upload-song {
+  
+  justify-content: center;
+  display: flex;
+  margin-left: 50px;
+}
+
 .upload-song {
   /* border-top: 1px solid #999; */
   color: white;
@@ -414,6 +417,11 @@ form {
 .song-creator {
   width: 300px;
   height: 20px;
+}
+
+.select-dropdown {
+  display: flex;
+  
 }
 
 .songForm-info-div {

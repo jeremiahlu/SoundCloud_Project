@@ -19,7 +19,7 @@ const validateCreation = [
     .withMessage('Audio is required'),
   check('albumId')
     .exists()
-    .notEmpty()
+    // .notEmpty()
     .withMessage("Album couldn't be found"),
     handleValidationErrors
 ]
