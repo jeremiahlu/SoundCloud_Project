@@ -59,7 +59,8 @@ const PlaylistForm = ({ formType, playlist }) => {
             onChange={(e) => setImageUrl(e.target.value)}
             className='playlist-creator'
             required
-            placeholder='Insert image'/>
+            placeholder='Insert image'
+            pattern='^(?!\s*$).+'/>
         </div>
            {/* <p className='playlistForm-errors'>{ errors.imageUrl } </p> */}
         </div>
@@ -76,7 +77,8 @@ const PlaylistForm = ({ formType, playlist }) => {
               onChange={(e) => setName(e.target.value)}
               className='playlist-creator'
               required
-              placeholder='Playlist Name'/>
+              placeholder='Playlist Name'
+              pattern='^(?!\s*$).+'/>
               {/* <p className='playlistForm-errors'>{ errors.title } </p> */}
         </div>
 

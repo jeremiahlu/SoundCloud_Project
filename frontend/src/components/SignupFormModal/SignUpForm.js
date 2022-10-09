@@ -110,6 +110,7 @@ function SignupFormPage({ LoginFormModal }) {
           required
           placeholder="Your first name"
           className='signup-input'
+          pattern='^(?!\s*$).+'
           />
           <p className='signup-errors'> { errors.firstName } </p>
       <label className='verification'>
@@ -122,6 +123,7 @@ function SignupFormPage({ LoginFormModal }) {
           required
           placeholder="Your last name"
           className='signup-input'
+          pattern='^(?!\s*$).+'
         />
              <p className='signup-errors'> { errors.lastName } </p>
       <label className='verification'>
@@ -134,6 +136,7 @@ function SignupFormPage({ LoginFormModal }) {
           required
           placeholder="Your email address"
           className='signup-input'
+          // pattern='^(?!\s*$).+'
         />
              <p className='signup-errors'> { errors.email } </p>
       <label className='verification'>
@@ -146,6 +149,7 @@ function SignupFormPage({ LoginFormModal }) {
           required
           placeholder="Your username"
           className='signup-input'
+          pattern='^(?!\s*$).+'
         />
              <p className='signup-errors'> { errors.username } </p>
       <label className='verification'>
@@ -158,6 +162,7 @@ function SignupFormPage({ LoginFormModal }) {
           required
           placeholder="Choose your password"
           className='signup-input'
+          pattern='^(?!\s*$).+'
         />
              <p className='signup-errors'> { errors.password } </p>
       <label className='verification'>
@@ -170,6 +175,7 @@ function SignupFormPage({ LoginFormModal }) {
           required
           placeholder="Confirm your password"
           className='signup-input'
+          pattern='^(?!\s*$).+'
         />
         <p className='signup-errors'> {errors.confirmPW} </p>
           <div className='signup-form-fine-print'>

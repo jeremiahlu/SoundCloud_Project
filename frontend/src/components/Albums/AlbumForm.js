@@ -63,7 +63,8 @@ const AlbumForm = ({ formType, album }) => {
             onChange={(e) => setPreviewImage(e.target.value)}
             className='album-creator'
             required
-            placeholder='Insert image'/>
+            placeholder='Insert image'
+            pattern='^(?!\s*$).+'/>
         </div>
            {/* <p className='playlistForm-errors'>{ errors.imageUrl } </p> */}
         </div>
@@ -80,7 +81,8 @@ const AlbumForm = ({ formType, album }) => {
               onChange={(e) => setTitle(e.target.value)}
               className='album-creator'
               required
-              placeholder='Album Name'/>
+              placeholder='Album Name'
+              pattern='^(?!\s*$).+'/>
               {/* <p className='playlistForm-errors'>{ errors.title } </p> */}
         </div>
 

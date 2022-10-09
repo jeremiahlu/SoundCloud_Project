@@ -30,7 +30,7 @@ const SongForm = ({ formType, albums }) => {
     e.preventDefault();
 
     setTitle(title.trim())
-    setAlbumId(albumId.trim())
+    // setAlbumId(albumId.trim())
     setImageUrl(imageUrl.trim())
 
    const song = {
@@ -39,7 +39,7 @@ const SongForm = ({ formType, albums }) => {
       description,
       url,
       imageUrl,
-      albumId
+      albumId: albumId || null
     }
     let data;
     // const newSong = await dispatch(addSong(song));
@@ -97,7 +97,8 @@ const SongForm = ({ formType, albums }) => {
             onChange={(e) => setImageUrl(e.target.value)}
             className='song-creator'
             required
-            placeholder='Insert image'/>
+            placeholder='Insert image'
+            pattern='^(?!\s*$).+'/>
         </div>
            <p className='songForm-errors'>{ errors.imageUrl } </p>
         </div>
@@ -114,7 +115,9 @@ const SongForm = ({ formType, albums }) => {
               onChange={(e) => setTitle(e.target.value)}
               className='song-creator'
               required
-              placeholder='Title'/>
+              placeholder='Title'
+              pattern='^(?!\s*$).+'
+              />
               <p className='songForm-errors'>{ errors.title } </p>
         </div>
 
@@ -142,7 +145,8 @@ const SongForm = ({ formType, albums }) => {
             onChange={(e) => setUrl(e.target.value)}
             className='song-creator'
             required
-            placeholder='Insert audio url'/>
+            placeholder='Insert audio url'
+            />
             {/* /> */}
         </div>
             <p className='songForm-errors'> { errors.url } </p>
@@ -165,15 +169,17 @@ const SongForm = ({ formType, albums }) => {
           Album
           </p>  
         <div className='songForm-field'>
-        <input 
+        {/* <input 
             type='text'
             value={albumId}
             onChange={(e) => setAlbumId(e.target.value)}
             className='song-creator'
-            required
-            placeholder='Select Album id'/>
+            // required
+            placeholder='Optional'
+            pattern='^(?!\s*$).+'
+            /> */}
             {/* /> */}
-          {/* <select 
+          <select 
           type='text'
           value={albumId}
           onChange={(e) => setAlbumId(e.target.value)}
@@ -183,13 +189,16 @@ const SongForm = ({ formType, albums }) => {
               Select Album
             </option>  
           
-              { userAlbums.map(({title}) => ( 
+              { albums.map(({title}) => ( 
                 <option key={title}
                 value={title}> {title} </option>))}
-          </select> */}
+          </select>
 
-          <p className='songForm-errors'>{ errors.message } </p>
         </div>
+        { 
+          errors.albumId &&
+          <p className='songForm-errors'>{ errors.albumId } </p>
+        }
 
         <div className='songForm-submit-button-div'>
           <button className='songForm-submit-button' type='submit'>Save Changes</button>
