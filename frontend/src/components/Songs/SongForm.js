@@ -51,7 +51,6 @@ const SongForm = ({ formType }) => {
       imageUrl,
       albumId: albumId || null
     }
-    console.log('song', song)
     // const newSong = await dispatch(addSong(song));
  try {
    const newSong = await dispatch( formType === 'Create' ? addSong(song) : editSong(song))
