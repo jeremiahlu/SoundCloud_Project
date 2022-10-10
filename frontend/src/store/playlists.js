@@ -87,7 +87,7 @@ export const myPlaylists = ( id ) => async (dispatch) => {
     Playlists.forEach((playlist) => { obj[playlist.id] = playlist });
 
     dispatch(getMyPlaylists(obj))
-  }
+  } 
 }
 
 export const removePlaylist = (playlist) => async (dispatch) => {
