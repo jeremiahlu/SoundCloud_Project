@@ -14,6 +14,10 @@ const validateCreation = [
     .exists()
     .notEmpty()
     .withMessage('Song title is required'),
+    // check('imageUrl')
+    // .notEmpty()
+    // .withMessage('Invalid image input')
+    // ,
     handleValidationErrors
 ]
 const validateAlbumEdit = [
@@ -52,13 +56,13 @@ router.get('/:albumId', async (req, res, next) => {
 });
 
 // Create an Album 
-router.post('/', validateAlbumEdit, async (req, res, next) => {
-  const { title, description, imageUrl } = req.body;
+router.post('/', [validateAlbumEdit, validateCreation], async (req, res, next) => {
+  const { title, description, previewImage} = req.body;
   const newAlbum = await Album.create({
     userId: req.user.id,
     title,
     description,
-    previewImage: imageUrl
+    previewImage
   });
 
   res.json(newAlbum);

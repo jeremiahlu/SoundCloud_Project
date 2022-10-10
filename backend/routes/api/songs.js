@@ -15,12 +15,16 @@ const validateCreation = [
   check('url')
     .exists()
     .notEmpty()
-    .isURL()
+    .isURL({ require_tld: false })
     .withMessage('Audio is required'),
-  check('albumId')
-    .exists()
+  // check('albumId')
+    // .exists()
     // .notEmpty()
-    .withMessage("Album couldn't be found"),
+    // .isURL({ require_tld: false })
+    // .withMessage("Album couldn't be found"),
+  // check('previewImage')
+  //   .isURL()
+  //   .withMessage('Invalid image source'),
     handleValidationErrors
 ]
 const validateCommentCreation = [

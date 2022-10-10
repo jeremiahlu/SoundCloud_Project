@@ -10,7 +10,7 @@ const PlaylistInfo = () => {
   const history = useHistory();
   const { id } = useParams();
   const playlist = useSelector((state) => state.playlists[id])
-  console.log(playlist)
+  // console.log(playlist)
 
   // const [ fetchData, setFetchData ] = useState([]);
   // console.log(song)

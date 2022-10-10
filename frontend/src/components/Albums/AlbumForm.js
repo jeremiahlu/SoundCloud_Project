@@ -8,11 +8,11 @@ const AlbumForm = ({ formType, album }) => {
   const history = useHistory();
   const { id } = useParams();
 
-  // const [ name, setName ] = useState('');
   const [ previewImage, setPreviewImage ] = useState('');
   const [ userId, setUserId ] = useState('');
   const [ title, setTitle ] = useState('');
   const [ description, setDescription] = useState('');
+  const [ errors, setErrors ] = useState({})
 
   const albumSubmit = async (e) => {
     e.preventDefault();
@@ -25,13 +25,28 @@ const AlbumForm = ({ formType, album }) => {
     };
 
     // const newAlbum = await dispatch(createAlbum(form));
+    try {
+
      const newAlbum = await dispatch( formType === 'Create' ? createAlbum(form) : editAlbum(form))
-  //  console.log('here', newPlaylist)
+
      formType === 'Create' ?
     history.push(`/albums/${newAlbum.id}`):
     history.push(`/albums/${id}`)
+  } catch (res) {
+    // setErrors([])
+      const data = await res.json()
+      // const err = Object.values(data.errors)
+      const err = data.errors
+      // console.log('data', data)
+      // console.log('errors', err)
+      if (data && data.message) setErrors(err)
+      // console.log('errors', errors) 
+  
+      // console.log('here', errors.albumId)
+      // return (data.errors.url)
+   }
   }
-    // console.log(playlist)
+
   return (
     <div className='album-div'>
       <form className='albumForm-container' onSubmit={albumSubmit}>
@@ -40,14 +55,13 @@ const AlbumForm = ({ formType, album }) => {
               { formType } Album
       </p>
 
-      {/* <div className='create-errors'>
+      <div className='createPlaylist-errors'>
           {errors && (
             <h2>
-              {errors.message}
-              {console.log('data', errors)}
+              {errors?.message}
             </h2>
           )}
-      </div> */}
+        </div>
       <div className='albumForm-detail'>
 
       <div className='albumImage-div'>
@@ -64,9 +78,9 @@ const AlbumForm = ({ formType, album }) => {
             className='album-creator'
             required
             placeholder='Insert image'
-            pattern='^(?!\s*$).+'/>
+            pattern='https://.*'/>
         </div>
-           {/* <p className='playlistForm-errors'>{ errors.imageUrl } </p> */}
+           <p className='playlistForm-errors'>{ errors?.previewImage } </p>
         </div>
 
         <div className='albumForm-info-div'> 
@@ -83,7 +97,7 @@ const AlbumForm = ({ formType, album }) => {
               required
               placeholder='Album Name'
               pattern='^(?!\s*$).+'/>
-              {/* <p className='playlistForm-errors'>{ errors.title } </p> */}
+              <p className='playlistForm-errors'>{ errors.title } </p>
         </div>
 
         <div className='albumForm-info-div'> 
@@ -102,19 +116,6 @@ const AlbumForm = ({ formType, album }) => {
               {/* <p className='playlistForm-errors'>{ errors.title } </p> */}
         </div>
         </div>
-
-        {/* <div className='playlistForm-field'>
-
-<label>
-Image Url
-</label>  
-<input 
-type='text'
-value={imageUrl}
-onChange={(e) => setImageUrl(e.target.value)}
-className='playlist-creator'
-required/>
-</div> */}
       
       <div className='albumForm-submit-button-div'>
         <button className='albumForm-submit-button' type='submit'>Save Changes</button>

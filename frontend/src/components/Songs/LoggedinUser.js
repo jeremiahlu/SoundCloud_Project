@@ -7,7 +7,6 @@ import { mySongs } from '../../store/songs';
 const MySongs = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
-  // console.log('user id', id)
   // const history = useHistory();
   // const [ fetchData, setFetchData ] = useState([]);
   
@@ -24,7 +23,6 @@ const MySongs = () => {
     
   // const dataFetch = async () => {
   //   const res = await fetch(mySongs(id))
-  //   console.log('res', res)
   //   const data = await res.json();
 
   //   setFetchData(data)
@@ -36,9 +34,7 @@ const MySongs = () => {
   // }, [])
 
   const songState = useSelector((state) => state.songs);
-  // console.log('here', state.songs)
   const songs = Object.values(songState);
-  // console.log('here', state)
 
   return (
     // songs && ( 

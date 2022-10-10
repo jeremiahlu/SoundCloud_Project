@@ -1,8 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
 
 const PlaylistIndexItem = ({ playlist }) => {
-  console.log(playlist)
+  // const [ imgSrc, setImgSrc ] = useState('Invalid Image Source')
+  // const [imageUrl, setImageUrl ] = useState('')
+  // console.log('here', playlist)
   return (
     // <div className='playlistImg'>
     //   <li className='playlist-name'>
@@ -10,13 +13,13 @@ const PlaylistIndexItem = ({ playlist }) => {
     //   </li>
     //   <img className='img' src={playlist.imageUrl} alt='playlist image'/>
     // </div>
-
     <div className='audio-container'>
+      
       <div className='playlist-card'>
-
+   
         <div className='cover-art'>
             <div className='playlistImg-box'> 
-              <img className='img' src={playlist.previewImage} alt='playlist'/>
+              <img className='img' src={playlist.previewImage || 'https://img.youtube.com/vi/dQw4w9WgXcQ/hqdefault.jpg'} alt='playlist'/>
             </div>
             {/* <div className='description-container'> */}
               {/* <p className='description-text'>

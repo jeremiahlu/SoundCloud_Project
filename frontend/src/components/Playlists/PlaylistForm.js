@@ -9,7 +9,9 @@ const PlaylistForm = ({ formType, playlist }) => {
   const { id } = useParams();
 
   const [ name, setName ] = useState('');
-  const [ imageUrl, setImageUrl ] = useState('');
+  const [ previewImage, setPreviewImage ] = useState('');
+  // const [ imageUrl, setImageUrl ] = useState('')
+  const [ errors, setErrors ] = useState({})
 
   const playlistSubmit = async (e) => {
     e.preventDefault();
@@ -17,15 +19,30 @@ const PlaylistForm = ({ formType, playlist }) => {
       id,
       // userId,
       name,
-      imageUrl
+      previewImage
     }
 
     // const newSong = await dispatch(addSong(song));
-     const newPlaylist = await dispatch( formType === 'Create' ? addPlaylist(form) : editPlaylist(form))
-  //  console.log('here', newPlaylist)
-     formType === 'Create' ?
-    history.push(`/playlists/${newPlaylist.id}`):
-    history.push(`/playlists/${id}`)
+    try {
+
+      const newPlaylist = await dispatch( formType === 'Create' ? addPlaylist(form) : editPlaylist(form))
+      //  console.log('here', newPlaylist)
+      formType === 'Create' ?
+      history.push(`/playlists/${newPlaylist.id}`):
+      history.push(`/playlists/${id}`)
+    } catch (res) {
+      // setErrors([])
+        const data = await res.json()
+        // const err = Object.values(data.errors)
+        const err = data.errors
+        // console.log('data', data)
+        // console.log('errors', err)
+        if (data && data.message) setErrors(err)
+        // console.log('errors', errors) 
+    
+        // console.log('here', errors.albumId)
+        // return (data.errors.url)
+     }
   }
     // console.log(playlist)
   return (
@@ -36,14 +53,14 @@ const PlaylistForm = ({ formType, playlist }) => {
               { formType } Playlist
       </p>
 
-      {/* <div className='create-errors'>
+       <div className='createPlaylist-errors'>
           {errors && (
             <h2>
-              {errors.message}
-              {console.log('data', errors)}
+              {errors?.message}
+              {/* {console.log('data', errors)} */}
             </h2>
           )}
-      </div> */}
+        </div>
       <div className='playlistForm-detail'>
 
       <div className='playlistImage-div'>
@@ -55,15 +72,18 @@ const PlaylistForm = ({ formType, playlist }) => {
         <div className='playlistForm-field'>
           <input 
             type='text'
-            value={imageUrl}
-            onChange={(e) => setImageUrl(e.target.value)}
+            value={previewImage}
+            onChange={(e) => setPreviewImage(e.target.value)}
             className='playlist-creator'
             required
-            placeholder='Insert image'
-            pattern='^(?!\s*$).+'/>
+            placeholder='Insert image (example: "https://...") '
+            pattern='https://.*'/>
         </div>
-           {/* <p className='playlistForm-errors'>{ errors.imageUrl } </p> */}
+           <p className='playlistForm-errors'>{ errors?.previewImage } </p>
         </div>
+        {/* {
+          setImageUrl[playlist?.previewImage]
+        } */}
 
         <div className='playlistForm-info-div'> 
 
@@ -79,7 +99,7 @@ const PlaylistForm = ({ formType, playlist }) => {
               required
               placeholder='Playlist Name'
               pattern='^(?!\s*$).+'/>
-              {/* <p className='playlistForm-errors'>{ errors.title } </p> */}
+              <p className='playlistForm-errors'>{ errors.name } </p>
         </div>
 
         {/* <div className='playlistForm-field'>

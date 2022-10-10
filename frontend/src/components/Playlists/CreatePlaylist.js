@@ -9,7 +9,7 @@ const CreatePlaylistForm = () => {
     userId:'',
     id: {id},
     name:'',
-    imageUrl:'',
+    // imageUrl:'',
     previewImage:''
   };
 

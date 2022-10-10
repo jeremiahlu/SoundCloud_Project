@@ -11,15 +11,19 @@ const validateCreation = [
     .exists()
     .notEmpty()
     .withMessage('Playlist name is required'),
+    // check('previewImage')
+    // .notEmpty()
+    // .isURL({ require_tld: false })
+    // .withMessage('Insert valid image type'),
     handleValidationErrors
 ]
 //Create a Playlist(imgurl:null)
 router.post('/', [ validateCreation, requireAuth ] , async (req, res, next) => {
-  const { name, imageUrl } = req.body;
+  const { name, previewImage } = req.body;
   const newPlaylist = await Playlist.create({
     userId: req.user.id,
     name,
-    previewImage: imageUrl
+    previewImage
   })
   res.json(newPlaylist)
 });
@@ -53,7 +57,7 @@ router.post('/:playlistId/songs',  requireAuth , async (req, res, next) => {
   
   await findPlaylist.addSong(findSong);
 
-  console.log("HERE", findSong)
+  // console.log("HERE", findSong)
 
   const inPlaylist = await PlaylistSong.findOne({ where: {
     songId,
@@ -92,6 +96,7 @@ router.patch('/:playlistId', validateCreation, async (req, res, next) => {
   const {
     name,
     imageUrl
+    // previewImage
   } = req.body;
 
   const playlist = await Playlist.findByPk(playlistId);

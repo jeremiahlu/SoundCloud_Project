@@ -26,7 +26,7 @@ const Footer = () => {
 
 
       <div className='about-me'>
-          <li>About</li>
+          <p>About</p>
 
           <a href="https://www.linkedin.com/in/jeremiah-lu/" target='_blank'>
               LinkedIn

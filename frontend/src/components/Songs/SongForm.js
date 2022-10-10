@@ -5,6 +5,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import { myAlbums } from '../../store/albums';
 import * as sessionActions from '../../store/session';
 
+
 const SongForm = ({ formType }) => {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -15,8 +16,6 @@ const SongForm = ({ formType }) => {
 
   const albums = useSelector((state) => Object.values(state.albums));
   const sessionUser = useSelector(state => state.session.user);
-  console.log(albums)
-
 
   useEffect(() => {
     const fetchUserAlbum= async () => {
@@ -36,8 +35,6 @@ const SongForm = ({ formType }) => {
   //   (state) => state.session.user);
   // const isOwner = owner.id === album?.userId;
   // // const userAlbums = owner.albums[id];
-  // console.log('owner', owner)
-  // console.log('here', album)
 
   const songSubmit = async (e) => {
     e.preventDefault();
@@ -54,11 +51,9 @@ const SongForm = ({ formType }) => {
       imageUrl,
       albumId: albumId || null
     }
-    let data;
     // const newSong = await dispatch(addSong(song));
  try {
    const newSong = await dispatch( formType === 'Create' ? addSong(song) : editSong(song))
-   // console.log(newSong)
    
    formType === 'Create' ?
    history.push(`/songs/${newSong.id}`):
@@ -69,12 +64,9 @@ const SongForm = ({ formType }) => {
       const data = await res.json()
       // const err = Object.values(data.errors)
       const err = data.errors
-      // console.log('data', data)
-      // console.log('errors', err)
+      
       if (data && data.message) setErrors(err)
-      // console.log('errors', errors) 
-  
-      // console.log('here', errors.albumId)
+   
       // return (data.errors.url)
    }
   }   
@@ -90,7 +82,7 @@ const SongForm = ({ formType }) => {
           {errors && (
             <h2>
               {errors?.message}
-              {/* {console.log('data', errors)} */}
+            
             </h2>
           )}
         </div>
@@ -110,10 +102,10 @@ const SongForm = ({ formType }) => {
             onChange={(e) => setImageUrl(e.target.value)}
             className='song-creator'
             required
-            placeholder='Insert image'
-            pattern='^(?!\s*$).+'/>
+            placeholder='Insert image (example: "https://...") '
+            pattern='https://.*'/>
         </div>
-           <p className='songForm-errors'>{ errors?.imageUrl } </p>
+           <p className='songForm-errors'>{ errors?.previewImage } </p>
         </div>
       
         <div className='songForm-info-div'> 
@@ -158,7 +150,8 @@ const SongForm = ({ formType }) => {
             onChange={(e) => setUrl(e.target.value)}
             className='song-creator'
             required
-            placeholder='Insert audio url'
+            pattern='https://.*'
+            placeholder='Insert audio (example: "https://...")'
             />
             {/* /> */}
         </div>
@@ -191,7 +184,8 @@ const SongForm = ({ formType }) => {
             placeholder='Optional'
             pattern='^(?!\s*$).+'
             /> */}
-            {/* /> */}
+          
+  
           <select 
           // type='text'
           value={albumId}
@@ -205,19 +199,19 @@ const SongForm = ({ formType }) => {
             <option value=''>
               N/A
             </option>
-            {/* <option value={title}> */}
+            {
+              console.log('albums', albums)
+            }
               {
                 albums?.map(({title}) => ( 
-                  <option key={title}
+                  <option key={id}
                   value={title}> {title} </option>))
                }
-            {/* </option> */}
-
           </select>
 
         </div>
         { 
-          errors?.albumId &&
+          // errors?.albumId &&
           <p className='songForm-errors'>{ errors?.albumId } </p>
         }
 

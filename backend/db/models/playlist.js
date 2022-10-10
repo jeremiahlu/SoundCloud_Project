@@ -31,9 +31,9 @@ module.exports = (sequelize, DataTypes) => {
     name: {
       type: DataTypes.STRING,
     },
-    imageUrl: {
-      type: DataTypes.STRING
-    },
+    // imageUrl: {
+    //   type: DataTypes.STRING
+    // },
     previewImage: {
       type: DataTypes.STRING
     }
@@ -42,11 +42,11 @@ module.exports = (sequelize, DataTypes) => {
     modelName: 'Playlist',
     // freezeTableName: true,
 
-    defaultScope: {
-      attributes: {
-        exclude: ['imageUrl']
-      }
-    }
+    // defaultScope: {
+    //   attributes: {
+    //     exclude: ['imageUrl']
+    //   }
+    // }
     
   });
   return Playlist;

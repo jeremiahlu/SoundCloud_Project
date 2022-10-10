@@ -7,7 +7,8 @@ const AlbumIndexItem = ({ album }) => {
        
         <div className='album-cover-card'>
             <div className='albumImg-box'> 
-              <img className='album-img' src={album?.previewImage} alt='album'/>
+            
+                <img className='albumImage' src={album?.previewImage || 'https://img.youtube.com/vi/dQw4w9WgXcQ/hqdefault.jpg'} alt='album'/>
             </div>
             <Link className='album-link' to={`/albums/${album.id}`}>{album.title}</Link>
         </div>
