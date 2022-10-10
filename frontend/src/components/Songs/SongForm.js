@@ -28,7 +28,7 @@ const SongForm = ({ formType }) => {
   const [ description, setDescription ] = useState('');
   const [ url, setUrl ] = useState('');
   const [ imageUrl, setImageUrl ] = useState('');
-  const [ albumId, setAlbumId ] = useState('');
+  const [ albumId, setAlbumId ] = useState(null);
   const [ errors, setErrors ] = useState({});
 
   // const owner = useSelector(

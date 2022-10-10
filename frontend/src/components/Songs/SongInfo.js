@@ -60,7 +60,7 @@ const SongInfo = () => {
 
         <div className='songDetail'>
           
-          <img className='songImage' src={song.previewImage} alt='song image'/>
+          <img className='songImage' src={song.previewImage || song.url} alt='song image'/>
 
           <div className='song-info-div'>
             

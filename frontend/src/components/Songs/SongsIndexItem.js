@@ -18,7 +18,8 @@ const SongsIndexItem = ({ song }) => {
 
         <div className='cover-art'>
             <div className='songImg-box'> 
-              <img className='img' src={song.previewImage} alt='song'/>
+            {console.log(song)}
+              <img className='img' src={song.previewImage || song.url} alt='song'/>
             </div>
             <div className='description-container'>
               {/* <p className='description-text'>

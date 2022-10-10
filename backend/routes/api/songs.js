@@ -116,7 +116,7 @@ router.patch('/:id', requireAuth, validateCreation, restoreUser, async (req, res
     previewImage: imageUrl,
     albumId
   } = req.body;
-  console.log('here', req.body)
+  // console.log('here', req.body)
   
   const song = await Song.findByPk(id);
 
