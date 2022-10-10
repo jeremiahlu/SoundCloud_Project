@@ -72,7 +72,7 @@ router.post('/', [validateAlbumEdit, validateCreation], async (req, res, next) =
 router.patch('/:albumId', [validateAlbumEdit, requireAuth, restoreUser],  async (req, res, next) => {
   const { albumId } = req.params;
   const {
-    title, description, imageUrl } = req.body;
+    title, description, previewImage } = req.body;
 
   const findAlbum = await Album.findByPk(albumId);
   
@@ -91,7 +91,7 @@ router.patch('/:albumId', [validateAlbumEdit, requireAuth, restoreUser],  async 
     await findAlbum.update({
       title,
       description,
-      previewImage: imageUrl
+      previewImage
     })
     
     res.json(findAlbum);

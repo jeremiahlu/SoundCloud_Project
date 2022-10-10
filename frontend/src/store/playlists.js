@@ -41,9 +41,9 @@ const getPlaylistId = (playlist) => ({
 
 export const getPlaylists = (id) => async (dispatch) => {
   const res = await csrfFetch(`/api/users/${id}/playlists`);
-  // console.log('here', res)
+
   const { Playlists } = await res.json();
-  // console.log('here', Songs)
+  
    
   if (res.ok) {
     const data = {}

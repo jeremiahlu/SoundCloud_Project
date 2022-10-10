@@ -89,8 +89,7 @@ export const myAlbums = ( id ) => async (dispatch) => {
 }
 
 export const removeAlbums = (album) => async (dispatch) => {
-  // console.log('song', song)
-  // console.log('here', song.id)
+ 
   const res = await csrfFetch(`/api/albums/${album.id}`, {
     method: 'DELETE',
   })
@@ -102,11 +101,11 @@ export const removeAlbums = (album) => async (dispatch) => {
   }
 }
 
-export const fetchAlbumById = (id) => async (dispatch) => {
-  console.log('here')
-  const res =  await csrfFetch(`/api/albums/${id}`)
+export const fetchAlbumById = (album) => async (dispatch) => {
+  const res =  await csrfFetch(`/api/albums/${album.id}`, {
+    method: 'GET',
+  })
   const data = await res.json();
-  console.log('data', data)
 
   if(res.ok) {
     dispatch(getAlbumById(data))
@@ -127,6 +126,7 @@ const albumReducer = ( state = {}, action ) => {
         return newState;
 
     case UPDATE:
+      {console.log('here', action.album)}
       newState = { ...state, [action.album.id]: action.album
       }
       return newState;
@@ -134,7 +134,16 @@ const albumReducer = ( state = {}, action ) => {
     case GET:
       return { ...action.albums}
   
-      // return {
+    case GETID:
+      return {
+        ...state, [action.album.id] : {...state[action.album.id], ...action.album}
+      }
+
+    case DELETE: 
+    delete newState[action.album.id]
+    return newState
+
+     // return {
       //   ...state, 
       //   [action.album.id] : {...state[action.album.id], ...action.album}
       // }
@@ -147,10 +156,6 @@ const albumReducer = ( state = {}, action ) => {
     //   newState[action.album.id] = action.album
       
     //   return newState;
-
-    case DELETE: 
-    delete newState[action.album.id]
-    return newState
 
     default: 
     return state;

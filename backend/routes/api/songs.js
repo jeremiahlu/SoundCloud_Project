@@ -82,8 +82,9 @@ router.get('/:id', async (req, res, next) => {
 router.post('/', validateCreation, async (req, res, next) => {
   const { title, description, url, imageUrl, albumId } = req.body;
   
-  const findAlbum = await Song.findOne({where: {albumId: req.body.albumId} })
-
+  console.log('findalbum', albumId)
+  // console.log('Song in backend', req.body)
+  const findAlbum = await Song.findOne({where: {albumId} })
   if (!findAlbum && req.body.albumId !== null) {
     const err = new Error("Album couldn't be found");
     err.status = 404

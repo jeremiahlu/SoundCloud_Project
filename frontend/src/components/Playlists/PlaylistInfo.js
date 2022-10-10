@@ -32,7 +32,6 @@ const PlaylistInfo = () => {
     (async () => {
       try {
         await dispatch(fetchPlaylistById({id}))
-        // console.log('err', id)
       } catch (err) {
       }
     })()

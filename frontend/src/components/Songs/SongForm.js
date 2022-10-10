@@ -44,13 +44,14 @@ const SongForm = ({ formType }) => {
     setImageUrl(imageUrl.trim())
 
    const song = {
-      id,
+      // id,
       title,
       description,
       url,
       imageUrl,
       albumId: albumId || null
     }
+    console.log('song', song)
     // const newSong = await dispatch(addSong(song));
  try {
    const newSong = await dispatch( formType === 'Create' ? addSong(song) : editSong(song))
@@ -189,7 +190,7 @@ const SongForm = ({ formType }) => {
           <select 
           // type='text'
           value={albumId}
-          onChange={(e) => setAlbumId(e.target.value || null)}
+          onChange={(e) => setAlbumId(e.target.value)}
           className='song-creator select-dropdown'
           required
           >
@@ -199,13 +200,14 @@ const SongForm = ({ formType }) => {
             <option value=''>
               N/A
             </option>
-            {/* {
-              console.log('albums', albums)
-            } */}
+         
               {  
-                albums?.map(({title}) => ( 
-                  <option key={id}
-                  value={title}> {title} </option>))
+                albums?.map((album) => (
+                    <option key={album.id}
+                    value={album.id}>
+                      {album.title}
+                    </option>
+                  ))
                }
           </select>
 

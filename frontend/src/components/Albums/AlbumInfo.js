@@ -15,11 +15,19 @@ const AlbumInfo = () => {
     }
     getAlbums()
   }, [])
+    // useEffect(() => {
+    //   (async () => {
+    //     try {
+    //       await dispatch(fetchAlbumById(album?.id))
+    //     } catch (err) {
+    //     }
+    //   })()
+    // }, [dispatch, album])
+
   
  const owner = useSelector(
   (state) => state.session.user);
  const isOwner = owner.id === album?.userId
-  // console.log('owner', owner)
 
   const addSong = () => {
     return (
@@ -34,18 +42,13 @@ const AlbumInfo = () => {
   }
 
   const deleteAlbumsSubmit = async () => {
-    // const userId = playlist.userId
-    // console.log('playlist', playlist)
+  
     try {
-      // console.log('here', userId)
       await dispatch(removeAlbums(album));
-      // console.log('here', userId)
       history.push(`/users/${owner.id}/albums`)
     } catch (err) {
-        // console.log(err)
     }
   }
-// console.log('playlist', playlist)
   return (
   
     album && (
@@ -64,7 +67,7 @@ const AlbumInfo = () => {
         <div className='albumsDetail'>
 
           <div className='album-top-div'>
-          <img className='albumImage' src={album.previewImage} alt='album image'/>
+          <img className='albumImage' src={album?.previewImage} alt='album image'/>
           {/* {isOwner && (
               <div className='album-addsong-div'>
                 <button onClick={addSong} className='album-add-song'>
@@ -98,12 +101,12 @@ const AlbumInfo = () => {
             { album.userId }
             </div>
             
-            {/* <p className='playlist-info-text'>
+            <p className='playlist-info-text'>
               Description
-            </p> */}
-            {/* <input className='song-info-description'>
-            { song.description }
-            </input> */}
+            </p> 
+            <div className='album-info'>
+            { album.description }
+            </div> 
             
           </div>
         </div>
