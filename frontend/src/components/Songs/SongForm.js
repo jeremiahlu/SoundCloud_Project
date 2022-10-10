@@ -199,10 +199,10 @@ const SongForm = ({ formType }) => {
             <option value=''>
               N/A
             </option>
-            {
+            {/* {
               console.log('albums', albums)
-            }
-              {
+            } */}
+              {  
                 albums?.map(({title}) => ( 
                   <option key={id}
                   value={title}> {title} </option>))
