@@ -68,8 +68,9 @@ export const addSong = (song) => async (dispatch) => {
   }
 }
 
-export const editSong = (song) => async (dispatch) => {
-  const res = await csrfFetch(`/api/songs/${song.id}`, {
+export const editSong = (song, songId) => async (dispatch) => {
+  console.log('song', song)
+  const res = await csrfFetch(`/api/songs/${songId}`, {
     method: 'PATCH',
     body: JSON.stringify(song),
   });

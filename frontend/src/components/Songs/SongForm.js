@@ -28,7 +28,7 @@ const SongForm = ({ formType }) => {
   const [ description, setDescription ] = useState('');
   const [ url, setUrl ] = useState('');
   const [ imageUrl, setImageUrl ] = useState('');
-  const [ albumId, setAlbumId ] = useState(null);
+  const [ albumId, setAlbumId ] = useState('');
   const [ errors, setErrors ] = useState({});
 
   // const owner = useSelector(
@@ -48,12 +48,12 @@ const SongForm = ({ formType }) => {
       title,
       description,
       url,
-      imageUrl,
+      previewImage: imageUrl,
       albumId: albumId || null
     }
     // const newSong = await dispatch(addSong(song));
  try {
-   const newSong = await dispatch( formType === 'Create' ? addSong(song) : editSong(song))
+   const newSong = await dispatch( formType === 'Create' ? addSong(song) : editSong(song, id))
    
    formType === 'Create' ?
    history.push(`/songs/${newSong.id}`):

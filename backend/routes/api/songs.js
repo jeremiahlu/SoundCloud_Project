@@ -113,9 +113,10 @@ router.patch('/:id', requireAuth, validateCreation, restoreUser, async (req, res
     title,
     description,
     url,
-    imageUrl,
+    previewImage: imageUrl,
     albumId
   } = req.body;
+  console.log('here', req.body)
   
   const song = await Song.findByPk(id);
 
@@ -136,11 +137,10 @@ router.patch('/:id', requireAuth, validateCreation, restoreUser, async (req, res
 
 
   await song.update({
-
     title: title, 
     description: description,
     url: url,
-    previewImage: imageUrl,
+    previewImage : imageUrl,
     albumId: albumId
   })
   res.json(song)
