@@ -95,8 +95,8 @@ router.patch('/:playlistId', validateCreation, async (req, res, next) => {
 
   const {
     name,
-    imageUrl
-    // previewImage
+    // imageUrl
+    previewImage
   } = req.body;
 
   const playlist = await Playlist.findByPk(playlistId);
@@ -116,7 +116,8 @@ router.patch('/:playlistId', validateCreation, async (req, res, next) => {
 
   await playlist.update({
     name: name,
-    previewImage: imageUrl
+    // previewImage: imageUrl
+    previewImage
   })
 
   res.json(playlist)

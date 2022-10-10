@@ -191,7 +191,7 @@ router.get('/:id/playlists', async (req, res, next) => {
   const artist = await User.findByPk(id, {
     attributes: [],
     include: [
-      { model: Playlist, attributes: ['id','userId', 'name', 'createdAt', 'updatedAt', ['imageUrl', 'previewImage']] }
+      { model: Playlist, attributes: ['id','userId', 'name', 'createdAt', 'updatedAt', 'previewImage'] }
     ]
   })
   if (!artist) {
@@ -209,7 +209,7 @@ router.get('/:id/playlists', async (req, res, next) => {
   const artist = await User.findByPk(id, {
     attributes: [],
     include: [
-      { model: Playlist, attributes: ['id','userId', 'name', 'createdAt', 'updatedAt', ['imageUrl', 'previewImage']]}
+      { model: Playlist, attributes: ['id','userId', 'name', 'createdAt', 'updatedAt', 'previewImage']}
     ]
   })
   if (!artist) {
