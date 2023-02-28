@@ -41,6 +41,7 @@ A clone of the world's largest music and audio platform. Users can discover and 
 
 ## Preview
 
+Landing page
 ![Screen Shot 2022-10-09 at 19 01 41 PM](https://user-images.githubusercontent.com/96208179/194783543-c7c2c3ba-eedb-4995-93da-7cf21a20b03c.png)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
