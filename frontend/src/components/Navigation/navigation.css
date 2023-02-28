@@ -1,0 +1,227 @@
+.navbar {
+  /* display: flex; */
+  position: fixed;
+  background-color: rgb(80, 80, 80);
+  height: 50px;
+  width: 100%;
+  z-index: 100;
+  top: 0%;
+}
+
+.navbar > ul {
+  display: flex;
+  /* position: absolute; */
+  margin: 0;
+  top: 0%;
+  /* align-items: center; */
+  height: 50px;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.loginSignup {
+  display: flex;
+  justify-content: space-between;
+}
+
+.userInfoLinks {
+  color: #111111;
+}
+
+.logOutButton {
+  display: flex;
+  justify-content: space-between;
+}
+
+.fa-solid fa-right-from-bracket {
+  display: flex;
+  padding: 10px;
+}
+
+li,
+i:hover {
+  cursor: pointer;
+}
+
+.homeLink {
+  display: flex;
+  background-color: #ff5518;
+  color: black;
+  height: 90%;
+}
+
+.fa-house-chimney {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+}
+
+.homeButton {
+  background-color: rgb(238, 78, 51);
+  height: 100%;
+  width: 200px;
+  padding-top: 0px;
+  padding-right: 0px;
+  padding-left: 0px;
+  padding-bottom: 0px;
+}
+
+.navtab {
+  display: flex;
+}
+
+.navTabDiv {
+  padding: 0;
+}
+
+.exploreUpload-links {
+  display: flex;
+  /* align-items: center; */
+  /* padding-top: 10px; */
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  font-size: 13px;
+
+  /* height: 100%; */
+}
+
+.active {
+  position: sticky;
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  text-decoration: none;
+  color: rgb(221, 215, 215);
+  /* background-color: #000000; */
+}
+
+.active:not(:active) {
+  background-color: #000000;
+}
+
+.albumsTab,
+.songsTab,
+.uploadTab {
+  position: sticky;
+  display: flex;
+  align-items: center;
+  padding: 0 15px;
+  text-decoration: none;
+  color: rgb(221, 215, 215);
+  /* border-right: 1px solid #999; */
+}
+
+.navtab-albums {
+  position: sticky;
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  border-right: 1px solid #999;
+}
+
+.explore {
+  position: sticky;
+  display: flex;
+  align-items: center;
+  padding: 10px 10px;
+  border-right: 1px solid #999;
+}
+
+.upload {
+  position: sticky;
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+}
+
+.dropDownMenu {
+  z-index: 110;
+  color: #111111;
+  border: 1px solid #999;
+  background-color: rgba(255, 255, 255);
+  border-radius: 3px;
+  margin-top: 1px;
+}
+
+.signedin {
+  display: flex;
+}
+
+.profileButton {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* background-color: #4d4949; */
+  height: 48px;
+  width: 175px;
+  padding: 15px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.userInitials {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-text {
+  color: #ddd7d7;
+  font-size: 14px;
+}
+
+.userInitials {
+  /* border: 1px solid red; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #be766f;
+  color: white;
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+}
+
+.userInitials:hover {
+  cursor: pointer;
+}
+
+.userInfo {
+  /* border-bottom: 1px solid black; */
+  width: 100%;
+  padding: 7px;
+  color: #111111;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+}
+div .links {
+  display: block;
+  /* border: 1px solid red; */
+  padding-left: 0;
+  width: 165px;
+}
+/* 
+.navbar a {
+  text-decoration: none;
+  color: rgb(221, 215, 215);
+} */
+
+.userInfo:hover {
+  background-color: #c5c0c0;
+  color: #111111;
+}
+
+.login-signup-div {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+a.homeLink {
+  display: flex;
+  justify-content: center;
+}
+
+.profileButton-div {
+  color: 1px solid red;
+}

@@ -51,6 +51,19 @@ module.exports = (sequelize, DataTypes) => {
 
     static associate(models) {
       // define association here
+      User.hasMany(
+        models.Playlist, {foreignKey: 'userId'}
+      )
+      User.hasMany(
+        models.Comment, {foreignKey: 'userId', onDelete: 'CASCADE'}
+      )
+      User.hasMany(
+        models.Song, {foreignKey: 'userId', onDelete: 'CASCADE'}
+      )
+      User.hasMany(
+        models.Album, {foreignKey: 'userId', onDelete: 'CASCADE'}
+      )
+      
     }
   }
   User.init({
@@ -86,21 +99,22 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING.BINARY,
       allowNull: false,
       validate: {
-        len: [60, 60]
+        len: [0, 60]
       }
-    }
+    },
+    previewImage: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'User',
 
     defaultScope: {
       attributes: {
-        exclude: [ "firstName", "lastName", "password", "email", "createdAt", "updatedAt" ]
+        exclude: [ "password", "createdAt", "updatedAt" ]
       }
     },
     scopes: {
       currentUser: {
-        attributes: { exclude: [ "firstName", "lastName","password", "email" ] }
+        attributes: { exclude: [ "password", "previewImage","createdAt", "updatedAt" ] }
       },
       loginUser: {
         attributes: {}

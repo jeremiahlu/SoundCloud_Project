@@ -1,0 +1,478 @@
+.album-div {
+  border: 1px solid black;
+  /* display: flex; */
+  /* flex-direction: column; */
+  height: 550px;
+  width: 90%;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 3px 2px 2px #999;
+}
+
+.albumForm-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* flex-wrap: nowrap; */
+  justify-content: space-between;
+  width: 80%;
+  height: 30px;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  font-size: 20px;
+  /* border-bottom: 2px solid #F95502; */
+  margin-top: 30px;
+}
+
+.albumForm-field {
+  display: flex;
+  margin: 20px;
+  /* border-top: 1px solid #999;
+  border-bottom: 1px solid #999; */
+}
+
+.albumFormDetail-basic-info {
+  display: flex;
+  align-items: center;
+  width: 700px;
+  margin-left: 125px;
+  /* flex-wrap: nowrap; */
+  padding-bottom: 15px;
+  justify-content: space-between;
+  height: 50px;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  font-size: 20px;
+  /* border: 2px solid yellow; */
+  /* margin-top: 15px; */
+  border-bottom: 2px solid #f95502;
+}
+
+.albumForm-detail {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* margin: 20px; */
+  margin-top: 25px;
+  margin-left: 135px;
+  border-top: 1px solid #999;
+  border-bottom: 1px solid #999;
+  /* border: 2px solid green; */
+}
+
+.album-creator {
+  width: 300px;
+  height: 30px;
+  border-radius: 3px;
+}
+
+.album-creator::placeholder {
+  padding: 3px;
+}
+
+.albumForm-info-div {
+  /* border: 3px solid blue; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* align-items: center; */
+  height: 350px;
+  padding-top: 50px;
+  margin: 15px;
+}
+
+.albumForm-image {
+  display: flex;
+  align-items: center;
+  height: 300px;
+  width: 300px;
+  padding-left: 25px;
+  padding-top: 30px;
+  padding-bottom: 10px;
+}
+
+.albumForm-submit-button-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* border: 2px solid yellow; */
+  margin-left: 20px;
+  /* position: inherit; */
+  height: 50px;
+  width: 300px;
+}
+
+.albumForm-submit-button {
+  height: 40px;
+  border-radius: 3px;
+  width: 200px;
+  color: white;
+  background-color: #f95502;
+}
+
+.allAlbumsList {
+  border: 1px solid black;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.albumForm-field {
+  /* border: 1px solid red; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 5px 0;
+  /* margin: 20px; */
+}
+
+.album-name {
+  display: flex;
+  justify-content: center;
+}
+
+.albumLink {
+  font-size: 25px;
+  padding-bottom: 5px;
+}
+
+.albumDetail-container {
+  border: 3px solid black;
+  display: flex;
+  flex-direction: column;
+  height: 500px;
+  padding: 20px;
+}
+
+.album-info {
+  border: 1px solid black;
+  display: flex;
+  padding: 5px;
+  margin: 10px;
+}
+
+.album-cover-card {
+  border: 1px solid #999;
+  height: 200px;
+  margin: 5px;
+  width: 200px;
+}
+
+.albumImg-box {
+  display: flex;
+  justify-content: center;
+}
+
+.album-img {
+  height: 200px;
+  width: 200px;
+}
+
+.album-info-text {
+  margin: 5px;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  font-size: 10px;
+}
+
+.imageUrl {
+  margin: 5px 5px 5px 0;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  font-size: 10px;
+}
+
+.album-top-div {
+  /* border: 3px solid blue; */
+  display: flex;
+  justify-content: space-between;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+.owner-action-div {
+  /* border: 1px solid blue; */
+  display: flex;
+  /* justify-content: space-between; */
+  align-items: center;
+}
+
+.album-owner-action-div {
+  /* border: 1px solid blue; */
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.album-addsong-div {
+  /* border: 3px solid red; */
+  display: flex;
+  align-items: center;
+  padding-right: 15px;
+}
+
+/* .album-editDel-buttons { */
+/* border: 4px solid yellow;
+} */
+
+.owner-playlists {
+  /* border: 1px solid yellow; */
+  display: flex;
+  justify-content: center;
+  margin: 15px;
+}
+
+.radio {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 10px;
+}
+
+.noAlbums-text {
+  /* border: 1px solid red; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-right: 5px;
+  font-size: 20px;
+}
+
+.newAlbum-link {
+  /* border: 1px solid red; */
+  display: flex;
+  margin-left: 15px;
+  padding-top: 10px;
+  justify-content: center;
+  align-items: center;
+}
+
+/* .upload-album {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: blue;
+  /* border: 1px solid green; */
+/* margin-left: 15px; */
+/* } */
+
+.albumDetail-container {
+  border: 1px solid black;
+  /* display: flex; */
+  /* flex-direction: column; */
+  height: 600px;
+  width: 80%;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 3px 2px 2px #999;
+}
+
+.albumDetail-basic-info {
+  display: flex;
+  align-items: center;
+  /* flex-wrap: nowrap; */
+  justify-content: space-between;
+  height: 50px;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  font-size: 20px;
+  border-bottom: 2px solid #f95502;
+}
+
+.album-info-div {
+  /* border-top: 1px solid #999;
+  border-bottom: 1px solid #999; */
+  width: 300px;
+  padding: 10px;
+}
+
+.albumImage {
+  display: flex;
+  align-items: center;
+  height: 200px;
+  width: 200px;
+}
+
+.backToExplore {
+  display: flex;
+  justify-content: center;
+  margin: 15px;
+  font-size: 15px;
+  color: #999;
+}
+
+.albumDetail {
+  display: flex;
+  margin: 20px;
+  border-top: 1px solid #999;
+  border-bottom: 1px solid #999;
+}
+
+.album-info-div {
+  /* border-top: 1px solid #999;
+  border-bottom: 1px solid #999; */
+  width: 300px;
+  padding: 10px;
+}
+
+.album-info-text {
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  font-size: 10px;
+  margin: 5px;
+}
+
+.allAlbums-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* border: 5px solid red; */
+  width: 100%;
+  height: 100%;
+  margin-top: 10px;
+}
+
+.allAlbums {
+  height: fit-content;
+}
+
+.allAlbumsList {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* border: 1px solid black; */
+  width: 100%;
+  /* margin-top: 1000px; */
+  /* padding-top: 500px; */
+  height: 100%;
+}
+
+.allAlbumsList li {
+  display: flex;
+  position: relative;
+  border-bottom: 1px solid black;
+  /* background: linear-gradient(135deg, rgb(159, 122, 123) 0%, rgb(91, 95, 91) 100%); */
+  /* margin-top:50px; */
+  top: 25;
+  width: 100%;
+  height: 30px;
+}
+
+.album-cover-card {
+  border: 1px solid #999;
+  margin-top: 20px;
+}
+
+.album-link {
+  /* border: 1px solid #999; */
+  display: flex;
+  width: 200px;
+  height: 40px;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  color: #999;
+  z-index: 90;
+  /* color: red; */
+}
+
+.album-link:hover {
+  cursor: pointer;
+}
+
+.album-link:hover {
+  cursor: pointer;
+}
+
+.upload-album {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* border: 10px solid yellow; */
+  width: 300px;
+  height: 30px;
+  margin-top: 20px;
+  /* margin-left: 80px; */
+  background-color: #f95502;
+  color: white;
+}
+
+.top-albums-container {
+  border: 10px solid yellow;
+}
+
+.editAlbumButton {
+  background-color: #f95502;
+  height: 30px;
+  width: 100px;
+  color: white;
+  margin-bottom: 10px;
+}
+
+.deleteAlbumButton {
+  background-color: #999;
+  color: white;
+  height: 30px;
+  width: 100px;
+  margin-bottom: 10px;
+}
+
+.album-add-song {
+  background-color: #999;
+  color: white;
+  height: 50px;
+  width: 150px;
+  margin-bottom: 10px;
+}
+
+.albums-sc-exclusives {
+  display: flex;
+  flex-direction: column;
+  /* border: 3px solid green; */
+  width: 100%;
+  height: 85px;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 25px;
+}
+
+.album-ff {
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  font-size: 30px;
+  padding-left: 10px;
+  padding-top: 15px;
+}
+
+.album-ff-secondary {
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  font-size: 13px;
+  color: #999;
+  padding: 10px;
+}
+
+.albums-container {
+  margin: 1rem;
+  position: relative;
+  display: flex;
+  overflow: hidden;
+  border: 2px solid #999;
+  width: 100%;
+  height: 300px;
+}
+
+.userAlbums-List {
+  width: 100%;
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  overflow: auto;
+  scroll-behavior: smooth;
+}
