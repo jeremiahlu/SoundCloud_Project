@@ -27,10 +27,10 @@ const SongsIndexItem = ({
   // console.log(audioRef, "AUDIOREF");
   // const artist = useSelector((state) => state.songs[id].Artist);
   // const [isPlaying, setIsPlaying] = useState(false);
-  const [selectedPlaylistId, setSelectedPlaylistId] = useState("");
   const [songId, setSongId] = useState("");
+  const [selectedPlaylistId, setSelectedPlaylistId] = useState("");
+  const [selectedPlaylist, setSelectedPlaylist] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
-  // const [audioReference, setAudioReference] = useState(null);
 
   const sessionUser = useSelector((state) => state.session.user);
   const userPlaylists = useSelector((state) => Object.values(state.playlists));
@@ -47,39 +47,18 @@ const SongsIndexItem = ({
     return dispatch(getAudio(audioFile));
   }
 
-  function pause(audioFile) {
-    // console.log("HIT");
-    return dispatch(pauseAudio(audioFile));
-  }
-
-  function handlePlayPause(song) {
-    const audioElement = audioRef.current;
-
-    if (!audioElement?.paused) {
-      audioElement?.pause();
-      setIsPlaying(false);
-    } else {
-      audioElement?.play();
-      setIsPlaying(true);
-      // player(song?.url);
-    }
-  }
-
-  const handleSelectChange = (e) => {
-    e.preventDefault();
-    // e.stopPropagation();
-    setSelectedPlaylistId(e.target.value);
-    // console.log(e, "E");
-    // e.target.form.submit();
-  };
-  // console.log(formRef, " FormRef");
+  // function pause(audioFile) {
+  //   // console.log("HIT");
+  //   return dispatch(pauseAudio(audioFile));
+  // }
 
   const handlePlaylistItemClick = (e, playlistId) => {
     // console.log(playlistId, "playlistidD142143124214");
     e.stopPropagation();
 
     dispatch(addSongToPlaylist(sessionUser.id, playlistId, song?.id));
-    // dispatch(myPlaylists(sessionUser.id));
+    setSelectedPlaylist(playlistId);
+    setIsOpen(false);
   };
 
   const handleSubmit = (e, song) => {
@@ -92,13 +71,7 @@ const SongsIndexItem = ({
         song?.id
       )
     );
-    // setIsOpen(!isOpen);
-    // dispatch(myPlaylists(sessionUser.id));
-    // return false;
   };
-  // const handleSongIdChange = (e) => {
-  //   setSongId(e.target.value);
-  // };
 
   useEffect(() => {
     setSelectedPlaylistId(null);
@@ -147,9 +120,7 @@ const SongsIndexItem = ({
           >
             {/* <audio ref={audioRef} src={song?.url} /> */}
             {/* <i className={`fa ${isPlaying && song ? "fa-pause" : "fa-play"}`} /> */}
-            {console.log(currentSong.id, "CS")}
-            {console.log(song.id, "SID")}
-            {console.log(!audioRef.current.audio.current.paused, "ARP")}
+
             <i
               className={`fa ${
                 currentSong?.id === song?.id &&
