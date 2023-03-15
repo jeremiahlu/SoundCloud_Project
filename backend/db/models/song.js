@@ -1,5 +1,5 @@
 "use strict";
-const { Data } = require("@react-google-maps/api");
+
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Song extends Model {
