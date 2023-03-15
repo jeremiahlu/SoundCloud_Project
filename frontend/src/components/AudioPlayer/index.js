@@ -22,116 +22,26 @@ import cloud from "./cloud.png";
 function Audio({ songs, setAudioElement }, props) {
   // const Audio = forwardRef((ref))
   const dispatch = useDispatch();
-  const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const { id } = useParams();
   const song = useSelector((state) => state.songs[id]);
   const songAudio = useSelector((state) => state.audio.song);
+  const playerStatus = useSelector((state) => state.audio.status);
   const [progress, setProgress] = useState(0);
   const [duration, setDuration] = useState(0);
-
-  // console.log(songAudio, "SONGAUDIO");
-  const [audioPlayer, setAudioPlayer] = useState("");
-
-  // const audioRef = useContext(AudioContext);
-  const audioRef = useRef(null);
+  const audioRef = useRef();
   console.log(audioRef.current, "audioREF");
 
   useEffect(() => {
-    if (audioRef && audioPlayer) {
-      audioRef.setAudioElement(audioPlayer.audio.current);
+    if (playerStatus === "error") {
+      console.error("Something went wrong with the AudioPlayer!!!!");
+    } else if (playerStatus === 'play' && audioRef.current.audio.current.paused) {
+      audioRef.current.audio.current.play();
+    } else if (playerStatus === 'pause' && !audioRef.current.audio.current.paused) {
+      audioRef.current.audio.current.pause();
     }
-  }, [audioRef, audioPlayer]);
+  }, [audioRef.current, playerStatus])
 
-  function player(audio) {
-    return dispatch(getAudio(audio));
-  }
-
-  const handleTest = () => {
-    const playButton =
-      audioRef.current.container.current.children[2].children[1].children[1]
-        .children[1];
-    playButton.click();
-  };
-
-  const playButton = useRef(
-    audioRef?.current?.container?.current?.children[2]?.children[1]?.children[1]
-      ?.children[1]
-  );
-
-  console.log(
-    audioRef?.current?.container?.current?.children[2]?.children[1]
-      ?.children[1],
-    "pause"
-  );
-  // console.log(audio, "UADIO");
-  // console.log(audioRef, "AUDIOREF");
-  // console.log(audioPlayer, "player");
-  // console.log(player, "PLAYER");
-
-  // console.log(song?.url, "SONGARSARASDA");
-
-  // function handlePlayPause(song) {
-  //   const audioElement = document.getElementById("audio");
-  //   if (!isPlaying) {
-  //     audioElement.play(song.url);
-  //     setIsPlaying(true);
-  //     player(song.url);
-  //     // console.log("audioEle", audioElement.play());
-  //   } else {
-  //     audioElement.pause(song.url);
-  //     // console.log("pause");
-  //     setIsPlaying(false);
-  //   }
-  // }
-  // const audioElement = document.getElementById("audio");
-  // console.log(audioRef.current, "HERE!!!!!!");
-  // console.log("hit second");
-  function handlePlayPause(song) {
-    const audioElement = document.getElementById("audio");
-    // console.log(audioElement, "HERE!!!!!!");
-
-    audioElement?.addEventListener("timeupdate", () => {
-      const currentTime = audioElement?.currentTime;
-      const duration = audioElement?.duration;
-      const progressPercent = (currentTime / duration) * 100;
-      setProgress(progressPercent);
-    });
-
-    if (!isPlaying) {
-      audioElement?.play(song);
-      setIsPlaying(true);
-      // setAudioElement();
-      // player(song);
-    } else {
-      audioElement?.pause(song);
-      setIsPlaying(false);
-    }
-    setAudioPlayer(audioElement);
-  }
-  // useEffect(() => {
-  //   const audioElement = document.getElementById("audio");
-  //   if (audioElement) {
-  //     setDuration(audioElement.duration);
-  //     audioElement.addEventListener("timeupdate", () => {
-  //       setProgress(audioElement.currentTime / audioElement.duration);
-  //     });
-  //   }
-  // }, []);
-
-  // function handleTimeUpdate() {
-  //   const audioElement = document.getElementById("audio");
-  //   setCurrentTime(audioElement.currentTime);
-  // }
-
-  // useEffect(() => {
-  //   const audioElement = document.getElementById("audio");
-  //   audioElement.addEventListener("timeupdate", handleTimeUpdate);
-  //   return () => {
-  //     audioElement.removeEventListener("timeupdate", handleTimeUpdate);
-  //   };
-  // }, []);
-  // console.log(audioRef.current.audio.current, "AUDIO");
   return (
     <div className="audio-player-div">
       {/* <button onClick={handleTest}>hit</button> */}
@@ -150,7 +60,9 @@ function Audio({ songs, setAudioElement }, props) {
         src={songAudio?.url}
         header={songAudio?.title || "No title selected"}
         volume=".25"
-        onClick={handlePlayPause}
+        onPlay={() => dispatch(syncPlayerStatus('play'))}
+        onPause={() => dispatch(syncPlayerStatus('pause'))}
+        onError={() => dispatch(syncPlayerStatus('error'))}
         progressJumpStep={10000} // jump 10s when clicking on progress bar
         defaultJumpTime={{ forward: 10, backward: 10 }} // also jump 10s when using arrow keys
         // loop="true"

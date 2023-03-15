@@ -17,21 +17,18 @@ const SongInfo = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const { id } = useParams();
-  const [isPlaying, setIsPlaying] = useState(false);
   const song = useSelector((state) => state.songs[id]);
   const artist = useSelector((state) => state.songs[id]?.Artist);
   const album = useSelector((state) => state.songs[id]?.Album);
   const audioFile = useSelector((state) => state.songs[id]?.url);
+  const playerSong = useSelector((state) => state.audio.song);
+  const playerStatus = useSelector((state) => state.audio.status);
+  const isPlaying = song.id === playerSong.id && playerStatus === 'play';
   // console.log(audioFile, "audiofile");
   // const audio = useSelector((state) => state.audio.song);
   // console.log(audio, "audio");
   // const artist = useSelector((state) => state.songObject.artist.username);
   // const [artist, setArtist] = useState(null);
-
-  function player(audioFile) {
-    // console.log(audio, "UADIO");
-    return dispatch(getAudio(audioFile));
-  }
 
   useEffect(() => {
     const fetchSongs = async () => {
@@ -67,17 +64,13 @@ const SongInfo = () => {
     } catch (err) {}
   };
 
-  function handlePlayPause(song) {
-    const audioElement = document.getElementById("audio");
-    if (!isPlaying) {
-      audioElement?.play(song?.url);
-      setIsPlaying(true);
-      player(song?.url);
-      // console.log("audioEle", audioElement.play());
+  const handlePlayPause = () => {
+    if (song.id !== playerSong) {
+      dispatch(getAudio(audioFile));
+    } else if (isPlaying) {
+      dispatch(pauseAudio());
     } else {
-      audioElement?.pause(song?.url);
-      // console.log("pause");
-      setIsPlaying(false);
+      dispatch(playAudio());
     }
   }
 
@@ -108,10 +101,7 @@ const SongInfo = () => {
             <div className="song-info">{song?.description || "N/A"}</div>
             <button
               className="play-song-btn"
-              onClick={() => {
-                player(song);
-                handlePlayPause();
-              }}
+              onClick={handlePlayPause}
             >
               <i className={`fa ${isPlaying ? "fa-pause" : "fa-play"}`} />
             </button>
