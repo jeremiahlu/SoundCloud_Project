@@ -6,6 +6,7 @@ import "./navigation.css";
 import LoginFormModal from "../LoginFormModal";
 import SignUpFormModal from "../SignupFormModal";
 import soundcloudLogo from "./soundcloud-icon-copy.png";
+import cloudLogo from "./cloud.png";
 import Search from "../Search";
 import { getSongs } from "../../store/songs";
 
@@ -32,7 +33,7 @@ const Navigation = ({ isLoaded }) => {
     <nav className="navbar">
       <ul>
         {/* <li> */}
-        <button className="homeButton">
+        <div className="homeButton">
           <Link className="homeLink" to="/">
             {/* <i className="fa-solid fa-house-chimney"></i> */}
             {isLoaded}
@@ -41,9 +42,18 @@ const Navigation = ({ isLoaded }) => {
             </h1> */}
             {/* <img className='rhapsodyLogo' src={logo} alt='logo'/> */}
             {/* <img src='https://cdn-icons-png.flaticon.com/512/48/48967.png'/> */}
-            <img src={soundcloudLogo} />
+            <img src={cloudLogo} className="navLogo" />
           </Link>
-        </button>
+          <div className="home-link">
+            <Link
+              className={activeTab === 0 ? "active" : "albumsTab"}
+              onClick={() => handleTabClick(0)}
+              to="/"
+            >
+              Home
+            </Link>
+          </div>
+        </div>
         {/* </li> */}
 
         <div>
@@ -53,26 +63,25 @@ const Navigation = ({ isLoaded }) => {
                 <li className="navTabDiv">
                   {
                     <div className="exploreUpload-links">
-                      <Search className="searchFunction" />
                       <Link
-                        className={activeTab === 0 ? "active" : "albumsTab"}
-                        onClick={() => handleTabClick(0)}
+                        className={activeTab === 1 ? "active" : "albumsTab"}
+                        onClick={() => handleTabClick(1)}
                         to="/albums"
                       >
                         Albums
                       </Link>
 
                       <Link
-                        className={activeTab === 1 ? "active" : "songsTab"}
-                        onClick={() => handleTabClick(1)}
+                        className={activeTab === 2 ? "active" : "songsTab"}
+                        onClick={() => handleTabClick(2)}
                         to="/songs"
                       >
                         Explore
                       </Link>
-
+                      <Search className="searchFunction" />
                       <Link
-                        className={activeTab === 2 ? "active" : "uploadTab"}
-                        onClick={() => handleTabClick(2)}
+                        className={activeTab === 3 ? "active" : "uploadTab"}
+                        onClick={() => handleTabClick(3)}
                         to="/songs/new"
                       >
                         Upload

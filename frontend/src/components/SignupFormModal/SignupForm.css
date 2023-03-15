@@ -1,4 +1,3 @@
-
 .signup-form {
   display: flex;
   /* position: static; */
@@ -22,6 +21,8 @@
   height: 40px;
   color: white;
   margin: 10px;
+  border-radius: 3px;
+  border: none;
 }
 
 .signUp-failed {
@@ -38,8 +39,9 @@
   height: 30px;
   width: 150px;
   border-radius: 5px;
-  background-color:rgb(255,85,1);
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  background-color: rgb(255, 85, 1);
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
   color: white;
 }
 
@@ -49,16 +51,16 @@
   height: 30px;
   width: 275px;
   padding: 10px;
+  border-radius: 2px;
 }
-
 
 .signup-form-fine-print {
   display: block;
-  padding: 10px
+  padding: 10px;
 }
 
 .signup-form-fine-text {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: 10px;
-  color: #999
+  color: #999;
 }

@@ -16,7 +16,8 @@
   display: flex;
   padding: 1em;
   font-size: 20px;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }
 
 .si-button {
@@ -29,10 +30,12 @@
   color: white;
   margin: 10px;
   margin-left: 15px;
+  border-radius: 3px;
+  border: none;
 }
 
 .gsi-button {
-  background-color: #3577E5;
+  background-color: #3577e5;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -41,6 +44,8 @@
   color: white;
   margin: 10px;
   margin-left: 15px;
+  border-radius: 3px;
+  border: none;
 }
 
 .auth-method-separator {
@@ -53,7 +58,7 @@
 .auth-method-separator::before {
   display: inline-block;
   position: relative;
-  content: ' ';
+  content: " ";
   border: 1px solid black;
   width: 39%;
   left: 2;
@@ -66,7 +71,7 @@
 .auth-method-separator::after {
   display: inline-block;
   /* position: absolute; */
-  content: ' ';
+  content: " ";
   border: 1px solid black;
   width: 42%;
   /* right: 0; */
@@ -86,15 +91,17 @@
   height: 30px;
   width: 250px;
   padding: 10px;
+  border-radius: 2px;
 }
 
 .loginButton {
   display: block;
   height: 30px;
-  width:150px;
+  width: 150px;
   border-radius: 5px;
-  background-color:rgb(255,85,1);
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  background-color: rgb(255, 85, 1);
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
   color: white;
 }
 
@@ -106,6 +113,5 @@
 .login-form-fine-text {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: 10px;
-  color: #999
+  color: #999;
 }
-

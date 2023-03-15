@@ -1,0 +1,146 @@
+.audio-player-div {
+  display: flex;
+  /* align-items: center; */
+  font-family: Arial, Helvetica, sans-serif;
+  width: 100%;
+}
+
+.audio-player {
+  background-color: #f8f8f8;
+  padding: 16px;
+  width: 95%;
+  max-height: 70px;
+  position: fixed;
+  bottom: 0;
+  display: flex;
+  /* flex-direction: column; */
+  margin-top: 50px;
+}
+
+.player-controls {
+  display: flex;
+  align-items: center;
+}
+
+.play-button {
+  border: none;
+  background-color: transparent;
+  font-size: 24px;
+  color: #f50;
+  margin-right: 16px;
+  cursor: pointer;
+}
+
+.progress-bar {
+  flex-grow: 1;
+  height: 4px;
+  background-color: #ddd;
+  position: relative;
+}
+
+.progress {
+  height: 100%;
+  background-color: #f50;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.current-time,
+.duration {
+  font-size: 14px;
+  color: #888;
+  margin-left: 16px;
+}
+
+div.rhap_header {
+  margin-right: 20px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+div.rhap_progress-section {
+  display: inline-flex;
+  margin-right: 20px;
+}
+
+.rhap_controls-section {
+  display: inline-flex;
+  border: none;
+  background-color: transparent;
+}
+
+.rhap_container {
+  display: flex;
+  flex-direction: column;
+  z-index: 100;
+  /* justify-content: center; */
+  /* width: 100vw; */
+  /* align-items: center; */
+}
+
+.rhap_main {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+}
+
+.rhap_main button {
+  border: none;
+  width: 50px;
+  background-color: transparent;
+}
+
+.audio-player .rhap_main-controls-button svg,
+.rhap_additional-controls svg,
+.rhap_volume-controls svg {
+  height: 20px;
+  width: 20px;
+}
+
+.rhap_current-time {
+  margin-right: 5px;
+}
+
+.rhap_progress-bar {
+  width: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 90;
+  margin: 0 10px;
+  /* color: #f50; */
+}
+
+/* .rhap_progress-section {
+  color: red;
+} */
+
+.progress-bar {
+  height: 8px;
+  background-color: #b3b3b3;
+}
+
+.progress-bar::-webkit-progress-value {
+  background-color: #58bba9;
+  z-index: 100;
+}
+
+.audio-player-image {
+  /* border: 1px solid red; */
+  height: 70px;
+  /* width: 80px; */
+  width: 5%;
+  z-index: 101;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+}
+
+.audio-player-info {
+  display: flex;
+}
+
+.audio-player-title {
+  z-index: 102;
+}
