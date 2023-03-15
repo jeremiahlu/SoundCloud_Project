@@ -27,7 +27,7 @@ const LandingPage = () => {
   const scrollRef = useRef(null);
   const scrollLeft = () => setScroll((scrollRef.current.scrollLeft -= 100));
   const scrollRight = () => setScroll((scrollRef.current.scrollRight += 100));
-  console.log(scrollRef, "0");
+  // console.log(scrollRef, "0");
 
   const [scroll1, setScroll1] = useState(0);
   const [scrollWidth1, setScrollWidth1] = useState(0);
@@ -36,7 +36,7 @@ const LandingPage = () => {
   const scrollLeft1 = () => setScroll1((scrollRef1.current.scrollLeft -= 100));
   const scrollRight1 = () =>
     setScroll1((scrollRef1.current.scrollRight += 100));
-  console.log(scrollRef1.current, "1");
+  // console.log(scrollRef1.current, "1");
 
   const [scroll2, setScroll2] = useState(0);
   const [scrollWidth2, setScrollWidth2] = useState(0);

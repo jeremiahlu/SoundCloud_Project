@@ -152,7 +152,7 @@ export const fetchSongById = (song) => async (dispatch) => {
     method: "GET",
   });
   const data = await res.json();
-  console.log(data, "DATA");
+  // console.log(data, "DATA");
   if (res.ok) {
     dispatch(getSongId(data));
     return data;

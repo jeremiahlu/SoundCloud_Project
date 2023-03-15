@@ -126,7 +126,7 @@ export const fetchAlbumById = (album) => async (dispatch) => {
   });
 
   const data = await res.json();
-  console.log(data, "DATA&*(^(*$!#@!");
+  // console.log(data, "DATA&*(^(*$!#@!");
   if (res.ok) {
     dispatch(getAlbumById(data));
     return data;

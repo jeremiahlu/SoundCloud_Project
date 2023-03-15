@@ -58,6 +58,7 @@ const SongForm = ({ formType }) => {
         ? history.push(`/songs/${newSong.id}`)
         : history.push(`/songs/${id}`);
     } catch (res) {
+      // console.log(res, "RES");
       const data = await res.json();
       const err = data.errors;
       if (data && data.message) setErrors(err);
@@ -235,8 +236,8 @@ const SongForm = ({ formType }) => {
                     : "N/A"}
                 </option>
 
-                {albums?.map((album) => (
-                  <option key={album?.id} value={album?.id}>
+                {albums?.map((album, idx) => (
+                  <option key={idx} value={album?.id}>
                     {album?.title}
                   </option>
                 ))}

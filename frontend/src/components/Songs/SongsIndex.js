@@ -62,9 +62,9 @@ const SongsIndex = ({
     }
   };
 
-  useEffect(() => {
-    console.log(audioRef.current, "current");
-  }, [audioRef.current]);
+  // useEffect(() => {
+  //   console.log(audioRef.current, "current");
+  // }, [audioRef.current]);
 
   // console.log(audioRef.current, "current");
   return (
