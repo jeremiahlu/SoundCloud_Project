@@ -415,3 +415,8 @@
   display: flex;
   flex-direction: column;
 }
+
+.removePlaylistSong {
+  background: none;
+  border: none;
+}

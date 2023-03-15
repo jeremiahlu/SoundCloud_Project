@@ -7,15 +7,15 @@ import AudioContext from "../../context/Audio";
 import AudioPlayer from "../AudioPlayer";
 import { getAudio, pauseAudio } from "../../store/audio";
 
-// const topFunction = () => {
-//   document.body.scrollTop=0;
-//   document.documentElement.scrollTop=0;
-// }
-
-const SongsIndex = ({ isPlaying, setIsPlaying, audioRef }) => {
+const SongsIndex = ({
+  isPlaying,
+  setIsPlaying,
+  audioRef,
+  setCurrentSong,
+  currentSong,
+}) => {
   const dispatch = useDispatch();
-  // const audioPlayer = useContext(AudioContext);
-  // console.log(audioPlayer, "%*!)$&!)#GUT");
+
   useEffect(() => {
     const fetchSongs = async () => {
       await dispatch(getSongs());
@@ -27,10 +27,10 @@ const SongsIndex = ({ isPlaying, setIsPlaying, audioRef }) => {
     return dispatch(getAudio(audioFile));
   }
 
-  function pause(audioFile) {
-    // console.log("HIT");
-    return dispatch(pauseAudio(audioFile));
-  }
+  // function pause(audioFile) {
+  //   // console.log("HIT");
+  //   return dispatch(pauseAudio(audioFile));
+  // }
   const songState = useSelector((state) => state.songs);
   const songs = Object.values(songState);
 
@@ -42,9 +42,6 @@ const SongsIndex = ({ isPlaying, setIsPlaying, audioRef }) => {
     newPlayingState[idx] = !playing[idx];
     setPlaying(newPlayingState);
     player(songs[idx]);
-
-    // console.log(newPlayingState, "playing");
-    // console.log(audioRefs[idx], "AUREDSFREF");
 
     if (playing[idx]) {
       // console.log(idx, "IDX");
@@ -66,9 +63,10 @@ const SongsIndex = ({ isPlaying, setIsPlaying, audioRef }) => {
   };
 
   useEffect(() => {
-    console.log(audioRef.current);
+    console.log(audioRef.current, "current");
   }, [audioRef.current]);
 
+  // console.log(audioRef.current, "current");
   return (
     songs && (
       <div className="allSongs-container">
@@ -86,6 +84,8 @@ const SongsIndex = ({ isPlaying, setIsPlaying, audioRef }) => {
             <ul className="allSongsList">
               {songs.map((song, idx) => (
                 <SongsIndexItem
+                  currentSong={currentSong}
+                  setCurrentSong={setCurrentSong}
                   song={song}
                   key={idx}
                   isPlaying={isPlaying}

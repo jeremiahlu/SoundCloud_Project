@@ -10,69 +10,78 @@ import {
 } from "../../store/albums";
 import AudioContext from "../../context/Audio";
 
-const AlbumInfo = () => {
+const AlbumInfo = ({ audioRef, setCurrentSong, currentSong }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const { id } = useParams();
   const album = useSelector((state) => state.albums[id]);
   const artists = useSelector((state) => state.albums[id]?.Artist);
   const albumSongs = useSelector((state) => state.albums[id]?.Songs);
-  const audioFile = useSelector((state) => state.songs[id]?.url);
-  const [currentSongIndex, setCurrentSongIndex] = useState(-1);
-  // const audioRef = useContext(AudioContext);
-  const audioRef = useRef(null);
+  // const song = useSelector((state) => state.albums[id]);
+  const [song, setSong] = useState(currentSong);
+
+  function player(song) {
+    //   // setPlaying(true);
+    return dispatch(getAudio(song));
+  }
   const [playing, setPlaying] = useState(
     new Array(albumSongs?.length).fill(false)
   );
+  const audioRefs = useRef([]);
 
-  function player(audioFile) {
-    setPlaying(true);
-    return dispatch(getAudio(audioFile));
-  }
-
-  function pause(audioFile) {
-    // console.log("HIT");
-    console.log(audioRef, "audioref");
-    audioRef?.current?.pause();
-    setPlaying(false);
-    return dispatch(pauseAudio(audioFile));
-  }
+  // function pause(audioFile) {
+  //   // console.log("HIT");
+  //   // console.log(audioRef, "audioref");
+  //   audioRef?.current?.pause();
+  //   setPlaying(false);
+  //   return dispatch(pauseAudio(audioFile));
+  // }
 
   // const audioRefs = useRef([]);
 
   const togglePlayPause = (idx) => {
-    if (currentSongIndex !== -1) {
-      const newPlayingState = [...playing];
-      newPlayingState[idx] = !playing[idx];
+    const newPlayingState = [...playing];
+    newPlayingState[idx] = !playing[idx];
+    setPlaying(newPlayingState);
+    player(albumSongs[idx]);
+
+    if (playing[idx]) {
+      // console.log(idx, "IDX");
+      audioRefs?.current[idx]?.pause();
+      // audioRefs[idx]?.pause();
+
+      setPlaying((prevPlaying) => {
+        const newPlayingState = [...prevPlaying];
+        newPlayingState[idx] = false;
+
+        // console.log("paused");
+        return newPlayingState;
+      });
+    } else {
+      audioRefs?.current[idx]?.play();
+      newPlayingState[idx] = true;
       setPlaying(newPlayingState);
-      setCurrentSongIndex(-1);
     }
-
-    console.log(audioRef, "AUREDSFREF");
-    audioRef?.current?.pause();
-
-    // console.log(newPlayingState, "playing");
-
-    // if (playing[idx]) {
-    //   console.log(idx, "IDX");
-    //   audioRefs?.current[idx]?.pause();
-    //   // audioRefs[idx]?.pause();
-
-    //   setPlaying((prevPlaying) => {
-    //     const newPlayingState = [...prevPlaying];
-    //     newPlayingState[idx] = false;
-
-    //     console.log("paused");
-    //     return newPlayingState;
-    //   });
-    // } else {
-    //   audioRefs?.current[idx]?.play();
-    //   newPlayingState[idx] = true;
-    //   setPlaying(newPlayingState);
-    // }
   };
 
-  const [isPlaying, setIsPlaying] = useState(false);
+  const handlePlay = (song, idx) => {
+    // setCurrentSong(song);
+    // console.log(song, "allbumSong");
+    if (currentSong.id === song.id) {
+      if (!audioRef.current.audio.current.paused) {
+        audioRef.current.audio.current.parentElement.childNodes[0].pause();
+      } else {
+        audioRef.current.audio.current.parentElement.childNodes[0].play();
+      }
+    } else {
+      player(song);
+      setCurrentSong(song);
+    }
+
+    togglePlayPause(idx);
+  };
+
+  // const [isPlaying, setIsPlaying] = useState(false);
 
   // function handlePlayPause(song) {
   //   const audioElement = document.getElementById("audio");
@@ -142,16 +151,11 @@ const AlbumInfo = () => {
             </div>
 
             <div className="album-info-div">
-              {/* <p className="album-info-text">ID</p>
-              <div className="album-info">{album.id}</div> */}
-
               <p className="album-info-text">Name</p>
               <div className="album-info">{album?.title}</div>
 
               <p className="album-info-text">Creator</p>
               <div className="album-info">{artists?.username}</div>
-
-              {/* <p className="playlist-info-text">Description</p> */}
             </div>
           </div>
           <div className="albumSongs-div">
@@ -163,39 +167,41 @@ const AlbumInfo = () => {
                 return (
                   <div className="albumSong">
                     <div
-                      // key={idx}
                       className="albumPlay-song-btn"
-                      onClick={() => {
-                        player(song);
-                        // if (playing[idx]) {
-                        //   // console.log("hitHERE");
-                        //   pause(song);
-                        // } // handlePlayPause();
-                        togglePlayPause(idx);
-                      }}
+                      onClick={() => handlePlay(song, idx)}
                     >
-                      {/* <i
-                        className={`fa ${isPlaying ? "fa-pause" : "fa-play"}`}
-                      /> */}
+                      {/* {console.log(currentSong.id, "CS")}
+                      {console.log(song.id, "SID")}
+                      {console.log(
+                        !audioRef.current.audio.current.paused,
+                        "ARP"
+                      )} */}
                       <i
                         className={`fa ${
-                          playing[idx] ? "fa-pause" : "fa-play"
+                          currentSong?.id === song?.id &&
+                          !audioRef?.current?.audio?.current?.paused
+                            ? "fa-pause"
+                            : "fa-play"
                         }`}
                       />
-                      {/* <button onClick={() => handlePlayPause()}>
-                      {playing[idx] ? "Pause" : "Play"}
-                    </button> */}
                     </div>
-                    {/* <audio
-                      ref={(el) => (audioRefs.current[index] = el)}
-                      src={song.audioUrl}
-                    /> */}
-                    <Link
-                      to={`/songs/${song?.id}`}
-                      key={idx}
-                      className="albumSong-link"
-                    >
-                      {song?.title}
+
+                    <Link className="song-link" to={`/songs/${song?.id}`}>
+                      <img
+                        className="img"
+                        src={song?.previewImage || song?.url}
+                        alt="song"
+                      />
+                      <div
+                        className={
+                          currentSong?.id === song?.id
+                            ? "activeSong"
+                            : "songCard-title"
+                        }
+                      >
+                        {song?.title}
+                      </div>
+                      {/* {artist.username} */}
                     </Link>
                   </div>
                 );

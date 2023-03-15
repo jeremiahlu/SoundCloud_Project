@@ -13,7 +13,7 @@ import { useState, useEffect } from "react";
 import Audio from "../AudioPlayer";
 import { FaPlay } from "react-icons/fa";
 
-const SongInfo = () => {
+const SongInfo = ({ audioRef, setCurrentSong, currentSong }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const { id } = useParams();
@@ -27,6 +27,9 @@ const SongInfo = () => {
   // console.log(audio, "audio");
   // const artist = useSelector((state) => state.songObject.artist.username);
   // const [artist, setArtist] = useState(null);
+  // console.log(audioRef, "HIT");
+  // console.log(currentSong, "CS");
+  // console.log(setCurrentSong, "SCS");
 
   function player(audioFile) {
     // console.log(audio, "UADIO");
@@ -67,19 +70,20 @@ const SongInfo = () => {
     } catch (err) {}
   };
 
-  function handlePlayPause(song) {
-    const audioElement = document.getElementById("audio");
-    if (!isPlaying) {
-      audioElement?.play(song?.url);
-      setIsPlaying(true);
-      player(song?.url);
-      // console.log("audioEle", audioElement.play());
+  const handlePlay = () => {
+    if (currentSong.id === song.id) {
+      if (!audioRef.current.audio.current.paused) {
+        audioRef.current.audio.current.parentElement.childNodes[0].pause();
+      } else {
+        audioRef.current.audio.current.parentElement.childNodes[0].play();
+      }
     } else {
-      audioElement?.pause(song?.url);
-      // console.log("pause");
-      setIsPlaying(false);
+      player(song);
+      setCurrentSong(song);
     }
-  }
+
+    // togglePlayPause(idx);
+  };
 
   return (
     song && (
@@ -110,10 +114,20 @@ const SongInfo = () => {
               className="play-song-btn"
               onClick={() => {
                 player(song);
-                handlePlayPause();
+                handlePlay();
               }}
             >
-              <i className={`fa ${isPlaying ? "fa-pause" : "fa-play"}`} />
+              {/* {console.log(currentSong.id, "CS")}
+              {console.log(song.id, "SID")}
+              {console.log(!audioRef.current.audio.current.paused, "ARP")} */}
+              <i
+                className={`fa ${
+                  currentSong.id === song.id &&
+                  !audioRef.current.audio.current.paused
+                    ? "fa-pause"
+                    : "fa-play"
+                }`}
+              />
             </button>
           </div>
           <img

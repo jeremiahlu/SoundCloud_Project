@@ -10,6 +10,7 @@ import { getSongs } from "../../store/songs";
 import * as sessionActions from "../../store/session";
 import Footer from "../Footer";
 import SongsIndexItem from "../Songs/SongsIndexItem";
+import AlbumCarousel from "./AlbumCarousel";
 
 const topFunction = () => {
   document.body.scrollTop = 0;
@@ -19,14 +20,14 @@ const topFunction = () => {
 const LandingPage = () => {
   const history = useHistory();
   const dispatch = useDispatch();
-
+  const [activeIndex, setActiveIndex] = useState(0);
   const [scroll, setScroll] = useState(0);
   const [scrollWidth, setScrollWidth] = useState(0);
   const [clientWidth, setClientWidth] = useState(0);
   const scrollRef = useRef(null);
   const scrollLeft = () => setScroll((scrollRef.current.scrollLeft -= 100));
   const scrollRight = () => setScroll((scrollRef.current.scrollRight += 100));
-  // console.log(scrollRef, "0");
+  console.log(scrollRef, "0");
 
   const [scroll1, setScroll1] = useState(0);
   const [scrollWidth1, setScrollWidth1] = useState(0);
@@ -35,7 +36,7 @@ const LandingPage = () => {
   const scrollLeft1 = () => setScroll1((scrollRef1.current.scrollLeft -= 100));
   const scrollRight1 = () =>
     setScroll1((scrollRef1.current.scrollRight += 100));
-  // console.log(scrollRef1.current, "1");
+  console.log(scrollRef1.current, "1");
 
   const [scroll2, setScroll2] = useState(0);
   const [scrollWidth2, setScrollWidth2] = useState(0);
@@ -67,45 +68,54 @@ const LandingPage = () => {
   }, []);
   const songState = useSelector((state) => Object.values(state.songs));
 
-  const randomIndex = [];
-  for (let i = 0; i < 25; i++) {
-    const indices = Math.floor(Math.random() * songState.length);
-    randomIndex.push(indices);
+  const randomIndex = new Set();
+  while (randomIndex.size < 25) {
+    randomIndex.add(Math.floor(Math.random() * songState.length));
   }
-  const randomSongs = [];
-  for (let i = 0; i < 25; i++) {
-    const song = songState[randomIndex[i]];
-    randomSongs.push(song);
-  }
+  const randomSongs = Array.from(randomIndex).map((index) => songState[index]);
 
-  const randomPressed = [];
-  for (let i = 0; i < 25; i++) {
-    const indices = Math.floor(Math.random() * songState.length);
-    randomPressed.push(indices);
+  const randomPressed = new Set();
+  while (randomPressed.size < 25) {
+    randomPressed.add(Math.floor(Math.random() * songState.length));
   }
-  const randomPressedSongs = [];
-  for (let i = 0; i < 25; i++) {
-    const song = songState[randomPressed[i]];
-    randomPressedSongs.push(song);
-  }
+  const randomPressedSongs = Array.from(randomPressed).map(
+    (index) => songState[index]
+  );
 
-  const randomCharts = [];
-  for (let i = 0; i < 25; i++) {
-    const indices = Math.floor(Math.random() * songState.length);
-    randomCharts.push(indices);
+  const randomCharts = new Set();
+  while (randomCharts.size < 25) {
+    randomCharts.add(Math.floor(Math.random() * songState.length));
   }
-  const randomChartsSongs = [];
-  for (let i = 0; i < 25; i++) {
-    const song = songState[randomCharts[i]];
-    randomChartsSongs.push(song);
-  }
+  const randomChartsSongs = Array.from(randomCharts).map(
+    (index) => songState[index]
+  );
 
-  // const logOut = (e) => {
-  //   e.preventDefault();
-  //   dispatch(sessionActions.logout());
-  //   history.push("/");
+  // const scrollLeft = () => {
+  //   setActiveIndex((activeIndex - 1 + randomIndex.length) % randomIndex.length);
   // };
-  // console.log(songState, "here");
+  // const scrollRight = () => {
+  //   setActiveIndex((activeIndex + 1) % randomIndex.length);
+  // };
+
+  // const scrollLeft1 = () => {
+  //   setActiveIndex(
+  //     (activeIndex - 1 + randomPressed.length) % randomPressed.length
+  //   );
+  // };
+  // const scrollRight1 = () => {
+  //   setActiveIndex((activeIndex + 1) % randomPressed.length);
+  // };
+
+  // const scrollLeft2 = () => {
+  //   setActiveIndex(
+  //     (activeIndex - 1 + randomCharts.length) % randomCharts.length
+  //   );
+  // };
+
+  // const scrollRight2 = () => {
+  //   setActiveIndex((activeIndex + 1) % randomCharts.length);
+  // };
+
   return (
     <>
       {loggedSession ? (
@@ -113,19 +123,27 @@ const LandingPage = () => {
           <div className="moreSongs-title">More of what you like</div>
           <div className="slider moreSongs" ref={scrollRef}>
             <div className="landingSongs">
-              {randomSongs.map((song) => (
-                <NavLink className="landing-song-link" to={`/songs/${song.id}`}>
+              {randomSongs?.map((song, idx) => (
+                <NavLink
+                  // className={`landing-song-link" ${
+                  //   idx === activeIndex ? "active" : ""
+                  // }`}
+                  className="landing-song-link"
+                  to={`/songs/${song?.id}`}
+                >
                   <div className="landing-cover-art">
                     <div className="landing-songImg-box">
                       <img
                         className="landing-img"
-                        src={song.previewImage || song.url}
+                        src={song?.previewImage || song?.url}
                         alt="landing-song"
                       />
                     </div>
                     <div className="landing-title">
-                      <div>{song.title}</div>
-                      <div>{song.user}</div>
+                      <div>{song?.title}</div>
+                      <li className="landing-artist">
+                        {song?.Artist?.username}
+                      </li>
                     </div>
                   </div>
                 </NavLink>
@@ -142,19 +160,28 @@ const LandingPage = () => {
           <div className="pressed-title">Fresh Pressed</div>
           <div className="slider pressed" ref={scrollRef1}>
             <div className="landingSongs1">
-              {randomPressedSongs.map((song) => (
-                <NavLink className="landing-song-link" to={`/songs/${song.id}`}>
+              {randomPressedSongs?.map((song, idx) => (
+                <NavLink
+                  // className={`landing-song-link" ${
+                  //   idx === activeIndex ? "active" : ""
+                  // }`}
+                  className="landing-song-link"
+                  to={`/songs/${song?.id}`}
+                >
                   <div className="landing-cover-art">
                     <div className="landing-songImg-box">
                       <img
                         className="landing-img"
-                        src={song.previewImage || song.url}
+                        src={song?.previewImage || song?.url}
                         alt="landing-song"
                       />
                     </div>
                     <div className="landing-description-container">
                       <div className="landing-title">
-                        <li>{song.title}</li>
+                        <li>{song?.title}</li>
+                        <li className="landing-artist">
+                          {song?.Artist?.username}
+                        </li>
                       </div>
                     </div>
                   </div>
@@ -172,19 +199,32 @@ const LandingPage = () => {
           <div className="charts-title">Charts: Top 50</div>
           <div className="slider charts" ref={scrollRef2}>
             <div className="landingSongs2">
-              {randomChartsSongs.map((song) => (
-                <NavLink className="landing-song-link" to={`/songs/${song.id}`}>
+              {randomChartsSongs?.map((song, idx) => (
+                <NavLink
+                  // className={`landing-song-link" ${
+                  //   idx === activeIndex ? "active" : ""
+                  // }`}
+                  className="landing-song-link"
+                  to={`/songs/${song?.id}`}
+                >
                   <div className="landing-cover-art">
                     <div className="landing-songImg-box">
                       <img
                         className="landing-img"
-                        src={song.previewImage || song.url}
+                        src={song?.previewImage || song?.url}
                         alt="landing-song"
                       />
+                      <span className="hoverImage">
+                        <i className="fa-solid fa-circle-play"></i>
+                      </span>
                     </div>
                     <div className="landing-description-container">
                       <div className="landing-title">
-                        <li>{song.title}</li>
+                        <li>{song?.title}</li>
+                        {/* {console.log(song, "Song")} */}
+                        <li className="landing-artist">
+                          {song?.Artist?.username}
+                        </li>
                       </div>
                     </div>
                   </div>
