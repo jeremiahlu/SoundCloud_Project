@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import React, { useState, useEffect, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Route, Switch } from "react-router-dom";
 import LoginForm from "./components/LoginFormModal";
 import SignupFormModal from "./components/SignupFormModal";
@@ -28,18 +28,26 @@ import AlbumInfo from "./components/Albums/AlbumInfo";
 
 // import Footer from "./components/Footer";
 import PlayerFooter from "./components/PlayerFooter";
+import Audio from "./components/AudioPlayer";
+import AudioContext from "./context/Audio";
 
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [audioElement, setAudioElement] = useState(null);
+  const songs = useSelector((state) => Object.values(state.songs));
+  // console.log(songs, "SONG");
 
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
   }, [dispatch]);
 
+  const audioRef = useRef(null);
+
   return (
     <>
-      fle
+      {/* fle */}
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
         <div className="content-container">
@@ -51,20 +59,31 @@ function App() {
             {/* <Route path="/users/signup">
           <SignupFormModal/>
         </Route> */}
+            <Route exact path="/songs">
+              <SongsIndex
+                isPlaying={isPlaying}
+                setIsPlaying={setIsPlaying}
+                audioRef={audioRef}
+              />
+            </Route>
+            <Route exact path="/songs/:id">
+              <SongInfo audioRef={audioRef} />
+            </Route>
+            <Route exact path="/playlists/:id">
+              <PlaylistInfo audioRef={audioRef} />
+            </Route>
+            <Route exact path="/albums/:id">
+              <AlbumInfo audioRef={audioRef} />
+            </Route>
+
             <Route exact path="/">
               <LandingPage />
-            </Route>
-            <Route exact path="/songs">
-              <SongsIndex />
             </Route>
             <Route exact path="/songs/new">
               <CreateSongForm />
             </Route>
             <Route exact path="/songs/:id/edit">
               <EditSongForm />
-            </Route>
-            <Route exact path="/songs/:id">
-              <SongInfo />
             </Route>
             <Route exact path="/users/:id/songs">
               <MySongs />
@@ -82,9 +101,6 @@ function App() {
             <Route exact path="/playlists/:id/edit">
               <EditPlaylistForm />
             </Route>
-            <Route exact path="/playlists/:id">
-              <PlaylistInfo />
-            </Route>
             {/* <Route exact path='/users/:id/playlists'>
           <MyPlaylists />
         </Route> */}
@@ -100,12 +116,15 @@ function App() {
             <Route exact path="/albums/:id/edit">
               <EditAlbumForm />
             </Route>
-            <Route exact path="/albums/:id">
-              <AlbumInfo />
-            </Route>
           </Switch>
 
-          {/* <PlayerFooter /> */}
+          <Audio
+            songs={songs}
+            // isPlaying={isPlaying}
+            // setIsPlaying={setIsPlaying}
+            ref={audioRef}
+            setAudioElement={setAudioElement}
+          />
         </div>
       )}
     </>
