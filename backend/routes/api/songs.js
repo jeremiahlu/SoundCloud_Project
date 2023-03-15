@@ -237,8 +237,8 @@ router.patch(
 
     const url = await singlePublicFileUpload(req.files["url"][0]);
     // console.log('here', req.body)
-    console.log(imageUrl, " IMAGEURL");
-    console.log(url, " URL");
+    // console.log(imageUrl, " IMAGEURL");
+    // console.log(url, " URL");
     const song = await Song.findByPk(id);
 
     if (!song) {

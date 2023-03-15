@@ -35,6 +35,7 @@ function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [currentSong, setCurrentSong] = useState("");
   const [audioElement, setAudioElement] = useState(null);
   const songs = useSelector((state) => Object.values(state.songs));
   // console.log(songs, "SONG");
@@ -59,34 +60,38 @@ function App() {
             {/* <Route path="/users/signup">
           <SignupFormModal/>
         </Route> */}
+
+            <Route exact path="/">
+              <LandingPage />
+            </Route>
             <Route exact path="/songs">
               <SongsIndex
                 isPlaying={isPlaying}
                 setIsPlaying={setIsPlaying}
                 audioRef={audioRef}
+                setCurrentSong={setCurrentSong}
+                currentSong={currentSong}
               />
-            </Route>
-            <Route exact path="/songs/:id">
-              <SongInfo audioRef={audioRef} />
-            </Route>
-            <Route exact path="/playlists/:id">
-              <PlaylistInfo audioRef={audioRef} />
-            </Route>
-            <Route exact path="/albums/:id">
-              <AlbumInfo audioRef={audioRef} />
-            </Route>
-
-            <Route exact path="/">
-              <LandingPage />
             </Route>
             <Route exact path="/songs/new">
               <CreateSongForm />
+            </Route>
+            <Route exact path="/songs/:id">
+              <SongInfo
+                audioRef={audioRef}
+                setCurrentSong={setCurrentSong}
+                currentSong={currentSong}
+              />
             </Route>
             <Route exact path="/songs/:id/edit">
               <EditSongForm />
             </Route>
             <Route exact path="/users/:id/songs">
-              <MySongs />
+              <MySongs
+                audioRef={audioRef}
+                setCurrentSong={setCurrentSong}
+                currentSong={currentSong}
+              />
             </Route>
 
             <Route exact path="/users/:id/playlists">
@@ -97,6 +102,13 @@ function App() {
             </Route>
             <Route exact path="/playlists/new">
               <CreatePlaylistForm />
+            </Route>
+            <Route exact path="/playlists/:id">
+              <PlaylistInfo
+                audioRef={audioRef}
+                setCurrentSong={setCurrentSong}
+                currentSong={currentSong}
+              />
             </Route>
             <Route exact path="/playlists/:id/edit">
               <EditPlaylistForm />
@@ -113,6 +125,13 @@ function App() {
             <Route exact path="/albums/new">
               <CreateAlbumForm />
             </Route>
+            <Route exact path="/albums/:id">
+              <AlbumInfo
+                audioRef={audioRef}
+                setCurrentSong={setCurrentSong}
+                currentSong={currentSong}
+              />
+            </Route>
             <Route exact path="/albums/:id/edit">
               <EditAlbumForm />
             </Route>
@@ -120,6 +139,8 @@ function App() {
 
           <Audio
             songs={songs}
+            currentSong={currentSong}
+            // setCurrentSong = {setCurrentSong}
             // isPlaying={isPlaying}
             // setIsPlaying={setIsPlaying}
             ref={audioRef}

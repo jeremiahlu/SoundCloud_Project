@@ -67,14 +67,14 @@ const SongForm = ({ formType }) => {
 
   const updateFile = (e) => {
     const file = e.target.files[0];
-    console.log(file, "FILE");
+    // console.log(file, "FILE");
     if (file) {
       setImageUrl(file);
     }
   };
   const updateUrlFile = (e) => {
     const urlFile = e.target.files[0];
-    console.log(urlFile, "URL");
+    // console.log(urlFile, "URL");
     if (urlFile) {
       setUrl(urlFile);
     }

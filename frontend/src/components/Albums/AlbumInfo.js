@@ -8,85 +8,106 @@ import {
   fetchAlbumById,
   fetchAlbums,
 } from "../../store/albums";
+import { addSongToPlaylist, myPlaylists } from "../../store/playlists";
 import AudioContext from "../../context/Audio";
+import SongsIndexItem from "../Songs/SongsIndexItem";
 
-const AlbumInfo = () => {
+const AlbumInfo = ({ audioRef, setCurrentSong, currentSong }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const { id } = useParams();
   const album = useSelector((state) => state.albums[id]);
   const artists = useSelector((state) => state.albums[id]?.Artist);
   const albumSongs = useSelector((state) => state.albums[id]?.Songs);
-  const audioFile = useSelector((state) => state.songs[id]?.url);
-  const [currentSongIndex, setCurrentSongIndex] = useState(-1);
-  // const audioRef = useContext(AudioContext);
-  const audioRef = useRef(null);
+  const sessionUser = useSelector((state) => state.session.user);
+  const userPlaylists = useSelector((state) => Object.values(state.playlists));
+  // console.log(userPlaylists, "playlitss");
+  // const song = useSelector((state) => state.albums[id]);
+  const [song, setSong] = useState(currentSong);
+
+  const [selectedPlaylistId, setSelectedPlaylistId] = useState("");
+  const [selectedPlaylist, setSelectedPlaylist] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handlePlaylistItemClick = (e, playlistId) => {
+    e.stopPropagation();
+
+    dispatch(addSongToPlaylist(sessionUser.id, playlistId, song?.id));
+    setSelectedPlaylist(playlistId);
+    setIsOpen(false);
+  };
+  const handleSubmit = (e, song) => {
+    e.preventDefault();
+
+    dispatch(
+      addSongToPlaylist(
+        parseInt(sessionUser.id),
+        parseInt(selectedPlaylistId),
+        song?.id
+      )
+    );
+  };
+  useEffect(() => {
+    setSelectedPlaylistId(null);
+  }, [isOpen]);
+
+  useEffect(() => {
+    const fetchMyPlaylists = async () => {
+      await dispatch(myPlaylists(sessionUser.id));
+    };
+    fetchMyPlaylists();
+  }, [dispatch]);
+
+  function player(song) {
+    //   // setPlaying(true);
+    return dispatch(getAudio(song));
+  }
   const [playing, setPlaying] = useState(
     new Array(albumSongs?.length).fill(false)
   );
-
-  function player(audioFile) {
-    setPlaying(true);
-    return dispatch(getAudio(audioFile));
-  }
-
-  function pause(audioFile) {
-    // console.log("HIT");
-    console.log(audioRef, "audioref");
-    audioRef?.current?.pause();
-    setPlaying(false);
-    return dispatch(pauseAudio(audioFile));
-  }
-
-  // const audioRefs = useRef([]);
+  const audioRefs = useRef([]);
 
   const togglePlayPause = (idx) => {
-    if (currentSongIndex !== -1) {
-      const newPlayingState = [...playing];
-      newPlayingState[idx] = !playing[idx];
+    const newPlayingState = [...playing];
+    newPlayingState[idx] = !playing[idx];
+    setPlaying(newPlayingState);
+    player(albumSongs[idx]);
+
+    if (playing[idx]) {
+      // console.log(idx, "IDX");
+      audioRefs?.current[idx]?.pause();
+      // audioRefs[idx]?.pause();
+
+      setPlaying((prevPlaying) => {
+        const newPlayingState = [...prevPlaying];
+        newPlayingState[idx] = false;
+
+        // console.log("paused");
+        return newPlayingState;
+      });
+    } else {
+      audioRefs?.current[idx]?.play();
+      newPlayingState[idx] = true;
       setPlaying(newPlayingState);
-      setCurrentSongIndex(-1);
     }
-
-    console.log(audioRef, "AUREDSFREF");
-    audioRef?.current?.pause();
-
-    // console.log(newPlayingState, "playing");
-
-    // if (playing[idx]) {
-    //   console.log(idx, "IDX");
-    //   audioRefs?.current[idx]?.pause();
-    //   // audioRefs[idx]?.pause();
-
-    //   setPlaying((prevPlaying) => {
-    //     const newPlayingState = [...prevPlaying];
-    //     newPlayingState[idx] = false;
-
-    //     console.log("paused");
-    //     return newPlayingState;
-    //   });
-    // } else {
-    //   audioRefs?.current[idx]?.play();
-    //   newPlayingState[idx] = true;
-    //   setPlaying(newPlayingState);
-    // }
   };
 
-  const [isPlaying, setIsPlaying] = useState(false);
+  const handlePlay = (song, idx) => {
+    // setCurrentSong(song);
+    // console.log(song, "allbumSong");
+    if (currentSong.id === song.id) {
+      if (!audioRef.current.audio.current.paused) {
+        audioRef.current.audio.current.parentElement.childNodes[0].pause();
+      } else {
+        audioRef.current.audio.current.parentElement.childNodes[0].play();
+      }
+    } else {
+      player(song);
+      setCurrentSong(song);
+    }
 
-  // function handlePlayPause(song) {
-  //   const audioElement = document.getElementById("audio");
-  //   if (!isPlaying) {
-  //     audioElement?.play(song?.url);
-  //     setIsPlaying(true);
-  //     player(song?.url);
-  //   } else {
-  //     audioElement?.pause(song?.url);
-
-  //     pause(song?.url);
-  //     setIsPlaying(false);
-  //   }
-  // }
+    togglePlayPause(idx);
+  };
 
   useEffect(() => {
     const getAlbums = async () => {
@@ -142,16 +163,11 @@ const AlbumInfo = () => {
             </div>
 
             <div className="album-info-div">
-              {/* <p className="album-info-text">ID</p>
-              <div className="album-info">{album.id}</div> */}
-
               <p className="album-info-text">Name</p>
               <div className="album-info">{album?.title}</div>
 
               <p className="album-info-text">Creator</p>
               <div className="album-info">{artists?.username}</div>
-
-              {/* <p className="playlist-info-text">Description</p> */}
             </div>
           </div>
           <div className="albumSongs-div">
@@ -161,43 +177,93 @@ const AlbumInfo = () => {
             <div className="albumSongs-list">
               {albumSongs?.map((song, idx) => {
                 return (
-                  <div className="albumSong">
-                    <div
-                      // key={idx}
-                      className="albumPlay-song-btn"
-                      onClick={() => {
-                        player(song);
-                        // if (playing[idx]) {
-                        //   // console.log("hitHERE");
-                        //   pause(song);
-                        // } // handlePlayPause();
-                        togglePlayPause(idx);
-                      }}
-                    >
-                      {/* <i
-                        className={`fa ${isPlaying ? "fa-pause" : "fa-play"}`}
-                      /> */}
-                      <i
-                        className={`fa ${
-                          playing[idx] ? "fa-pause" : "fa-play"
-                        }`}
-                      />
-                      {/* <button onClick={() => handlePlayPause()}>
-                      {playing[idx] ? "Pause" : "Play"}
-                    </button> */}
-                    </div>
-                    {/* <audio
-                      ref={(el) => (audioRefs.current[index] = el)}
-                      src={song.audioUrl}
-                    /> */}
-                    <Link
-                      to={`/songs/${song?.id}`}
-                      key={idx}
-                      className="albumSong-link"
-                    >
-                      {song?.title}
-                    </Link>
-                  </div>
+                  <SongsIndexItem
+                    currentSong={currentSong}
+                    setCurrentSong={setCurrentSong}
+                    song={song}
+                    key={idx}
+                    // isPlaying={isPlaying}
+                    // setIsPlaying={setIsPlaying}
+                    playing={playing}
+                    togglePlayPause={togglePlayPause}
+                    audioRef={audioRef}
+                    idx={idx}
+                  />
+                  // <div className="albumSong">
+                  //   <div
+                  //     className="albumPlay-song-btn"
+                  //     onClick={() => handlePlay(song, idx)}
+                  //   >
+                  //     {/* {console.log(currentSong.id, "CS")}
+                  //     {console.log(song.id, "SID")}
+                  //     {console.log(
+                  //       !audioRef.current.audio.current.paused,
+                  //       "ARP"
+                  //     )} */}
+                  //     <i
+                  //       className={`fa ${
+                  //         currentSong?.id === song?.id &&
+                  //         !audioRef?.current?.audio?.current?.paused
+                  //           ? "fa-pause"
+                  //           : "fa-play"
+                  //       }`}
+                  //     />
+                  //   </div>
+
+                  //   <div className="title">
+                  //     <Link className="song-link" to={`/songs/${song?.id}`}>
+                  //       <img
+                  //         className="img"
+                  //         src={song?.previewImage || song?.url}
+                  //         alt="song"
+                  //       />
+                  //       <div
+                  //         className={
+                  //           currentSong?.id === song?.id
+                  //             ? "activeSong"
+                  //             : "songCard-title"
+                  //         }
+                  //       >
+                  //         {song?.title}
+                  //       </div>
+                  //       {/* {artist.username} */}
+                  //     </Link>
+
+                  //     <button
+                  //       className="submitBtn-playlistSongs"
+                  //       title="Add to playlist"
+                  //       onClick={() => setIsOpen(!isOpen)}
+                  //     >
+                  //       <i className="fa-solid fa-plus"></i>
+                  //       {isOpen && (
+                  //         <form
+                  //           className="playlistSongs-div"
+                  //           onSubmit={(e) => {
+                  //             handleSubmit(e, song);
+                  //             e.preventDefault();
+                  //           }}
+                  //           // ref={formRef}
+                  //         >
+                  //           <ul className="playlistSongs-list">
+                  //             {userPlaylists?.map((playlist) => {
+                  //               return (
+                  //                 <li
+                  //                   key={playlist.id}
+                  //                   className="playlistSongs-item"
+                  //                   onClick={(e) =>
+                  //                     handlePlaylistItemClick(e, playlist.id)
+                  //                   }
+                  //                 >
+                  //                   {playlist.name}
+                  //                 </li>
+                  //               );
+                  //             })}
+                  //           </ul>
+                  //         </form>
+                  //       )}
+                  //     </button>
+                  //   </div>
+                  // </div>
                 );
               })}
             </div>

@@ -9,7 +9,7 @@ import {
   deleteSongFromPlaylist,
 } from "../../store/playlists";
 
-const PlaylistInfo = () => {
+const PlaylistInfo = ({ audioRef, setCurrentSong, currentSong }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const { id } = useParams();
@@ -18,6 +18,7 @@ const PlaylistInfo = () => {
   const user = useSelector((state) => state.playlists[id]?.User?.username);
   const audioFile = useSelector((state) => state.songs[id]?.url);
 
+  // console.log(currentSong, "CURRENTSONG");
   // console.log(playlist, "playlist");
   function player(audioFile) {
     // console.log(audio, "UADIO");
@@ -30,43 +31,30 @@ const PlaylistInfo = () => {
 
   const [playing, setPlaying] = useState(new Array(songs?.length).fill(false));
   const audioRefs = useRef([]);
-  // console.log(audioRefs, "PLAYING");
 
-  const togglePlayPause = (idx) => {
-    // const audioElement = document.getElementById("audio");
-    // console.log(audioElement, "audio");
-    const newPlayingState = [...playing];
-    newPlayingState[idx] = !playing[idx];
-    setPlaying(newPlayingState);
+  // const togglePlayPause = (idx) => {
 
-    if (playing[idx]) {
-      audioRefs?.current[idx]?.pause();
-      // console.log(audioRefs.current[idx], "audio");
-      // audioElement?.pause();
-      // newPlayingState[idx] = false;
-      // setPlaying(newPlayingState);
-      setPlaying((prevPlaying) => {
-        const newPlayingState = [...prevPlaying];
-        newPlayingState[idx] = false;
-        // console.log(newPlayingState);
-        // console.log(prevPlaying, "prev");
-        // console.log(idx);
-        return newPlayingState;
-      });
-      // setIsPlaying(false);
-      // console.log("pause");
-    } else {
-      audioRefs?.current[idx]?.play();
-      newPlayingState[idx] = true;
-      setPlaying(newPlayingState);
-      // console.log(newPlayingState);
-      // console.log(idx);
-      // console.log("play");
-    }
-  };
+  //   const newPlayingState = [...playing];
+  //   newPlayingState[idx] = !playing[idx];
+  //   setPlaying(newPlayingState);
 
-  // console.log(artists, "artists");
-  // console.log(albumSongs, "songs");
+  //   if (playing[idx]) {
+  //     audioRefs?.current[idx]?.pause();
+
+  //     setPlaying((prevPlaying) => {
+  //       const newPlayingState = [...prevPlaying];
+  //       newPlayingState[idx] = false;
+
+  //       return newPlayingState;
+  //     });
+
+  //   } else {
+  //     audioRefs?.current[idx]?.play();
+  //     newPlayingState[idx] = true;
+  //     setPlaying(newPlayingState);
+
+  //   }
+  // };
 
   const [isPlaying, setIsPlaying] = useState(false);
   function handlePlayPause(song) {
@@ -82,6 +70,31 @@ const PlaylistInfo = () => {
       setIsPlaying(false);
     }
   }
+
+  const togglePlayPause = (idx) => {
+    const newPlayingState = [...playing];
+    newPlayingState[idx] = !playing[idx];
+    setPlaying(newPlayingState);
+    player(songs[idx]);
+
+    if (playing[idx]) {
+      // console.log(idx, "IDX");
+      audioRefs?.current[idx]?.pause();
+      // audioRefs[idx]?.pause();
+
+      setPlaying((prevPlaying) => {
+        const newPlayingState = [...prevPlaying];
+        newPlayingState[idx] = false;
+
+        // console.log("paused");
+        return newPlayingState;
+      });
+    } else {
+      audioRefs?.current[idx]?.play();
+      newPlayingState[idx] = true;
+      setPlaying(newPlayingState);
+    }
+  };
 
   useEffect(() => {
     (async () => {
@@ -99,19 +112,32 @@ const PlaylistInfo = () => {
   };
 
   const deletePlaylistSubmit = async () => {
-    // const userId = playlist.userId
-    // console.log('playlist', playlist)
     try {
-      // console.log('here', userId)
       await dispatch(removePlaylist(playlist));
-      // console.log('here', userId)
       history.push(`/users/${owner.id}/playlists`);
-    } catch (err) {
-      // console.log(err)
+    } catch (err) {}
+  };
+  const buttonRef = useRef(null);
+  const handlePlay = (song, idx) => {
+    // console.log(currentSong, "CS");
+    // console.log(audioRef?.current?.audio?.current, "AF");
+    // console.log(song, "playlistSong");
+    // e.preventDefault();
+    if (currentSong?.id === song?.id) {
+      if (!audioRef?.current?.audio?.current?.paused) {
+        audioRef?.current?.audio?.current?.parentElement?.childNodes[0]?.pause();
+      } else {
+        audioRef?.current?.audio?.current?.parentElement?.childNodes[0]?.play();
+      }
+      // const spaceKeyEvent = new KeyboardEvent("keydown", { key: " " });
+      // buttonRef.current.dispatchEvent(spaceKeyEvent);
+    } else {
+      player(song);
+      setCurrentSong(song);
     }
+    togglePlayPause(idx);
   };
 
-  // console.log('playlist', playlist)
   return (
     playlist && (
       <>
@@ -152,45 +178,57 @@ const PlaylistInfo = () => {
                   <div key={song.id} className="albumSong">
                     <div
                       className="albumPlay-song-btn"
-                      onClick={() => {
-                        player(song);
-                        if (playing[idx]) {
-                          pause(song);
-                        } // handlePlayPause();
-                        togglePlayPause(idx);
-                      }}
+                      onClick={() => handlePlay(song, idx)}
+                      ref={buttonRef}
                     >
-                      {/* <i
-                        className={`fa ${isPlaying ? "fa-pause" : "fa-play"}`}
-                      /> */}
+                      {/* {console.log(currentSong.id, "CS")}
+                      {console.log(song.id, "SID")}
+                      {console.log(
+                        !audioRef.current.audio.current.paused,
+                        "ARP"
+                      )} */}
                       <i
                         className={`fa ${
-                          playing[idx] ? "fa-pause" : "fa-play"
+                          currentSong?.id === song?.id &&
+                          !audioRef?.current?.audio?.current?.paused
+                            ? "fa-pause"
+                            : "fa-play"
                         }`}
                       />
-                      {/* <button onClick={() => handlePlayPause()}>
-                      {playing[idx] ? "Pause" : "Play"}
-                    </button> */}
                     </div>
                     {/* <audio
                       ref={(el) => (audioRefs.current[index] = el)}
                       src={song.audioUrl}
                     /> */}
-                    <Link
-                      to={`/songs/${song?.id}`}
-                      key={idx}
-                      className="albumSong-link"
-                    >
-                      {song?.title}
-                    </Link>
-                    <button
-                      onClick={() =>
-                        dispatch(deleteSongFromPlaylist(playlist?.id, song?.id))
-                      }
-                    >
-                      {" "}
-                      REMOVE{" "}
-                    </button>
+                    <div className="title">
+                      <Link className="song-link" to={`/songs/${song?.id}`}>
+                        <img
+                          className="img"
+                          src={song?.previewImage || song?.url}
+                          alt="song"
+                        />
+                        <div
+                          className={
+                            currentSong?.id === song?.id
+                              ? "activeSong"
+                              : "songCard-title"
+                          }
+                        >
+                          {song?.title}
+                        </div>
+                        {/* {artist.username} */}
+                      </Link>
+                      <button
+                        className="removePlaylistSong"
+                        onClick={() =>
+                          dispatch(
+                            deleteSongFromPlaylist(playlist?.id, song?.id)
+                          )
+                        }
+                      >
+                        <i className="fa-solid fa-x"></i>
+                      </button>
+                    </div>
                   </div>
                 );
               })}
@@ -201,25 +239,10 @@ const PlaylistInfo = () => {
               </div>
             </div>
           </div>
-          {/* <p className='playlist-info-text'>
-              Description
-            </p> */}
-          {/* <input className='song-info-description'>
-            { song.description }
-            </input> */}
-
-          {/* 
-        <Link className='backToExplore' to={`/users/${owner.id}/songs`}>
-          Back to your tracks
-        </Link> */}
 
           <div>
             {isOwner && (
               <div className="playlist-owner-action-div">
-                {/* <Link to={`/songs/${id}/edit`
-              } className='editSongButton'>
-              Edit 
-              </Link> */}
                 <button
                   onClick={editPlaylistRedirectHandler}
                   className="editPlaylistButton"
@@ -239,44 +262,6 @@ const PlaylistInfo = () => {
         </div>
       </>
     )
-    // playlist && (
-    //   <div className='playlistDetail-container'>
-    //     <img className='playlistImage' src={playlist.imageUrl} alt='playlist image'/>
-
-    //     <p className='playlist-info'>
-    //     ID: { playlist.id }
-    //     </p>
-    //     <p className='playlist-info'>
-    //     Playlist: { playlist.name }
-    //     </p>
-    //     <p className='playlist-info'>
-    //     Owner: { owner.id }
-    //     </p>
-
-    //     <Link className='owner-playlists' to={`/users/${owner.id}/playlists`}>
-    //           Back to your playlists
-    //         </Link>
-
-    //     <div>
-    //       {isOwner && (
-    //         <div className='owner-action-div'>
-    //           {/* <Link to={`/playlists/${id}/edit`
-    //           } className='editPlaylistButton'>
-    //           Edit
-    //         </Link> */}
-    //           <button onClick={editRedirectHandler} className='editPlaylistButton'>
-    //             Edit
-    //           </button>
-
-    //           <button onClick={deleteSubmit} className='deletePlaylistButton'>
-    //           Delete
-    //           </button>
-    //         </div>
-    //       )}
-    //     </div>
-
-    //   </div>
-    // )
   );
 };
 
